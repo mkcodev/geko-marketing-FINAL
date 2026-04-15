@@ -7,7 +7,7 @@
    Referencias: linear.app · vercel.com · liveblocks.io
    ============================================ */
 
-@theme inline {
+@theme {
   /* ── Fuentes ── */
   --font-heading: "Bricolage Grotesque Variable", system-ui, sans-serif;
   --font-ui:      "Geist Variable", system-ui, sans-serif;
@@ -156,6 +156,11 @@ body::after {
   mix-blend-mode: overlay;
 }
 
+/* ── Cursor — inherit from body (custom cursor sets body to none on desktop) ── */
+a, button, [role="button"], input, textarea, select, label, summary {
+  cursor: inherit;
+}
+
 /* ── Focus visible (morado Geko — no browser default) ── */
 :focus-visible {
   outline: 2px solid #6B2D7C;
@@ -195,6 +200,11 @@ body::after {
 }
 .skip-link:focus { transform: translateY(0); }
 
+/* ── CTA sticky — solo desktop ── */
+@media (min-width: 1024px) {
+  .cta-sticky-desktop { display: flex !important; }
+}
+
 /* ── Keyframes globales ── */
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
@@ -211,6 +221,14 @@ body::after {
 @keyframes pulse-glow {
   0%, 100% { opacity: 1; box-shadow: 0 0 20px rgba(107,45,124,0.4); }
   50%       { opacity: 0.8; box-shadow: 0 0 40px rgba(107,45,124,0.7); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
 }
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
@@ -257,3 +275,90 @@ body::after {
 .font-heading { font-family: var(--font-heading); }
 .font-ui      { font-family: var(--font-ui); }
 .font-body    { font-family: var(--font-body); }
+
+/* ── Announcement bar height variable ── */
+:root {
+  --ann-h: 40px;
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — Mobile First
+   Breakpoints: sm 480 · md 768 · lg 1024 · xl 1280
+   ══════════════════════════════════ */
+
+/* ── Navbar ── */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 16px;
+  gap: 8px;
+}
+.nav-desktop-links { display: none; }
+.nav-desktop-right  { display: none; }
+.nav-mobile-btn     { display: flex; }
+
+@media (min-width: 768px) {
+  .nav-inner { height: 64px; padding: 0 24px; }
+  .nav-desktop-links { display: flex; flex: 1; justify-content: center; gap: 4px; }
+  .nav-desktop-right  { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .nav-mobile-btn     { display: none; }
+}
+
+/* ── Footer grid ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+@media (min-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+}
+@media (min-width: 1024px) {
+  .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+}
+
+/* ── Section containers ── */
+.section-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+@media (min-width: 480px) { .section-container { padding: 0 24px; } }
+@media (min-width: 768px) { .section-container { padding: 0 40px; } }
+@media (min-width: 1024px) { .section-container { padding: 0 48px; } }
+
+/* ── Mobile menu overlay ── */
+.mobile-menu {
+  padding: 16px 16px 24px;
+}
+@media (min-width: 480px) { .mobile-menu { padding: 20px 24px 28px; } }
+
+/* ── Announcement bar text ── */
+.ann-text { font-size: 0.75rem; }
+@media (min-width: 480px) { .ann-text { font-size: 0.8125rem; } }
+
+/* ── Footer bottom bar ── */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 0 24px;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+}
+
+/* ── Social icons row ── */
+.social-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+
