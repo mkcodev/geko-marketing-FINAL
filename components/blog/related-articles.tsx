@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { ArrowRight, Clock, Calendar } from "lucide-react"
 import { Icon } from "@/lib/icons"
