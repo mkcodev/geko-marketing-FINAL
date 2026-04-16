@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { CalendlyCard } from "@/components/ui/calendly-popup"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { Label } from "@/components/ui/label"
+import { GradientText } from "@/components/ui/gradient-text"
+import { EASE } from "@/lib/animations"
 
 const CONTACT_INFO = [
   {
@@ -37,6 +38,7 @@ const CONTACT_INFO = [
 
 export default function ContactoPage() {
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
@@ -61,29 +63,14 @@ export default function ContactoPage() {
     <div className="section-container" style={{ paddingTop: 60, paddingBottom: 80 }}>
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: EASE }}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
         style={{ marginBottom: 56, maxWidth: 560 }}
       >
-        <span
-          style={{
-            display: "inline-block",
-            padding: "4px 12px",
-            borderRadius: 9999,
-            background: "rgba(107,45,124,0.12)",
-            border: "1px solid rgba(107,45,124,0.30)",
-            fontFamily: "var(--font-ui)",
-            fontSize: "0.78rem",
-            fontWeight: 500,
-            color: "#9B4DBC",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            marginBottom: 16,
-          }}
-        >
-          Contacto
-        </span>
+        <div style={{ marginBottom: 16 }}>
+          <Label>Contacto</Label>
+        </div>
         <h1
           style={{
             fontFamily: "var(--font-heading)",
@@ -97,16 +84,7 @@ export default function ContactoPage() {
         >
           Hablemos sobre
           <br />
-          <span
-            style={{
-              background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            tu proyecto
-          </span>
+          <GradientText>tu proyecto</GradientText>
         </h1>
         <p
           style={{
@@ -131,9 +109,9 @@ export default function ContactoPage() {
       >
         {/* Form */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
+          initial={prefersReduced ? false : { opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.1, ease: EASE }}
         >
           {sent ? (
             <SuccessState />
@@ -149,9 +127,9 @@ export default function ContactoPage() {
 
         {/* Info sidebar */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
+          initial={prefersReduced ? false : { opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.2, ease: EASE }}
           style={{ display: "flex", flexDirection: "column", gap: 16 }}
         >
           {/* Contact info card */}

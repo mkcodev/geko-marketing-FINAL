@@ -1,11 +1,10 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const FAQS = [
   {
@@ -38,6 +37,7 @@ export function Faq() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
   const [open, setOpen] = useState<number | null>(null)
 
   return (
@@ -48,9 +48,9 @@ export function Faq() {
     >
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: EASE }}
+        initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+        animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
         style={{ marginBottom: 48, textAlign: "center" }}
       >
         <span
@@ -90,9 +90,9 @@ export function Faq() {
         {FAQS.map((faq, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.45, delay: i * 0.06, ease: EASE }}
+            initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+            animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.45, delay: i * 0.06, ease: EASE }}
           >
             <div
               style={{
@@ -133,7 +133,7 @@ export function Faq() {
                 </span>
                 <motion.div
                   animate={{ rotate: open === i ? 180 : 0 }}
-                  transition={{ duration: 0.25 }}
+                  transition={prefersReduced ? { duration: 0 } : { duration: 0.25 }}
                   style={{ flexShrink: 0, color: open === i ? "#9B4DBC" : "rgba(255,255,255,0.30)" }}
                 >
                   <ChevronDown size={18} />
@@ -147,7 +147,7 @@ export function Faq() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.28, ease: EASE }}
+                    transition={prefersReduced ? { duration: 0 } : { duration: 0.28, ease: EASE }}
                     style={{ overflow: "hidden" }}
                   >
                     <p

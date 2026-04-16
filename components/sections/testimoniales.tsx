@@ -1,13 +1,12 @@
 "use client"
 
 import { useRef, useState, useEffect, useCallback } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion"
 import { Star, ChevronLeft, ChevronRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 const AUTOPLAY_INTERVAL = 4500
 
 const REVIEWS = [
@@ -77,6 +76,7 @@ export function Testimoniales() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
   const [idx, setIdx] = useState(0)
   const [dir, setDir] = useState(1)
   const [hovered, setHovered] = useState(false)
@@ -106,9 +106,9 @@ export function Testimoniales() {
       <div className="section-container">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
+          initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           <span style={{
@@ -169,7 +169,7 @@ export function Testimoniales() {
               color: "rgba(255,255,255,0.04)", fontWeight: 900,
               pointerEvents: "none", userSelect: "none",
             }}>
-              "
+              &ldquo;
             </div>
 
             <AnimatePresence mode="wait" custom={dir}>
@@ -211,7 +211,7 @@ export function Testimoniales() {
                   margin: "0 0 28px",
                   position: "relative",
                 }}>
-                  "{review.text}"
+                  &ldquo;{review.text}&rdquo;
                 </blockquote>
 
                 {/* Author */}

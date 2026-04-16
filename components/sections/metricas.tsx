@@ -1,10 +1,9 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import { useMediaQuery } from "@/hooks/use-media-query"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const STATS = [
   { value: 247, suffix: "%", label: "Aumento de engagement medio", sublabel: "en los primeros 90 días", color: "#9B4DBC", decimals: 0 },
@@ -31,13 +30,14 @@ function useCounter(target: number, decimals: number, active: boolean) {
 }
 
 function StatCard({ stat, index, inView }: { stat: typeof STATS[0]; index: number; inView: boolean }) {
+  const prefersReduced = useReducedMotion()
   const val = useCounter(stat.value, stat.decimals, inView)
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.10, ease: EASE }}
+      initial={prefersReduced ? false : { opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={prefersReduced ? { duration: 0 } : { duration: 0.55, delay: index * 0.10, ease: EASE }}
       style={{
         padding: "32px 28px",
         borderRadius: 20,
@@ -99,15 +99,16 @@ export function Metricas() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
 
   return (
     <section ref={ref} style={{ paddingTop: 96, paddingBottom: 96 }}>
       <div className="section-container">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
+          initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           <span style={{
@@ -147,9 +148,9 @@ export function Metricas() {
 
         {/* Disclaimer */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.6, duration: 0.4 }}
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={prefersReduced ? { duration: 0 } : { delay: 0.6, duration: 0.4 }}
           style={{
             textAlign: "center", marginTop: 28,
             fontFamily: "var(--font-ui)", fontSize: "0.78rem",

@@ -8,8 +8,7 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import { SERVICES } from "@/constants/services"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const STAT_CARDS: { value: string; label: string; icon: IconName }[] = [
   { value: "50+", label: "Marcas creciendo", icon: "TrendingUp" },

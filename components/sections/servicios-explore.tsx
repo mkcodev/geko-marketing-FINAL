@@ -7,8 +7,7 @@ import { ArrowRight, Check } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { SERVICES, type ServiceData } from "@/constants/services"
 import { Icon } from "@/lib/icons"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 const HEADER_OFFSET = "calc(56px + var(--ann-h, 40px) + 32px)"
 
 // ── Deliverable row with animated check ─────────────────────

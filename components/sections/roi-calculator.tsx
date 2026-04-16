@@ -6,8 +6,7 @@ import Link from "next/link"
 import { ArrowRight, TrendingUp, Users, Zap, Target } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { ROI_SECTORS, ROI_PACKAGES } from "@/constants/services"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 function formatNumber(n: number): string {
   if (n >= 1000000) return (n / 1000000).toFixed(1) + "M"
@@ -105,26 +104,35 @@ export function RoiCalculator() {
   const sector = ROI_SECTORS[sectorIdx]
   const pkg = ROI_PACKAGES[packageIdx]
 
-  // Calculate projections
+  // Calculate projections — rangos creíbles para agencia real
   const results = useMemo(() => {
-    const baseGrowthRate = 0.22 // 22% monthly base
-    const sectorBonus = sector.growthMultiplier
-    const pkgBonus = pkg.multiplier
-    const combined = baseGrowthRate * sectorBonus * pkgBonus
+    // Base realista: 5-7% de crecimiento mensual con gestión profesional
+    const baseGrowthRate = 0.055
+    const sectorBonus = sector.growthMultiplier  // 1.1 - 1.6x
+    const pkgBonus = pkg.multiplier              // Silver 1.0 · Golden 1.2 · Platinum 1.4
 
-    // Diminishing returns for large accounts
-    const scaleFactor = followers < 5000 ? 1.4 : followers < 20000 ? 1.1 : 0.85
+    // Cuentas pequeñas tienen más margen de crecimiento relativo
+    const scaleFactor = followers < 3000 ? 1.3 : followers < 10000 ? 1.1 : 0.9
 
-    const monthlyGrowthRate = combined * scaleFactor
+    const monthlyGrowthRate = Math.min(baseGrowthRate * sectorBonus * pkgBonus * scaleFactor, 0.18)
     const followersIn6m = Math.round(followers * Math.pow(1 + monthlyGrowthRate, 6))
     const newFollowers = followersIn6m - followers
 
-    const engagementRate = sector.engagementBase * pkgBonus * 0.85
-    const reachPerPost = Math.round(followersIn6m * (engagementRate / 100) * 3.2)
-    const leadsPerMonth = Math.round(followersIn6m * 0.0045 * pkgBonus)
+    // Engagement: entre 2% y 6% según sector y paquete (datos reales de industria)
+    const engagementRate = Math.min(sector.engagementBase * pkgBonus, 6.5)
+
+    // Alcance por post: ~20-40% de seguidores con buen engagement
+    const reachPerPost = Math.round(followersIn6m * ((engagementRate / 100) * 5.5))
+
+    // Leads: 1-3 leads por cada 1000 seguidores/mes con gestión profesional
+    const leadsBase = (followersIn6m / 1000) * 1.8 * pkgBonus
+    const leadsPerMonth = Math.max(1, Math.round(leadsBase))
+
+    // ROI conservador: ticket medio pyme española ~250€
     const monthlyInvestment = pkg.price
-    const estimatedRevenuePerLead = 180 // conservative estimate
-    const roi = Math.round(((leadsPerMonth * estimatedRevenuePerLead - monthlyInvestment) / monthlyInvestment) * 100)
+    const avgTicket = 250
+    const estimatedMonthlyRevenue = leadsPerMonth * avgTicket * 0.25 // tasa de cierre 25%
+    const roi = Math.round(((estimatedMonthlyRevenue - monthlyInvestment) / monthlyInvestment) * 100)
 
     return {
       followersIn6m,
@@ -132,7 +140,7 @@ export function RoiCalculator() {
       engagementRate: Math.round(engagementRate * 10) / 10,
       reachPerPost,
       leadsPerMonth,
-      roi: Math.max(roi, 20), // floor at 20%
+      roi: Math.max(Math.min(roi, 280), 15), // entre 15% y 280% — creíble
     }
   }, [followers, sector, pkg])
 

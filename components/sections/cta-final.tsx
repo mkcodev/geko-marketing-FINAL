@@ -1,18 +1,18 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight, Phone } from "lucide-react"
 import { Magnetic } from "@/components/ui/magnetic"
 import { useMediaQuery } from "@/hooks/use-media-query"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 export function CtaFinal() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
 
   return (
     <section
@@ -21,9 +21,9 @@ export function CtaFinal() {
       style={{ paddingTop: 80, paddingBottom: 100 }}
     >
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: EASE }}
+        initial={prefersReduced ? false : { opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.7, ease: EASE }}
         style={{
           position: "relative",
           padding: isDesktop ? "72px 64px" : "48px 28px",

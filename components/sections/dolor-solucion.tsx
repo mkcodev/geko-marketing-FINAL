@@ -1,11 +1,10 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import { X, Check } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const PAINS = [
   "Publicas sin estrategia y sin ver resultados",
@@ -29,6 +28,7 @@ export function DolorSolucion() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
 
   return (
     <section
@@ -44,9 +44,9 @@ export function DolorSolucion() {
       <div className="section-container">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE }}
+          initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+          animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           <h2 style={{
@@ -81,9 +81,9 @@ export function DolorSolucion() {
         }}>
           {/* Dolor */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.1, ease: EASE }}
+            initial={prefersReduced ? false : { opacity: 0, x: -20 }}
+            animate={prefersReduced || inView ? { opacity: 1, x: 0 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.55, delay: 0.1, ease: EASE }}
             style={{
               padding: "28px 28px",
               borderRadius: 20,
@@ -113,9 +113,9 @@ export function DolorSolucion() {
               {PAINS.map((p, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.15 + i * 0.06, ease: EASE }}
+                  initial={prefersReduced ? false : { opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={prefersReduced ? { duration: 0 } : { delay: 0.15 + i * 0.06, ease: EASE }}
                   style={{ display: "flex", alignItems: "flex-start", gap: 10 }}
                 >
                   <div style={{
@@ -139,9 +139,9 @@ export function DolorSolucion() {
 
           {/* Solución */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.15, ease: EASE }}
+            initial={prefersReduced ? false : { opacity: 0, x: 20 }}
+            animate={prefersReduced || inView ? { opacity: 1, x: 0 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.55, delay: 0.15, ease: EASE }}
             style={{
               padding: "28px 28px",
               borderRadius: 20,
@@ -181,9 +181,9 @@ export function DolorSolucion() {
               {GAINS.map((g, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.2 + i * 0.06, ease: EASE }}
+                  initial={prefersReduced ? false : { opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={prefersReduced ? { duration: 0 } : { delay: 0.2 + i * 0.06, ease: EASE }}
                   style={{ display: "flex", alignItems: "flex-start", gap: 10 }}
                 >
                   <div style={{

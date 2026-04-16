@@ -8,31 +8,34 @@ const SESSION_KEY = "geko-ann-dismissed"
 const SCROLL_THRESHOLD = 60
 
 export function AnnouncementBar() {
-  const [dismissed, setDismissed] = useState(true) // empieza oculto hasta hidratación
+  // SSR-safe: lazy init reads localStorage on client, defaults to hidden on server
+  const [dismissed, setDismissed] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true
+    return Boolean(localStorage.getItem(SESSION_KEY))
+  })
   const [scrolledPast, setScrolledPast] = useState(false)
 
+  // Sync CSS custom property and listen for scroll
   useEffect(() => {
-    const wasDismissed = sessionStorage.getItem(SESSION_KEY)
-    if (!wasDismissed) {
-      setDismissed(false)
+    if (!dismissed) {
       document.documentElement.style.setProperty("--ann-h", "40px")
     }
 
     const onScroll = () => {
       const past = window.scrollY > SCROLL_THRESHOLD
       setScrolledPast(past)
-      if (!sessionStorage.getItem(SESSION_KEY)) {
+      if (!localStorage.getItem(SESSION_KEY)) {
         document.documentElement.style.setProperty("--ann-h", past ? "0px" : "40px")
       }
     }
 
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+  }, [dismissed])
 
   const dismiss = () => {
     setDismissed(true)
-    sessionStorage.setItem(SESSION_KEY, "1")
+    localStorage.setItem(SESSION_KEY, "1")
     document.documentElement.style.setProperty("--ann-h", "0px")
   }
 
@@ -82,7 +85,9 @@ export function AnnouncementBar() {
               <strong style={{ fontWeight: 600 }}>3 plazas</strong>
               {" "}para nuevos clientes en Mayo —{" "}
               <a
-                href="/contacto"
+                href="https://calendly.com/info-gekomarketing/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   color: "#fff",
                   fontWeight: 600,

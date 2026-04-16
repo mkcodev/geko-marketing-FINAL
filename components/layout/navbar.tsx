@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Moon, Sun, Globe, ArrowRight, ChevronDown } from "lucide-react"
@@ -276,6 +277,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMobileOpen(false); setDropdownOpen(false) }, [pathname, isDesktop])
 
   useEffect(() => {
@@ -313,10 +315,12 @@ export function Navbar() {
       >
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }} aria-label="Geko Marketing">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={theme === "light" ? "/logos/geko/p3.svg" : "/logos/geko/logo-white-full.svg"}
+          <Image
+            src="/logos/geko/white-minimal-clean.svg"
             alt="Geko Marketing"
+            width={741}
+            height={150}
+            priority
             style={{
               height: isDesktop ? 26 : 22,
               width: "auto",
@@ -470,12 +474,17 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
-            style={{ overflow: "hidden", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{
+              overflow: "hidden",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+              backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+            }}
           >
             <div style={{
-              background: "rgba(6,6,14,0.98)",
-              padding: "16px 16px 24px",
-              display: "flex", flexDirection: "column", gap: 4,
+              background: "rgba(6,6,14,0.92)",
+              padding: "12px 12px 20px",
+              display: "flex", flexDirection: "column", gap: 2,
             }}>
               {[...NAV_LINKS, { href: "/blog", label: "Blog" }].map((link, i) => {
                 const active = link.href === "/servicios"
@@ -484,58 +493,64 @@ export function Navbar() {
                 return (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 + 0.05 }}
+                    transition={{ delay: i * 0.04 + 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
                   >
                     <Link
                       href={link.href}
                       style={{
-                        display: "block", padding: "12px 14px", borderRadius: 10,
-                        fontFamily: "var(--font-ui)", fontSize: "1rem",
-                        fontWeight: active ? 500 : 400,
-                        color: active ? "#fff" : "rgba(255,255,255,0.6)",
+                        display: "block", padding: "11px 14px", borderRadius: 10,
+                        fontFamily: "var(--font-ui)", fontSize: "0.9375rem",
+                        fontWeight: active ? 600 : 400,
+                        color: active ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.55)",
                         textDecoration: "none",
-                        background: active ? "rgba(107,45,124,0.18)" : "transparent",
-                        borderLeft: `2px solid ${active ? "#6B2D7C" : "transparent"}`,
+                        background: active ? "rgba(107,45,124,0.14)" : "transparent",
+                        border: `1px solid ${active ? "rgba(107,45,124,0.28)" : "transparent"}`,
+                        transition: "background 0.2s, border-color 0.2s, color 0.2s",
                       }}
                     >
                       {link.label}
                     </Link>
                     {link.href === "/servicios" && (
-                      <div style={{ paddingLeft: 16, paddingTop: 4, display: "flex", flexDirection: "column", gap: 2 }}>
-                        {SERVICES.map((service) => (
-                          <Link
-                            key={service.slug}
-                            href={service.href}
-                            style={{
-                              display: "flex", alignItems: "center", gap: 10,
-                              padding: "9px 12px", borderRadius: 8, textDecoration: "none",
-                              background: pathname === service.href ? `${service.color}10` : "transparent",
-                            }}
-                          >
-                            <Icon
-                              name={service.icon} size={15}
-                              color={pathname === service.href ? service.color : "rgba(255,255,255,0.35)"}
-                              strokeWidth={1.75}
-                            />
-                            <span style={{
-                              fontFamily: "var(--font-ui)", fontSize: "0.875rem",
-                              color: pathname === service.href ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.45)",
-                            }}>{service.name}</span>
-                          </Link>
-                        ))}
+                      <div style={{ paddingLeft: 12, paddingTop: 2, display: "flex", flexDirection: "column", gap: 1 }}>
+                        {SERVICES.map((service) => {
+                          const svcActive = pathname === service.href
+                          return (
+                            <Link
+                              key={service.slug}
+                              href={service.href}
+                              style={{
+                                display: "flex", alignItems: "center", gap: 10,
+                                padding: "9px 12px", borderRadius: 8, textDecoration: "none",
+                                background: svcActive ? `${service.color}12` : "transparent",
+                                border: `1px solid ${svcActive ? `${service.color}28` : "transparent"}`,
+                                transition: "background 0.2s, border-color 0.2s",
+                              }}
+                            >
+                              <Icon
+                                name={service.icon} size={15}
+                                color={svcActive ? service.color : "rgba(255,255,255,0.30)"}
+                                strokeWidth={1.5}
+                              />
+                              <span style={{
+                                fontFamily: "var(--font-ui)", fontSize: "0.875rem",
+                                color: svcActive ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.42)",
+                              }}>{service.name}</span>
+                            </Link>
+                          )
+                        })}
                       </div>
                     )}
                   </motion.div>
                 )
               })}
-              <div style={{ marginTop: 12 }}>
+              <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                 <Link
                   href="/contacto"
                   style={{
                     display: "block", padding: "13px 16px", borderRadius: 10,
-                    fontFamily: "var(--font-ui)", fontSize: "1rem",
+                    fontFamily: "var(--font-ui)", fontSize: "0.9375rem",
                     fontWeight: 600, color: "#fff", textDecoration: "none",
                     textAlign: "center",
                     background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",

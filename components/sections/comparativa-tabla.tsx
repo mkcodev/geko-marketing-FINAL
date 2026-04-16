@@ -5,8 +5,7 @@ import { motion, useInView } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const FEATURES = [
   "Estrategia personalizada",
