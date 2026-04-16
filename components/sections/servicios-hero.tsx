@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import Link from "next/link"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import { ArrowRight, ChevronRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { SERVICES } from "@/constants/services"
@@ -20,11 +20,12 @@ export function ServiciosHero() {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
 
   const anim = (delay: number) => ({
-    initial: { opacity: 0, y: 24 },
-    animate: inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
-    transition: { duration: 0.6, delay, ease: EASE },
+    initial: prefersReduced ? false : { opacity: 0, y: 24 },
+    animate: prefersReduced || inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
+    transition: prefersReduced ? { duration: 0 } : { duration: 0.6, delay, ease: EASE },
   })
 
   return (

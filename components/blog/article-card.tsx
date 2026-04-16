@@ -2,13 +2,12 @@
 
 import { useRef, useState } from "react"
 import Link from "next/link"
-import { motion, useMotionValue, useTransform } from "framer-motion"
+import { motion, useMotionValue, useTransform, useReducedMotion } from "framer-motion"
 import { Clock, Calendar, ArrowUpRight } from "lucide-react"
 import { Icon } from "@/lib/icons"
 import { CATEGORY_META, formatDate } from "@/lib/blog-constants"
 import type { BlogPostMeta } from "@/lib/blog-constants"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 interface ArticleCardProps {
   post: BlogPostMeta
@@ -33,12 +32,13 @@ function FeaturedCard({
   cat: (typeof CATEGORY_META)[keyof typeof CATEGORY_META]
 }) {
   const [hovered, setHovered] = useState(false)
+  const prefersReduced = useReducedMotion()
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 28 }}
+      initial={prefersReduced ? false : { opacity: 0, y: 28 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: EASE }}
+      transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
     >
       <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", display: "block" }}>
         <div
@@ -287,12 +287,13 @@ function StandardCard({
   const glowX = useTransform(mouseX, (v) => v - 100)
   const glowY = useTransform(mouseY, (v) => v - 100)
   const [hovered, setHovered] = useState(false)
+  const prefersReduced = useReducedMotion()
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={prefersReduced ? false : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: EASE }}
+      transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: index * 0.08, ease: EASE }}
       style={{ height: "100%" }}
     >
       <Link

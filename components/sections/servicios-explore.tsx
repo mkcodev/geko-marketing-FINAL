@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion"
 import { ArrowRight, Check } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { SERVICES, type ServiceData } from "@/constants/services"
@@ -14,19 +14,20 @@ const HEADER_OFFSET = "calc(56px + var(--ann-h, 40px) + 32px)"
 function Deliverable({ text, delay, color }: { text: string; delay: number; color: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-40px" })
+  const prefersReduced = useReducedMotion()
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -12 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.45, delay, ease: EASE }}
+      initial={prefersReduced ? false : { opacity: 0, x: -12 }}
+      animate={prefersReduced || inView ? { opacity: 1, x: 0 } : {}}
+      transition={prefersReduced ? { duration: 0 } : { duration: 0.45, delay, ease: EASE }}
       style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 0" }}
     >
       <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={inView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ duration: 0.3, delay: delay + 0.1, type: "spring", stiffness: 400, damping: 20 }}
+        initial={prefersReduced ? false : { scale: 0, opacity: 0 }}
+        animate={prefersReduced || inView ? { scale: 1, opacity: 1 } : {}}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.3, delay: delay + 0.1, type: "spring", stiffness: 400, damping: 20 }}
         style={{
           width: 22, height: 22, borderRadius: 6, flexShrink: 0,
           background: `${color}18`, border: `1px solid ${color}45`,
@@ -50,14 +51,15 @@ function Deliverable({ text, delay, color }: { text: string; delay: number; colo
 function CaseStudyCard({ service }: { service: ServiceData }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-40px" })
+  const prefersReduced = useReducedMotion()
   const cs = service.caseStudy
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, ease: EASE }}
+      initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+      animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+      transition={prefersReduced ? { duration: 0 } : { duration: 0.55, ease: EASE }}
       style={{
         borderRadius: 16,
         background: `${cs.color}0D`,
@@ -120,6 +122,7 @@ function CaseStudyCard({ service }: { service: ServiceData }) {
 function MetricsStrip({ service }: { service: ServiceData }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-30px" })
+  const prefersReduced = useReducedMotion()
 
   return (
     <div
@@ -133,9 +136,9 @@ function MetricsStrip({ service }: { service: ServiceData }) {
       {service.metrics.map((m, i) => (
         <motion.div
           key={m.label}
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.45, delay: i * 0.08, ease: EASE }}
+          initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+          animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.45, delay: i * 0.08, ease: EASE }}
           style={{
             padding: "16px",
             borderRadius: 12,

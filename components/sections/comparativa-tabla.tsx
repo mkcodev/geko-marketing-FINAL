@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -101,6 +101,7 @@ export function ComparativaTabla() {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReduced = useReducedMotion()
 
   return (
     <section
@@ -126,9 +127,9 @@ export function ComparativaTabla() {
       <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55, ease: EASE }}
+          initial={prefersReduced ? false : { opacity: 0, y: 24 }}
+          animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.55, ease: EASE }}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
           <span style={{
@@ -179,9 +180,9 @@ export function ComparativaTabla() {
           {COLUMNS.map((col, ci) => (
             <motion.div
               key={col.id}
-              initial={{ opacity: 0, y: 28 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: ci * 0.08, ease: EASE }}
+              initial={prefersReduced ? false : { opacity: 0, y: 28 }}
+              animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+              transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: ci * 0.08, ease: EASE }}
               style={{
                 borderRadius: 18,
                 background: col.highlight
@@ -284,9 +285,9 @@ export function ComparativaTabla() {
 
         {/* Footnote */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={prefersReduced || inView ? { opacity: 1 } : {}}
+          transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 0.5 }}
           style={{
             textAlign: "center", marginTop: 24,
             fontFamily: "var(--font-ui)", fontSize: "0.72rem",
