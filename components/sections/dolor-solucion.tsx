@@ -1,47 +1,23 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
 import { X, Check } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import { EASE } from "@/lib/animations"
-
-const PAINS = [
-  "Publicas sin estrategia y sin ver resultados",
-  "No sabes si tus seguidores son clientes potenciales",
-  "Pierdes tiempo creando contenido que no convierte",
-  "Tus competidores crecen mientras tú te quedas estancado",
-  "Pagas publicidad sin saber si funciona de verdad",
-  "No tienes datos claros para tomar decisiones",
-]
-
-const GAINS = [
-  "Estrategia clara con objetivos y KPIs desde el día 1",
-  "Audiencia cualificada que se convierte en clientes reales",
-  "Contenido diario gestionado por nuestro equipo",
-  "Ventaja competitiva medible en 60 días",
-  "Campañas optimizadas con ROAS real y transparente",
-  "Dashboard en tiempo real con todo lo que importa",
-]
+import { Section } from "@/components/ui/section"
 
 export function DolorSolucion() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
+  const t = useT()
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
 
   return (
-    <section
-      ref={ref}
-      style={{
-        paddingTop: 96,
-        paddingBottom: 96,
-        background: "rgba(255,255,255,0.012)",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
-      }}
-    >
-      <div className="section-container">
+    <Section background="var(--section-alt)" borderTop borderBottom>
+      <div ref={ref} className="section-container">
         {/* Header */}
         <motion.div
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
@@ -55,21 +31,21 @@ export function DolorSolucion() {
             fontWeight: 800,
             letterSpacing: "-0.035em",
             lineHeight: 1.05,
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             maxWidth: 600,
             margin: "0 auto 16px",
           }}>
-            ¿Te suena alguna de estas situaciones?
+            {t.painSolution.headline}
           </h2>
           <p style={{
             fontFamily: "var(--font-body)",
             fontSize: "1.0625rem",
-            color: "rgba(255,255,255,0.40)",
+            color: "var(--fg-secondary)",
             maxWidth: 480,
             margin: "0 auto",
             lineHeight: 1.7,
           }}>
-            Si es así, no estás solo. Y tienen solución.
+            {t.painSolution.subheadline}
           </p>
         </motion.div>
 
@@ -103,14 +79,14 @@ export function DolorSolucion() {
               <h3 style={{
                 fontFamily: "var(--font-heading)",
                 fontSize: "1rem", fontWeight: 700,
-                color: "rgba(255,255,255,0.70)",
+                color: "var(--fg-secondary)",
                 letterSpacing: "-0.01em",
               }}>
                 Sin Geko Marketing
               </h3>
             </div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-              {PAINS.map((p, i) => (
+              {t.painSolution.pains.map((p, i) => (
                 <motion.li
                   key={i}
                   initial={prefersReduced ? false : { opacity: 0, x: -8 }}
@@ -129,7 +105,7 @@ export function DolorSolucion() {
                   <span style={{
                     fontFamily: "var(--font-ui)",
                     fontSize: "0.9rem",
-                    color: "rgba(255,255,255,0.45)",
+                    color: "var(--fg-secondary)",
                     lineHeight: 1.4,
                   }}>{p}</span>
                 </motion.li>
@@ -171,14 +147,14 @@ export function DolorSolucion() {
               <h3 style={{
                 fontFamily: "var(--font-heading)",
                 fontSize: "1rem", fontWeight: 700,
-                color: "rgba(255,255,255,0.90)",
+                color: "var(--fg)",
                 letterSpacing: "-0.01em",
               }}>
                 Con Geko Marketing
               </h3>
             </div>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12, position: "relative" }}>
-              {GAINS.map((g, i) => (
+              {t.painSolution.gains.map((g, i) => (
                 <motion.li
                   key={i}
                   initial={prefersReduced ? false : { opacity: 0, x: 8 }}
@@ -197,7 +173,7 @@ export function DolorSolucion() {
                   <span style={{
                     fontFamily: "var(--font-ui)",
                     fontSize: "0.9rem",
-                    color: "rgba(255,255,255,0.72)",
+                    color: "var(--fg)",
                     lineHeight: 1.4,
                   }}>{g}</span>
                 </motion.li>
@@ -206,6 +182,6 @@ export function DolorSolucion() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

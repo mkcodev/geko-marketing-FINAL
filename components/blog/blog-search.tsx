@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useCallback, useMemo } from "react"
+import { motion, AnimatePresence } from "motion/react"
 import { Search, X } from "lucide-react"
 import Fuse from "fuse.js"
 import type { BlogPostMeta } from "@/lib/blog-constants"
@@ -15,7 +15,7 @@ export function BlogSearch({ posts, onResults }: BlogSearchProps) {
   const [query, setQuery] = useState("")
   const [focused, setFocused] = useState(false)
 
-  const fuse = new Fuse(posts, {
+  const fuse = useMemo(() => new Fuse(posts, {
     keys: [
       { name: "title", weight: 0.5 },
       { name: "excerpt", weight: 0.3 },
@@ -23,7 +23,7 @@ export function BlogSearch({ posts, onResults }: BlogSearchProps) {
     ],
     threshold: 0.4,
     includeScore: true,
-  })
+  }), [posts])
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,7 @@ export function BlogSearch({ posts, onResults }: BlogSearchProps) {
       const results = fuse.search(val).map((r) => r.item)
       onResults(results)
     },
-    [posts, onResults] // eslint-disable-line react-hooks/exhaustive-deps
+    [fuse, onResults]
   )
 
   const clear = () => {
@@ -54,18 +54,18 @@ export function BlogSearch({ posts, onResults }: BlogSearchProps) {
           padding: "12px 18px",
           borderRadius: 14,
           background: focused
-            ? "rgba(255,255,255,0.05)"
-            : "rgba(255,255,255,0.03)",
+            ? "var(--border-subtle)"
+            : "var(--surface)",
           border: focused
-            ? "1px solid rgba(155,77,188,0.40)"
-            : "1px solid rgba(255,255,255,0.09)",
+            ? "1px solid var(--color-geko-purple-accent-a40)"
+            : "1px solid var(--border)",
           transition: "all 0.2s ease",
-          boxShadow: focused ? "0 0 0 3px rgba(155,77,188,0.10)" : "none",
+          boxShadow: focused ? "0 0 0 3px var(--color-geko-purple-accent-a10)" : "none",
         }}
       >
         <Search
           size={16}
-          color={focused ? "#9B4DBC" : "rgba(255,255,255,0.30)"}
+          color={focused ? "var(--color-geko-purple-accent)" : "var(--fg-muted)"}
           style={{ flexShrink: 0, transition: "color 0.2s" }}
         />
         <input
@@ -82,8 +82,8 @@ export function BlogSearch({ posts, onResults }: BlogSearchProps) {
             outline: "none",
             fontFamily: "var(--font-ui)",
             fontSize: "0.9rem",
-            color: "rgba(255,255,255,0.85)",
-            caretColor: "#9B4DBC",
+            color: "var(--fg)",
+            caretColor: "var(--color-geko-purple-accent)",
           }}
         />
         <AnimatePresence>
@@ -101,9 +101,9 @@ export function BlogSearch({ posts, onResults }: BlogSearchProps) {
                 width: 22,
                 height: 22,
                 borderRadius: "50%",
-                background: "rgba(255,255,255,0.10)",
+                background: "var(--border-strong)",
                 border: "none",
-                color: "rgba(255,255,255,0.50)",
+                color: "var(--fg-secondary)",
                 cursor: "pointer",
                 flexShrink: 0,
               }}

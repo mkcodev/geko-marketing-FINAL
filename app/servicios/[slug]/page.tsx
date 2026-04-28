@@ -1,9 +1,14 @@
+import dynamic from "next/dynamic"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { SERVICES } from "@/constants/services"
 import { SERVICIOS_DETALLE } from "@/constants/services-detalle"
 import { ServicioDetalleContent } from "./client"
-import { RoiCalculator } from "@/components/sections/roi-calculator"
+
+const RoiCalculator = dynamic(
+  () => import("@/components/sections/roi-calculator").then((m) => ({ default: m.RoiCalculator })),
+  { ssr: false }
+)
 import { Paquetes } from "@/components/sections/paquetes"
 import { CtaFinal } from "@/components/sections/cta-final"
 import { CtaSticky } from "@/components/ui/cta-sticky"

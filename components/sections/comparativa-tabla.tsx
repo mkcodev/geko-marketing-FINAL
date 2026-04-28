@@ -1,74 +1,21 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { EASE } from "@/lib/animations"
-
-const FEATURES = [
-  "Estrategia personalizada",
-  "Gestión diaria de contenido",
-  "Social Ads optimizados",
-  "Diseño visual profesional",
-  "Informes mensuales",
-  "Soporte directo (WhatsApp)",
-  "Gestor dedicado",
-  "Sin permanencia",
-  "Resultados en 60 días",
-]
+import { useT } from "@/hooks/use-translations"
 
 type FeatureValue = "yes" | "partial" | "no"
 
-const COLUMNS: {
-  id: string
-  name: string
-  price: string
-  priceNote: string
-  highlight: boolean
-  badge?: string
-  color: string
-  values: FeatureValue[]
-}[] = [
-  {
-    id: "geko",
-    name: "Geko",
-    price: "desde 399€",
-    priceNote: "/ mes · sin permanencia",
-    highlight: true,
-    badge: "Nuestra propuesta",
-    color: "#9B4DBC",
-    values: ["yes","yes","yes","yes","yes","yes","yes","yes","yes"],
-  },
-  {
-    id: "agencia",
-    name: "Agencia grande",
-    price: "desde 2.000€",
-    priceNote: "/ mes · contrato anual",
-    highlight: false,
-    color: "#64748B",
-    values: ["yes","yes","yes","yes","partial","no","no","no","no"],
-  },
-  {
-    id: "freelance",
-    name: "Freelancer",
-    price: "Variable",
-    priceNote: "según proyecto",
-    highlight: false,
-    color: "#64748B",
-    values: ["partial","partial","partial","partial","no","partial","yes","yes","no"],
-  },
-  {
-    id: "solo",
-    name: "Tú solo",
-    price: "Solo tu tiempo",
-    priceNote: "~20h / semana",
-    highlight: false,
-    color: "#64748B",
-    values: ["no","no","no","no","no","yes","yes","yes","no"],
-  },
-]
+const COLUMN_VALUES: Record<string, FeatureValue[]> = {
+  geko:      ["yes","yes","yes","yes","yes","yes","yes","yes","yes"],
+  agencia:   ["yes","yes","yes","yes","partial","no","no","no","no"],
+  freelance: ["partial","partial","partial","partial","no","partial","yes","yes","no"],
+  solo:      ["no","no","no","no","no","yes","yes","yes","no"],
+}
 
 function FeatureIcon({ value, color }: { value: FeatureValue; color: string }) {
   if (value === "yes") return (
@@ -83,8 +30,8 @@ function FeatureIcon({ value, color }: { value: FeatureValue; color: string }) {
     <span style={{
       display: "flex", alignItems: "center", justifyContent: "center",
       width: 22, height: 22, borderRadius: 6,
-      background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.10)",
-      fontSize: "0.75rem", color: "rgba(255,255,255,0.35)",
+      background: "var(--surface)", border: "1px solid var(--border-strong)",
+      fontSize: "0.75rem", color: "var(--fg-muted)",
     }}>~</span>
   )
   return (
@@ -98,18 +45,29 @@ function FeatureIcon({ value, color }: { value: FeatureValue; color: string }) {
 }
 
 export function ComparativaTabla() {
+  const t = useT()
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const isMedium = useMediaQuery("(min-width: 480px)")
   const prefersReduced = useReducedMotion()
+
+  const FEATURES = t.compare.features
+
+  const COLUMNS = [
+    { id: "geko",      name: "Geko",                          price: t.compare.columns.geko.price,      priceNote: t.compare.columns.geko.priceNote,      highlight: true,  badge: t.compare.columns.geko.badge,      color: "var(--color-geko-purple-accent)", values: COLUMN_VALUES.geko },
+    { id: "agencia",   name: t.compare.columns.agencia.name,  price: t.compare.columns.agencia.price,   priceNote: t.compare.columns.agencia.priceNote,   highlight: false, color: "#64748B", values: COLUMN_VALUES.agencia },
+    { id: "freelance", name: t.compare.columns.freelance.name,price: t.compare.columns.freelance.price, priceNote: t.compare.columns.freelance.priceNote, highlight: false, color: "#64748B", values: COLUMN_VALUES.freelance },
+    { id: "solo",      name: t.compare.columns.solo.name,     price: t.compare.columns.solo.price,      priceNote: t.compare.columns.solo.priceNote,      highlight: false, color: "#64748B", values: COLUMN_VALUES.solo },
+  ]
 
   return (
     <section
       ref={ref}
       style={{
-        paddingTop: 96,
-        paddingBottom: 96,
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        paddingTop: "var(--section-padding-v)",
+        paddingBottom: "var(--section-padding-v)",
+        borderBottom: "1px solid var(--border-subtle)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -119,7 +77,7 @@ export function ComparativaTabla() {
         <div style={{
           position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)",
           width: "60%", height: "50%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(29,78,216,0.07) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-blue-a07) 0%, transparent 70%)",
           filter: "blur(80px)",
         }} />
       </div>
@@ -135,36 +93,29 @@ export function ComparativaTabla() {
           <span style={{
             display: "inline-block",
             padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)",
-            background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)",
+            background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 16,
           }}>
-            Comparativa
+            {t.compare.label}
           </span>
           <h2 style={{
             fontFamily: "var(--font-heading)",
             fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)",
             fontWeight: 800, lineHeight: 1.15,
             letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             marginBottom: 14,
           }}>
-            ¿Por qué elegir{" "}
-            <span style={{
-              background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}>
-              Geko?
-            </span>
+            {t.compare.headline}
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: "1rem",
-            color: "rgba(255,255,255,0.42)", maxWidth: 460, margin: "0 auto",
+            color: "var(--fg-secondary)", maxWidth: 460, margin: "0 auto",
           }}>
-            Sin rodeos. Así es como nos comparamos con las alternativas.
+            {t.compare.subheadline}
           </p>
         </motion.div>
 
@@ -173,7 +124,9 @@ export function ComparativaTabla() {
           display: "grid",
           gridTemplateColumns: isDesktop
             ? "repeat(4, 1fr)"
-            : "repeat(2, 1fr)",
+            : isMedium
+              ? "repeat(2, 1fr)"
+              : "1fr",
           gap: 12,
           alignItems: "start",
         }}>
@@ -186,11 +139,11 @@ export function ComparativaTabla() {
               style={{
                 borderRadius: 18,
                 background: col.highlight
-                  ? "rgba(107,45,124,0.08)"
-                  : "rgba(255,255,255,0.025)",
+                  ? "var(--color-geko-purple-a08)"
+                  : "var(--surface)",
                 border: col.highlight
-                  ? "1px solid rgba(107,45,124,0.35)"
-                  : "1px solid rgba(255,255,255,0.07)",
+                  ? "1px solid var(--color-geko-purple-a35)"
+                  : "1px solid var(--border-subtle)",
                 overflow: "hidden",
                 position: "relative",
               }}
@@ -199,23 +152,23 @@ export function ComparativaTabla() {
               {col.highlight && (
                 <div style={{
                   position: "absolute", top: 0, left: 0, right: 0, height: 2,
-                  background: "linear-gradient(90deg, #6B2D7C, #9B4DBC, #3B82F6)",
+                  background: "linear-gradient(90deg, var(--color-geko-purple), var(--color-geko-purple-accent), var(--color-geko-blue-light))",
                 }} />
               )}
 
               {/* Header */}
               <div style={{
                 padding: "20px 20px 16px",
-                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                borderBottom: "1px solid var(--border-subtle)",
               }}>
                 {col.badge && (
                   <span style={{
                     display: "inline-block",
                     padding: "2px 10px", borderRadius: 9999,
-                    background: "rgba(107,45,124,0.20)",
-                    border: "1px solid rgba(107,45,124,0.40)",
+                    background: "var(--color-geko-purple-a20)",
+                    border: "1px solid var(--color-geko-purple-a40)",
                     fontFamily: "var(--font-ui)", fontSize: "0.68rem", fontWeight: 600,
-                    color: "#9B4DBC", letterSpacing: "0.04em",
+                    color: "var(--color-geko-purple-accent)", letterSpacing: "0.04em",
                     marginBottom: 10,
                   }}>
                     {col.badge}
@@ -223,17 +176,17 @@ export function ComparativaTabla() {
                 )}
                 <p style={{
                   fontFamily: "var(--font-heading)", fontSize: "1.1rem",
-                  fontWeight: 700, color: col.highlight ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.60)",
+                  fontWeight: 700, color: col.highlight ? "var(--fg)" : "var(--fg-secondary)",
                   marginBottom: 4,
                 }}>{col.name}</p>
                 <p style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.875rem",
                   fontWeight: 700,
-                  color: col.highlight ? col.color : "rgba(255,255,255,0.40)",
+                  color: col.highlight ? col.color : "var(--fg-muted)",
                 }}>{col.price}</p>
                 <p style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-                  color: "rgba(255,255,255,0.25)", marginTop: 2,
+                  color: "var(--fg-subtle)", marginTop: 2,
                 }}>{col.priceNote}</p>
               </div>
 
@@ -246,14 +199,14 @@ export function ComparativaTabla() {
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "8px 0",
                       borderBottom: fi < FEATURES.length - 1
-                        ? "1px solid rgba(255,255,255,0.04)"
+                        ? "1px solid var(--border-subtle)"
                         : "none",
                     }}
                   >
                     <FeatureIcon value={col.values[fi]} color={col.color} />
                     <span style={{
                       fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-                      color: col.highlight ? "rgba(255,255,255,0.68)" : "rgba(255,255,255,0.38)",
+                      color: col.highlight ? "var(--fg)" : "var(--fg-secondary)",
                       lineHeight: 1.4,
                     }}>{feat}</span>
                   </div>
@@ -268,13 +221,13 @@ export function ComparativaTabla() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "center", gap: 7,
                       padding: "11px 0", borderRadius: 10,
-                      background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+                      background: "var(--gradient-brand)",
                       color: "#fff", textDecoration: "none",
                       fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 600,
-                      boxShadow: "0 4px 20px rgba(107,45,124,0.35)",
+                      boxShadow: "0 4px 20px var(--color-geko-purple-a35)",
                     }}
                   >
-                    Empezar ahora
+                    {t.compare.cta}
                     <ArrowRight size={13} />
                   </Link>
                 </div>
@@ -291,10 +244,10 @@ export function ComparativaTabla() {
           style={{
             textAlign: "center", marginTop: 24,
             fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-            color: "rgba(255,255,255,0.20)",
+            color: "var(--fg-subtle)",
           }}
         >
-          ~ = Depende del profesional. Basado en condiciones habituales del mercado.
+          {t.compare.footnote}
         </motion.p>
       </div>
     </section>

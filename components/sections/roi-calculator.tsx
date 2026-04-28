@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, useRef, useMemo } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { ArrowRight, TrendingUp, Users, Zap, Target } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { ROI_SECTORS, ROI_PACKAGES } from "@/constants/services"
 import { EASE } from "@/lib/animations"
+import { useT } from "@/hooks/use-translations"
 
 function formatNumber(n: number): string {
   if (n >= 1000000) return (n / 1000000).toFixed(1) + "M"
@@ -44,7 +45,7 @@ function SliderInput({
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
         <span style={{
           fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-          color: "rgba(255,255,255,0.55)", fontWeight: 500,
+          color: "var(--fg-secondary)", fontWeight: 500,
         }}>{label}</span>
         <span style={{
           fontFamily: "var(--font-heading)", fontSize: "1.125rem",
@@ -55,7 +56,7 @@ function SliderInput({
         {/* Track background */}
         <div style={{
           position: "absolute", inset: 0, borderRadius: 9999,
-          background: "rgba(255,255,255,0.08)",
+          background: "var(--border)",
         }} />
         {/* Filled portion */}
         <div style={{
@@ -73,7 +74,7 @@ function SliderInput({
           onChange={(e) => onChange(Number(e.target.value))}
           style={{
             position: "absolute", inset: 0, width: "100%",
-            opacity: 0, height: "100%", cursor: "inherit",
+            opacity: 0, height: "100%", cursor: "pointer",
             margin: 0,
           }}
         />
@@ -93,6 +94,7 @@ function SliderInput({
 }
 
 export function RoiCalculator() {
+  const t = useT()
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -101,15 +103,19 @@ export function RoiCalculator() {
   const [sectorIdx, setSectorIdx] = useState(0)
   const [packageIdx, setPackageIdx] = useState(1)
 
-  const sector = ROI_SECTORS[sectorIdx]
+  const translatedSectors = ROI_SECTORS.map((s, i) => ({ ...s, label: t.roi.sectors[i] ?? s.label }))
+
   const pkg = ROI_PACKAGES[packageIdx]
 
   // Calculate projections — rangos creíbles para agencia real
   const results = useMemo(() => {
+    const s = ROI_SECTORS[sectorIdx]
+    const p = ROI_PACKAGES[packageIdx]
+
     // Base realista: 5-7% de crecimiento mensual con gestión profesional
     const baseGrowthRate = 0.055
-    const sectorBonus = sector.growthMultiplier  // 1.1 - 1.6x
-    const pkgBonus = pkg.multiplier              // Silver 1.0 · Golden 1.2 · Platinum 1.4
+    const sectorBonus = s.growthMultiplier  // 1.1 - 1.6x
+    const pkgBonus = p.multiplier           // Silver 1.0 · Golden 1.2 · Platinum 1.4
 
     // Cuentas pequeñas tienen más margen de crecimiento relativo
     const scaleFactor = followers < 3000 ? 1.3 : followers < 10000 ? 1.1 : 0.9
@@ -119,7 +125,7 @@ export function RoiCalculator() {
     const newFollowers = followersIn6m - followers
 
     // Engagement: entre 2% y 6% según sector y paquete (datos reales de industria)
-    const engagementRate = Math.min(sector.engagementBase * pkgBonus, 6.5)
+    const engagementRate = Math.min(s.engagementBase * pkgBonus, 6.5)
 
     // Alcance por post: ~20-40% de seguidores con buen engagement
     const reachPerPost = Math.round(followersIn6m * ((engagementRate / 100) * 5.5))
@@ -129,7 +135,7 @@ export function RoiCalculator() {
     const leadsPerMonth = Math.max(1, Math.round(leadsBase))
 
     // ROI conservador: ticket medio pyme española ~250€
-    const monthlyInvestment = pkg.price
+    const monthlyInvestment = p.price
     const avgTicket = 250
     const estimatedMonthlyRevenue = leadsPerMonth * avgTicket * 0.25 // tasa de cierre 25%
     const roi = Math.round(((estimatedMonthlyRevenue - monthlyInvestment) / monthlyInvestment) * 100)
@@ -142,15 +148,15 @@ export function RoiCalculator() {
       leadsPerMonth,
       roi: Math.max(Math.min(roi, 280), 15), // entre 15% y 280% — creíble
     }
-  }, [followers, sector, pkg])
+  }, [followers, sectorIdx, packageIdx])
 
   return (
     <section
       ref={ref}
       style={{
-        paddingTop: 96,
-        paddingBottom: 96,
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        paddingTop: "var(--section-padding-v)",
+        paddingBottom: "var(--section-padding-v)",
+        borderBottom: "1px solid var(--border-subtle)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -160,13 +166,13 @@ export function RoiCalculator() {
         <div style={{
           position: "absolute", top: "10%", right: "-10%",
           width: "50%", height: "70%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(107,45,124,0.10) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-purple-a10) 0%, transparent 70%)",
           filter: "blur(80px)",
         }} />
         <div style={{
           position: "absolute", bottom: "0%", left: "-5%",
           width: "40%", height: "50%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(29,78,216,0.10) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-blue-a10) 0%, transparent 70%)",
           filter: "blur(80px)",
         }} />
       </div>
@@ -182,35 +188,35 @@ export function RoiCalculator() {
           <span style={{
             display: "inline-block",
             padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)",
-            background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)",
+            background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 16,
           }}>
-            ROI Calculator
+            {t.roi.label}
           </span>
           <h2 style={{
             fontFamily: "var(--font-heading)",
             fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)",
             fontWeight: 800, lineHeight: 1.15,
             letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             marginBottom: 14,
           }}>
-            ¿Cuánto puede crecer{" "}
+            {t.roi.headline}{" "}
             <span style={{
-              background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+              background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             }}>
-              tu marca con Geko?
+              {t.roi.headlineAccent}
             </span>
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: "1rem",
-            color: "rgba(255,255,255,0.42)", maxWidth: 480, margin: "0 auto",
+            color: "var(--fg-muted)", maxWidth: 480, margin: "0 auto",
           }}>
-            Ajusta los sliders y mira tu potencial real en 6 meses. Estimación conservadora basada en resultados reales.
+            {t.roi.subheadline}
           </p>
         </motion.div>
 
@@ -221,8 +227,8 @@ export function RoiCalculator() {
           transition={{ duration: 0.65, delay: 0.1, ease: EASE }}
           style={{
             borderRadius: 24,
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
             backdropFilter: "blur(20px)",
             overflow: "hidden",
             boxShadow: "0 32px 64px rgba(0,0,0,0.35)",
@@ -236,52 +242,52 @@ export function RoiCalculator() {
             {/* LEFT: Inputs */}
             <div style={{
               padding: isDesktop ? "40px 44px" : "32px 24px",
-              borderRight: isDesktop ? "1px solid rgba(255,255,255,0.07)" : "none",
-              borderBottom: !isDesktop ? "1px solid rgba(255,255,255,0.07)" : "none",
+              borderRight: isDesktop ? "1px solid var(--border-subtle)" : "none",
+              borderBottom: !isDesktop ? "1px solid var(--border-subtle)" : "none",
             }}>
               <h3 style={{
                 fontFamily: "var(--font-ui)", fontSize: "0.72rem",
                 fontWeight: 600, letterSpacing: "0.10em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.30)",
+                color: "var(--fg-muted)",
                 marginBottom: 32,
               }}>
-                Tu situación actual
+                {t.roi.currentSituation}
               </h3>
 
               {/* Followers slider */}
               <SliderInput
-                label="Seguidores actuales"
+                label={t.roi.followersLabel}
                 min={100}
                 max={50000}
                 value={followers}
                 onChange={setFollowers}
                 formatValue={(v) => formatNumber(v)}
-                color="#9B4DBC"
+                color="var(--color-geko-purple-accent)"
               />
 
               {/* Sector select */}
               <div style={{ marginBottom: 28 }}>
                 <span style={{
                   display: "block", fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-                  color: "rgba(255,255,255,0.55)", fontWeight: 500, marginBottom: 10,
-                }}>Sector</span>
+                  color: "var(--fg-secondary)", fontWeight: 500, marginBottom: 10,
+                }}>{t.roi.sectorLabel}</span>
                 <div style={{
                   display: "grid",
                   gridTemplateColumns: "repeat(2, 1fr)",
                   gap: 8,
                 }}>
-                  {ROI_SECTORS.map((s, i) => (
+                  {translatedSectors.map((s, i) => (
                     <button
                       key={s.id}
                       onClick={() => setSectorIdx(i)}
                       style={{
                         padding: "9px 12px", borderRadius: 9,
-                        border: `1px solid ${i === sectorIdx ? "rgba(107,45,124,0.50)" : "rgba(255,255,255,0.07)"}`,
-                        background: i === sectorIdx ? "rgba(107,45,124,0.15)" : "rgba(255,255,255,0.03)",
+                        border: `1px solid ${i === sectorIdx ? "var(--color-geko-purple-a50)" : "var(--border-subtle)"}`,
+                        background: i === sectorIdx ? "var(--color-geko-purple-a15)" : "var(--surface)",
                         fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-                        color: i === sectorIdx ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.40)",
-                        textAlign: "left", cursor: "inherit",
+                        color: i === sectorIdx ? "var(--fg)" : "var(--fg-muted)",
+                        textAlign: "left", cursor: "pointer",
                         transition: "all 0.2s",
                       }}
                     >
@@ -295,8 +301,8 @@ export function RoiCalculator() {
               <div>
                 <span style={{
                   display: "block", fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-                  color: "rgba(255,255,255,0.55)", fontWeight: 500, marginBottom: 10,
-                }}>Plan Geko</span>
+                  color: "var(--fg-secondary)", fontWeight: 500, marginBottom: 10,
+                }}>{t.roi.packageLabel}</span>
                 <div style={{ display: "flex", gap: 8 }}>
                   {ROI_PACKAGES.map((p, i) => (
                     <button
@@ -304,19 +310,19 @@ export function RoiCalculator() {
                       onClick={() => setPackageIdx(i)}
                       style={{
                         flex: 1, padding: "10px 8px", borderRadius: 10,
-                        border: `1px solid ${i === packageIdx ? p.color + "60" : "rgba(255,255,255,0.07)"}`,
-                        background: i === packageIdx ? `${p.color}15` : "rgba(255,255,255,0.03)",
-                        cursor: "inherit", transition: "all 0.2s",
+                        border: `1px solid ${i === packageIdx ? p.color + "60" : "var(--border-subtle)"}`,
+                        background: i === packageIdx ? `${p.color}15` : "var(--surface)",
+                        cursor: "pointer", transition: "all 0.2s",
                       }}
                     >
                       <p style={{
                         fontFamily: "var(--font-ui)", fontSize: "0.875rem",
-                        fontWeight: 700, color: i === packageIdx ? p.color : "rgba(255,255,255,0.38)",
+                        fontWeight: 700, color: i === packageIdx ? p.color : "var(--fg-muted)",
                         marginBottom: 2,
                       }}>{p.label}</p>
                       <p style={{
                         fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-                        color: "rgba(255,255,255,0.28)",
+                        color: "var(--fg-subtle)",
                       }}>{p.price}€/mes</p>
                     </button>
                   ))}
@@ -330,10 +336,10 @@ export function RoiCalculator() {
                 fontFamily: "var(--font-ui)", fontSize: "0.72rem",
                 fontWeight: 600, letterSpacing: "0.10em",
                 textTransform: "uppercase",
-                color: "rgba(255,255,255,0.30)",
+                color: "var(--fg-muted)",
                 marginBottom: 32,
               }}>
-                Tu proyección en 6 meses
+                {t.roi.projection}
               </h3>
 
               {/* Main metric — followers */}
@@ -348,8 +354,8 @@ export function RoiCalculator() {
                   <Users size={16} style={{ color: pkg.color }} />
                   <span style={{
                     fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-                    color: "rgba(255,255,255,0.40)",
-                  }}>Seguidores proyectados</span>
+                    color: "var(--fg-muted)",
+                  }}>{t.roi.projectedFollowers}</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
                   <span style={{
@@ -362,7 +368,7 @@ export function RoiCalculator() {
                     fontFamily: "var(--font-ui)", fontSize: "0.875rem",
                     color: "rgba(16,185,129,0.85)", fontWeight: 600,
                   }}>
-                    +<AnimatedNumber value={results.newFollowers} /> nuevos
+                    +<AnimatedNumber value={results.newFollowers} /> {t.roi.newFollowersSuffix}
                   </span>
                 </div>
               </div>
@@ -377,42 +383,42 @@ export function RoiCalculator() {
                 {[
                   {
                     icon: <TrendingUp size={14} />,
-                    label: "Engagement",
+                    label: t.roi.engagement,
                     value: <AnimatedNumber value={results.engagementRate} suffix="%" />,
                     color: "#10B981",
                   },
                   {
                     icon: <Zap size={14} />,
-                    label: "Alcance / post",
+                    label: t.roi.reachPerPost,
                     value: <AnimatedNumber value={results.reachPerPost} />,
                     color: "#F59E0B",
                   },
                   {
                     icon: <Target size={14} />,
-                    label: "Leads / mes",
+                    label: t.roi.leadsPerMonth,
                     value: <AnimatedNumber value={results.leadsPerMonth} />,
-                    color: "#3B82F6",
+                    color: "var(--color-geko-blue-light)",
                   },
                   {
                     icon: <TrendingUp size={14} />,
-                    label: "ROI estimado",
+                    label: t.roi.estimatedRoi,
                     value: <AnimatedNumber value={results.roi} suffix="%" />,
-                    color: "#9B4DBC",
+                    color: "var(--color-geko-purple-accent)",
                   },
                 ].map((m) => (
                   <div
                     key={m.label}
                     style={{
                       padding: "14px 16px", borderRadius: 12,
-                      background: "rgba(255,255,255,0.025)",
-                      border: "1px solid rgba(255,255,255,0.07)",
+                      background: "var(--surface)",
+                      border: "1px solid var(--border-subtle)",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8, color: m.color }}>
                       {m.icon}
                       <span style={{
                         fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-                        color: "rgba(255,255,255,0.38)",
+                        color: "var(--fg-muted)",
                       }}>{m.label}</span>
                     </div>
                     <span style={{
@@ -428,10 +434,10 @@ export function RoiCalculator() {
               {/* Disclaimer */}
               <p style={{
                 fontFamily: "var(--font-ui)", fontSize: "0.7rem",
-                color: "rgba(255,255,255,0.22)", lineHeight: 1.5,
+                color: "var(--fg-subtle)", lineHeight: 1.5,
                 marginBottom: 20,
               }}>
-                *Proyección basada en resultados reales de clientes actuales. Los resultados varían según sector, contenido y competencia.
+                {t.roi.disclaimer}
               </p>
 
               {/* CTA */}
@@ -440,13 +446,13 @@ export function RoiCalculator() {
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   padding: "13px 24px", borderRadius: 12,
-                  background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+                  background: "var(--gradient-brand)",
                   color: "#fff", textDecoration: "none",
                   fontFamily: "var(--font-ui)", fontSize: "0.875rem", fontWeight: 600,
-                  boxShadow: "0 4px 20px rgba(107,45,124,0.35)",
+                  boxShadow: "0 4px 20px var(--color-geko-purple-a35)",
                 }}
               >
-                Quiero estos resultados
+                {t.roi.cta}
                 <ArrowRight size={15} />
               </Link>
             </div>

@@ -34,7 +34,7 @@ const BLOG_SCHEMA = {
     "@type": "Organization",
     name: "Geko Marketing",
     url: "https://geko-marketing.com",
-    logo: "https://geko-marketing.com/logo.png",
+    logo: "https://geko-marketing.com/logos/geko/purple-minimal-clean.svg",
   },
 }
 

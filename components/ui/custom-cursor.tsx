@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react"
 // ─── Math helpers ───────────────────────────────────────────────────────────
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t }
 function shortAngle(from: number, to: number) {
-  let d = ((to - from) % 360 + 540) % 360 - 180
+  const d = ((to - from) % 360 + 540) % 360 - 180
   return d
 }
 
@@ -55,13 +55,13 @@ function GeckoSVG({ tongueRef }: { tongueRef: React.RefObject<SVGGElement | null
 
       {/* Ground shadow */}
       <ellipse cx="42" cy="47" rx="20" ry="2.5"
-        fill="rgba(107,45,124,0.22)" filter="url(#gc-shadow)" />
+        fill="var(--color-geko-purple-a22)" filter="url(#gc-shadow)" />
 
       {/* ── TAIL (animated separately) ─────────────────────────── */}
       <g className="gtail">
         {/* Glow halo */}
         <path d="M24 24 C19 22, 13 19, 7 21 C3 22, 1 25, 0 27"
-          stroke="rgba(155,77,188,0.22)" strokeWidth="9" strokeLinecap="round" fill="none" />
+          stroke="var(--color-geko-purple-accent-a22)" strokeWidth="9" strokeLinecap="round" fill="none" />
         {/* Main tail */}
         <path d="M24 24 C19 22, 13 19, 7 21 C3 22, 1 25, 0 27"
           stroke="url(#gc-grad)" strokeWidth="5.5" strokeLinecap="round" fill="none" />
@@ -74,7 +74,7 @@ function GeckoSVG({ tongueRef }: { tongueRef: React.RefObject<SVGGElement | null
       <g className="gbody">
         {/* Body outer glow */}
         <ellipse cx="40" cy="24" rx="21" ry="13"
-          fill="rgba(107,45,124,0.20)" filter="url(#gc-shadow)" />
+          fill="var(--color-geko-purple-a20)" filter="url(#gc-shadow)" />
 
         {/* ── BACK LEGS ──────────────────────────────────────────── */}
         {/* Back bottom leg */}
@@ -96,13 +96,13 @@ function GeckoSVG({ tongueRef }: { tongueRef: React.RefObject<SVGGElement | null
         <ellipse cx="40" cy="26" rx="11" ry="6" fill="url(#gc-belly)" opacity="0.55" />
         {/* Dorsal spine line */}
         <path d="M26 23 C32 21, 40 21, 54 22"
-          stroke="rgba(255,255,255,0.16)" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+          stroke="var(--fg-faint)" strokeWidth="1.8" strokeLinecap="round" fill="none" />
         {/* Scale texture dots */}
-        <circle cx="33" cy="20" r="2"   fill="rgba(255,255,255,0.10)" />
-        <circle cx="40" cy="19" r="1.7" fill="rgba(255,255,255,0.08)" />
-        <circle cx="47" cy="20" r="1.5" fill="rgba(255,255,255,0.07)" />
-        <circle cx="37" cy="27" r="1.8" fill="rgba(255,255,255,0.08)" />
-        <circle cx="44" cy="27" r="1.4" fill="rgba(255,255,255,0.06)" />
+        <circle cx="33" cy="20" r="2"   fill="var(--border-strong)" />
+        <circle cx="40" cy="19" r="1.7" fill="var(--border)" />
+        <circle cx="47" cy="20" r="1.5" fill="var(--border-subtle)" />
+        <circle cx="37" cy="27" r="1.8" fill="var(--border)" />
+        <circle cx="44" cy="27" r="1.4" fill="var(--border-subtle)" />
 
         {/* ── FRONT LEGS ─────────────────────────────────────────── */}
         {/* Front bottom leg */}
@@ -124,7 +124,7 @@ function GeckoSVG({ tongueRef }: { tongueRef: React.RefObject<SVGGElement | null
         {/* ── HEAD ───────────────────────────────────────────────── */}
         <ellipse cx="69" cy="24" rx="11" ry="10" fill="url(#gc-head)" />
         {/* Head highlight */}
-        <ellipse cx="67" cy="20" rx="6.5" ry="3.5" fill="rgba(255,255,255,0.14)" />
+        <ellipse cx="67" cy="20" rx="6.5" ry="3.5" fill="var(--border-strong)" />
         {/* Under-chin shadow */}
         <path d="M59 29 Q68 33 78 27"
           stroke="rgba(0,0,0,0.18)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
@@ -132,7 +132,7 @@ function GeckoSVG({ tongueRef }: { tongueRef: React.RefObject<SVGGElement | null
         {/* ── SNOUT ──────────────────────────────────────────────── */}
         <path d="M78 21 L80 24 L78 27 L76 24 Z" fill="url(#gc-head)" />
         {/* Snout tip highlight */}
-        <path d="M79 24 L80 24" stroke="rgba(255,255,255,0.25)"
+        <path d="M79 24 L80 24" stroke="var(--fg-subtle)"
           strokeWidth="1.2" strokeLinecap="round" />
         {/* Nostril */}
         <circle cx="78.5" cy="22.5" r="1" fill="rgba(0,0,0,0.55)" />
@@ -156,9 +156,9 @@ function GeckoSVG({ tongueRef }: { tongueRef: React.RefObject<SVGGElement | null
         <ellipse cx="67.2" cy="21" rx="2.8" ry="3.4"
           fill="none" stroke="rgba(120,50,160,0.5)" strokeWidth="0.8" />
         {/* Primary catchlight */}
-        <circle cx="68.2" cy="19.4" r="1.1" fill="rgba(255,255,255,0.95)" />
+        <circle cx="68.2" cy="19.4" r="1.1" fill="var(--fg)" />
         {/* Secondary catchlight */}
-        <circle cx="65.8" cy="22.5" r="0.55" fill="rgba(255,255,255,0.55)" />
+        <circle cx="65.8" cy="22.5" r="0.55" fill="var(--fg-secondary)" />
         {/* Eye rim */}
         <circle cx="66.5" cy="21" r="4.2"
           fill="none" stroke="rgba(80,20,110,0.45)" strokeWidth="0.9" />
@@ -185,6 +185,7 @@ export function CustomCursor() {
   // Detect fine pointer (desktop only)
   useEffect(() => {
     const mq = window.matchMedia("(any-hover: hover) and (any-pointer: fine)")
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(mq.matches)
     const h = (e: MediaQueryListEvent) => setEnabled(e.matches)
     mq.addEventListener("change", h)
@@ -367,8 +368,8 @@ export function CustomCursor() {
           top: -2, left: -2,
           width: 5, height: 5,
           borderRadius: "50%",
-          background: "rgba(155,77,188,0.9)",
-          boxShadow: "0 0 8px rgba(155,77,188,0.7)",
+          background: "var(--color-geko-purple-accent-a90)",
+          boxShadow: "0 0 8px var(--color-geko-purple-accent-a70)",
           pointerEvents: "none",
           zIndex: 99999,
           willChange: "transform",
@@ -385,7 +386,7 @@ export function CustomCursor() {
             left: r.x, top: r.y,
             width: 20, height: 20,
             borderRadius: "50%",
-            border: "1.5px solid rgba(155,77,188,0.75)",
+            border: "1.5px solid var(--color-geko-purple-accent-a75)",
             pointerEvents: "none",
             zIndex: 99997,
             animation: "gecko-ripple 0.6s ease-out forwards",

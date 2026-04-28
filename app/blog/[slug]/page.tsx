@@ -12,7 +12,7 @@ import { ShareButtons } from "@/components/blog/share-buttons"
 import { AuthorCard } from "@/components/blog/author-card"
 import { RelatedArticles } from "@/components/blog/related-articles"
 import { ArticleReadingProgress } from "@/components/blog/reading-progress"
-import { CusdisComments } from "@/components/blog/cusdis-comments"
+import { CusdisComments } from "@/components/blog/cusdis-wrapper"
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs()
@@ -91,7 +91,7 @@ export default async function BlogArticlePage({
     publisher: {
       "@type": "Organization",
       name: "Geko Marketing",
-      logo: { "@type": "ImageObject", url: "https://geko-marketing.com/logo.png" },
+      logo: { "@type": "ImageObject", url: "https://geko-marketing.com/logos/geko/purple-minimal-clean.svg" },
     },
     keywords: post.tags.join(", "),
     articleSection: cat.label,
@@ -107,7 +107,7 @@ export default async function BlogArticlePage({
       />
       <ArticleReadingProgress />
 
-      <div style={{ paddingTop: 48, paddingBottom: 96 }}>
+      <div style={{ paddingTop: "var(--section-padding-tight)", paddingBottom: "var(--section-padding-v)" }}>
         <div className="section-container">
           {/* Breadcrumbs */}
           <nav
@@ -119,7 +119,7 @@ export default async function BlogArticlePage({
               marginBottom: 32,
               fontFamily: "var(--font-ui)",
               fontSize: "0.78rem",
-              color: "rgba(255,255,255,0.30)",
+              color: "var(--fg-muted)",
             }}
           >
             <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>
@@ -132,7 +132,7 @@ export default async function BlogArticlePage({
             <span>/</span>
             <span
               style={{
-                color: "rgba(255,255,255,0.55)",
+                color: "var(--fg-secondary)",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
@@ -200,7 +200,7 @@ export default async function BlogArticlePage({
                       gap: 5,
                       fontFamily: "var(--font-ui)",
                       fontSize: "0.78rem",
-                      color: "rgba(255,255,255,0.28)",
+                      color: "var(--fg-subtle)",
                     }}
                   >
                     <Calendar size={12} />
@@ -214,7 +214,7 @@ export default async function BlogArticlePage({
                       gap: 5,
                       fontFamily: "var(--font-ui)",
                       fontSize: "0.78rem",
-                      color: "rgba(255,255,255,0.28)",
+                      color: "var(--fg-subtle)",
                     }}
                   >
                     <Clock size={12} />
@@ -230,7 +230,7 @@ export default async function BlogArticlePage({
                     fontWeight: 800,
                     lineHeight: 1.1,
                     letterSpacing: "-0.035em",
-                    color: "rgba(255,255,255,0.96)",
+                    color: "var(--fg)",
                     marginBottom: 18,
                   }}
                 >
@@ -243,9 +243,9 @@ export default async function BlogArticlePage({
                     fontFamily: "var(--font-body)",
                     fontSize: "1.125rem",
                     lineHeight: 1.7,
-                    color: "rgba(255,255,255,0.50)",
+                    color: "var(--fg-secondary)",
                     marginBottom: 24,
-                    borderLeft: "3px solid rgba(155,77,188,0.50)",
+                    borderLeft: "3px solid var(--color-geko-purple-accent-a50)",
                     paddingLeft: 16,
                   }}
                 >
@@ -261,7 +261,7 @@ export default async function BlogArticlePage({
                     gap: 16,
                     flexWrap: "wrap",
                     paddingBottom: 28,
-                    borderBottom: "1px solid rgba(255,255,255,0.07)",
+                    borderBottom: "1px solid var(--border-subtle)",
                   }}
                 >
                   <ShareButtons title={post.title} slug={post.slug} />
@@ -273,11 +273,11 @@ export default async function BlogArticlePage({
                         style={{
                           padding: "3px 9px",
                           borderRadius: 6,
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.08)",
+                          background: "var(--border-subtle)",
+                          border: "1px solid var(--border)",
                           fontFamily: "var(--font-ui)",
                           fontSize: "0.72rem",
-                          color: "rgba(255,255,255,0.35)",
+                          color: "var(--fg-muted)",
                         }}
                       >
                         #{tag}
@@ -295,17 +295,17 @@ export default async function BlogArticlePage({
                   renderers={{
                     inline: {
                       bold: ({ children }) => (
-                        <strong style={{ color: "rgba(255,255,255,0.88)", fontWeight: 700 }}>
+                        <strong style={{ color: "var(--fg)", fontWeight: 700 }}>
                           {children}
                         </strong>
                       ),
                       italic: ({ children }) => (
-                        <em style={{ color: "rgba(255,255,255,0.65)", fontStyle: "italic" }}>
+                        <em style={{ color: "var(--fg-secondary)", fontStyle: "italic" }}>
                           {children}
                         </em>
                       ),
                       underline: ({ children }) => (
-                        <span style={{ textDecoration: "underline", textDecorationColor: "rgba(155,77,188,0.6)" }}>
+                        <span style={{ textDecoration: "underline", textDecorationColor: "var(--color-geko-purple-accent-a60)" }}>
                           {children}
                         </span>
                       ),
@@ -314,8 +314,8 @@ export default async function BlogArticlePage({
                           style={{
                             fontFamily: "monospace",
                             fontSize: "0.875em",
-                            background: "rgba(107,45,124,0.15)",
-                            border: "1px solid rgba(107,45,124,0.25)",
+                            background: "var(--color-geko-purple-a15)",
+                            border: "1px solid var(--color-geko-purple-a25)",
                             borderRadius: 4,
                             padding: "1px 6px",
                             color: "#C084FC",
@@ -328,9 +328,9 @@ export default async function BlogArticlePage({
                         <a
                           href={href}
                           style={{
-                            color: "#9B4DBC",
+                            color: "var(--color-geko-purple-accent)",
                             textDecoration: "underline",
-                            textDecorationColor: "rgba(155,77,188,0.4)",
+                            textDecorationColor: "var(--color-geko-purple-accent-a40)",
                           }}
                         >
                           {children}
@@ -344,7 +344,7 @@ export default async function BlogArticlePage({
                             fontFamily: "var(--font-body)",
                             fontSize: "1.0625rem",
                             lineHeight: 1.8,
-                            color: "rgba(255,255,255,0.65)",
+                            color: "var(--fg-secondary)",
                             marginBottom: "1.25em",
                             textAlign: textAlign ?? "left",
                           }}
@@ -381,7 +381,7 @@ export default async function BlogArticlePage({
                               fontWeight: 700,
                               lineHeight: 1.25,
                               letterSpacing: "-0.02em",
-                              color: "rgba(255,255,255,0.92)",
+                              color: "var(--fg)",
                               marginTop: "2em",
                               marginBottom: "0.6em",
                               scrollMarginTop: "100px",
@@ -409,11 +409,11 @@ export default async function BlogArticlePage({
                       blockquote: ({ children }) => (
                         <blockquote
                           style={{
-                            borderLeft: "3px solid rgba(155,77,188,0.60)",
+                            borderLeft: "3px solid var(--color-geko-purple-accent-a60)",
                             paddingLeft: 20,
                             marginLeft: 0,
                             marginBottom: "1.5em",
-                            background: "rgba(107,45,124,0.06)",
+                            background: "var(--color-geko-purple-a06)",
                             borderRadius: "0 10px 10px 0",
                             padding: "16px 20px",
                           }}
@@ -424,8 +424,8 @@ export default async function BlogArticlePage({
                       code: ({ children, language }) => (
                         <pre
                           style={{
-                            background: "rgba(255,255,255,0.04)",
-                            border: "1px solid rgba(255,255,255,0.08)",
+                            background: "var(--surface)",
+                            border: "1px solid var(--border)",
                             borderRadius: 12,
                             padding: "20px 24px",
                             overflowX: "auto",
@@ -442,7 +442,7 @@ export default async function BlogArticlePage({
                                 fontFamily: "var(--font-ui)",
                                 fontSize: "0.65rem",
                                 fontWeight: 600,
-                                color: "rgba(255,255,255,0.20)",
+                                color: "var(--fg-subtle)",
                                 textTransform: "uppercase",
                                 letterSpacing: "0.08em",
                               }}
@@ -455,7 +455,7 @@ export default async function BlogArticlePage({
                               fontFamily: "monospace",
                               fontSize: "0.9rem",
                               lineHeight: 1.7,
-                              color: "rgba(255,255,255,0.75)",
+                              color: "var(--fg)",
                             }}
                           >
                             {children}
@@ -466,7 +466,7 @@ export default async function BlogArticlePage({
                         <hr
                           style={{
                             border: "none",
-                            borderTop: "1px solid rgba(255,255,255,0.07)",
+                            borderTop: "1px solid var(--border-subtle)",
                             margin: "2.5em 0",
                           }}
                         />
@@ -484,7 +484,7 @@ export default async function BlogArticlePage({
                     style={{
                       fontFamily: "var(--font-ui)",
                       fontSize: "0.75rem",
-                      color: "rgba(255,255,255,0.28)",
+                      color: "var(--fg-subtle)",
                       marginRight: 4,
                     }}
                   >
@@ -496,11 +496,11 @@ export default async function BlogArticlePage({
                       style={{
                         padding: "4px 10px",
                         borderRadius: 7,
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.09)",
+                        background: "var(--border-subtle)",
+                        border: "1px solid var(--border)",
                         fontFamily: "var(--font-ui)",
                         fontSize: "0.75rem",
-                        color: "rgba(255,255,255,0.38)",
+                        color: "var(--fg-muted)",
                       }}
                     >
                       #{tag}
@@ -514,7 +514,7 @@ export default async function BlogArticlePage({
                     style={{
                       fontFamily: "var(--font-ui)",
                       fontSize: "0.82rem",
-                      color: "rgba(255,255,255,0.30)",
+                      color: "var(--fg-muted)",
                       marginBottom: 12,
                     }}
                   >
@@ -528,8 +528,8 @@ export default async function BlogArticlePage({
                   style={{
                     padding: "28px 32px",
                     borderRadius: 18,
-                    background: "linear-gradient(135deg, rgba(107,45,124,0.12) 0%, rgba(29,78,216,0.08) 100%)",
-                    border: "1px solid rgba(107,45,124,0.25)",
+                    background: "linear-gradient(135deg, var(--color-geko-purple-a12) 0%, var(--color-geko-blue-a08) 100%)",
+                    border: "1px solid var(--color-geko-purple-a25)",
                   }}
                 >
                   <p
@@ -537,7 +537,7 @@ export default async function BlogArticlePage({
                       fontFamily: "var(--font-heading)",
                       fontSize: "1.125rem",
                       fontWeight: 700,
-                      color: "rgba(255,255,255,0.90)",
+                      color: "var(--fg)",
                       marginBottom: 8,
                       letterSpacing: "-0.02em",
                     }}
@@ -548,7 +548,7 @@ export default async function BlogArticlePage({
                     style={{
                       fontFamily: "var(--font-body)",
                       fontSize: "0.9375rem",
-                      color: "rgba(255,255,255,0.42)",
+                      color: "var(--fg-muted)",
                       marginBottom: 20,
                       lineHeight: 1.6,
                     }}
@@ -563,13 +563,13 @@ export default async function BlogArticlePage({
                       gap: 8,
                       padding: "11px 22px",
                       borderRadius: 10,
-                      background: "linear-gradient(135deg, #6B2D7C, #1D4ED8)",
+                      background: "linear-gradient(135deg, var(--color-geko-purple), var(--color-geko-blue))",
                       fontFamily: "var(--font-ui)",
                       fontSize: "0.9rem",
                       fontWeight: 600,
                       color: "#fff",
                       textDecoration: "none",
-                      boxShadow: "0 4px 16px rgba(107,45,124,0.35)",
+                      boxShadow: "0 4px 16px var(--color-geko-purple-a35)",
                     }}
                   >
                     Habla con nosotros →
@@ -588,7 +588,7 @@ export default async function BlogArticlePage({
                     gap: 8,
                     fontFamily: "var(--font-ui)",
                     fontSize: "0.85rem",
-                    color: "rgba(255,255,255,0.35)",
+                    color: "var(--fg-muted)",
                     textDecoration: "none",
                     alignSelf: "flex-start",
                   }}

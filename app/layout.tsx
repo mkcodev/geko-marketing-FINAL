@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import type { ReactNode } from "react"
+import Script from "next/script"
 import { LanguageProvider } from "@/context/language-context"
 import { LenisProvider } from "@/components/providers/lenis-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
@@ -8,6 +9,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { CustomCursor } from "@/components/ui/custom-cursor"
 import { ScrollProgress } from "@/components/ui/scroll-progress"
+import { AnalyticsProvider } from "@/components/providers/analytics-provider"
 import "@fontsource-variable/bricolage-grotesque"
 import "@fontsource-variable/geist"
 import "./globals.css"
@@ -68,7 +70,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://geko-marketing.com",
-    languages: { es: "https://geko-marketing.com", en: "https://geko-marketing.com/en" },
   },
   verification: {
     google: "TyKhU_p6iORFOnDhVF8Ln0s70TGGh_1mIpANxRkGI_M",
@@ -91,9 +92,9 @@ const LOCAL_BUSINESS_SCHEMA = {
   description:
     "Agencia de marketing digital en Tres Cantos, Madrid. Gestión de redes sociales, branding e identidad de marca y diseño web profesional para pymes.",
   url: "https://geko-marketing.com",
-  logo: "https://geko-marketing.com/logo.png",
+  logo: "https://geko-marketing.com/logos/geko/purple-minimal-clean.svg",
   image: "https://geko-marketing.com/og-image.jpg",
-  telephone: "+34 600 000 000",
+  telephone: "+34633197798",
   email: "hola@geko-marketing.com",
   address: {
     "@type": "PostalAddress",
@@ -154,10 +155,13 @@ const WEBSITE_SCHEMA = {
   "@type": "WebSite",
   name: "Geko Marketing",
   url: "https://geko-marketing.com",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://geko-marketing.com/buscar?q={search_term_string}",
-    "query-input": "required name=search_term_string",
+  publisher: {
+    "@type": "Organization",
+    name: "Geko Marketing",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://geko-marketing.com/logos/geko/purple-minimal-clean.svg",
+    },
   },
 }
 
@@ -166,23 +170,13 @@ const CLARITY_ID = "wb7cmddxf6"
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" data-theme="dark">
+    <html lang="es" data-theme="dark" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Google Tag Manager */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
-          }}
-        />
-        {/* End Google Tag Manager */}
-        {/* Microsoft Clarity */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");`,
-          }}
-        />
-        {/* End Microsoft Clarity */}
+        {/* Preconnect a servicios externos críticos */}
+        <link rel="preconnect" href="https://calendly.com" />
+        <link rel="preconnect" href="https://client.crisp.chat" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.clarity.ms" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_SCHEMA) }}
@@ -192,7 +186,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(WEBSITE_SCHEMA) }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -202,12 +196,28 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
+        {/* Analytics — afterInteractive: no bloquean el render */}
+        <Script
+          id="gtm-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+        <Script
+          id="clarity-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");`,
+          }}
+        />
         <ThemeProvider>
           <LenisProvider>
             <LanguageProvider>
               {/* Global UI overlays */}
               <CustomCursor />
               <ScrollProgress />
+              <AnalyticsProvider />
               <a href="#main-content" className="skip-link">
                 Saltar al contenido principal
               </a>
@@ -229,7 +239,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               {/* Page content — offset below the fixed header */}
               <main
                 id="main-content"
-                style={{ paddingTop: "calc(56px + var(--ann-h, 40px))" }}
+                style={{ paddingTop: "calc(var(--nav-h) + var(--ann-h, 40px))" }}
               >
                 {children}
               </main>

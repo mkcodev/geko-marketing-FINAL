@@ -1,18 +1,17 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { motion, useInView, AnimatePresence, animate } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "motion/react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 // Paleta de color de ejemplo
 const PALETTE = [
-  { name: "Principal", hex: "#6B2D7C", rgb: "107 · 45 · 124" },
-  { name: "Acento",    hex: "#3B82F6", rgb: "59 · 130 · 246" },
-  { name: "Claro",     hex: "#9B4DBC", rgb: "155 · 77 · 188" },
+  { name: "Principal", hex: "var(--color-geko-purple)", rgb: "107 · 45 · 124" },
+  { name: "Acento",    hex: "var(--color-geko-blue-light)", rgb: "59 · 130 · 246" },
+  { name: "Claro",     hex: "var(--color-geko-purple-accent)", rgb: "155 · 77 · 188" },
   { name: "Oscuro",    hex: "#1E1B2E", rgb: "30 · 27 · 46"  },
   { name: "Neutro",    hex: "#F4F4F8", rgb: "244 · 244 · 248" },
 ]
@@ -47,7 +46,7 @@ function PaletteReveal({ active }: { active: boolean }) {
           style={{
             width: 44, height: 44, borderRadius: 12,
             background: p.hex,
-            border: "1px solid rgba(255,255,255,0.12)",
+            border: "1px solid var(--border-strong)",
             cursor: "default",
             boxShadow: `0 4px 16px ${p.hex}40`,
             position: "relative",
@@ -71,23 +70,23 @@ function LogoReveal({ active }: { active: boolean }) {
     >
       <div style={{
         width: 48, height: 48, borderRadius: 12,
-        background: "linear-gradient(135deg, #6B2D7C 0%, #3B82F6 100%)",
+        background: "linear-gradient(135deg, var(--color-geko-purple) 0%, var(--color-geko-blue-light) 100%)",
         display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: "0 8px 32px rgba(107,45,124,0.5)",
+        boxShadow: "0 8px 32px var(--color-geko-purple-a50)",
       }}>
         <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.25rem", color: "#fff" }}>G</span>
       </div>
       <div>
         <span style={{
           fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem",
-          background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+          background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
           WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
           backgroundClip: "text",
           letterSpacing: "-0.02em",
         }}>Geko</span>
         <span style={{
           fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "1.25rem",
-          color: "rgba(255,255,255,0.75)",
+          color: "var(--fg)",
           letterSpacing: "-0.02em",
         }}>.mkt</span>
       </div>
@@ -108,11 +107,11 @@ function TypographyReveal({ active }: { active: boolean }) {
           <p style={{
             fontFamily: i === 0 ? "var(--font-heading)" : i === 1 ? "var(--font-ui)" : "var(--font-body)",
             fontSize: t.size, fontWeight: parseInt(t.weight),
-            color: "rgba(255,255,255,0.85)", lineHeight: 1.2,
+            color: "var(--fg)", lineHeight: 1.2,
           }}>{t.sample}</p>
           <p style={{
             fontFamily: "var(--font-ui)", fontSize: "0.68rem",
-            color: "rgba(255,255,255,0.25)", marginTop: 2,
+            color: "var(--fg-subtle)", marginTop: 2,
           }}>{t.name} · {t.role} · {t.weight}w</p>
         </motion.div>
       ))}
@@ -149,28 +148,28 @@ function BusinessCard({ active }: { active: boolean }) {
         position: "absolute", inset: 0,
         borderRadius: 14,
         background: "linear-gradient(135deg, #1E1B2E 0%, #0d0d1a 100%)",
-        border: "1px solid rgba(107,45,124,0.35)",
+        border: "1px solid var(--color-geko-purple-a35)",
         backfaceVisibility: "hidden",
         padding: "20px 24px",
         display: "flex", flexDirection: "column",
         justifyContent: "space-between",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(107,45,124,0.20)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--color-geko-purple-a20)",
       }}>
         <div>
           <div style={{
             width: 28, height: 28, borderRadius: 7,
-            background: "linear-gradient(135deg, #6B2D7C, #3B82F6)",
+            background: "linear-gradient(135deg, var(--color-geko-purple), var(--color-geko-blue-light))",
             display: "flex", alignItems: "center", justifyContent: "center",
             marginBottom: 8,
           }}>
             <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.875rem", color: "#fff" }}>G</span>
           </div>
-          <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "rgba(255,255,255,0.90)" }}>María García</p>
-          <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.7rem", color: "rgba(255,255,255,0.40)", marginTop: 1 }}>Directora de Cuentas</p>
+          <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--fg)" }}>María García</p>
+          <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.7rem", color: "var(--fg-muted)", marginTop: 1 }}>Directora de Cuentas</p>
         </div>
         <div style={{ display: "flex", gap: 16 }}>
-          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.62rem", color: "rgba(255,255,255,0.30)" }}>+34 600 000 000</span>
-          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.62rem", color: "rgba(255,255,255,0.30)" }}>geko-marketing.com</span>
+          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.62rem", color: "var(--fg-muted)" }}>+34 600 000 000</span>
+          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.62rem", color: "var(--fg-muted)" }}>geko-marketing.com</span>
         </div>
       </div>
 
@@ -178,15 +177,15 @@ function BusinessCard({ active }: { active: boolean }) {
       <div style={{
         position: "absolute", inset: 0,
         borderRadius: 14,
-        background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+        background: "var(--gradient-brand)",
         backfaceVisibility: "hidden",
         transform: "rotateY(180deg)",
         display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: "0 20px 60px rgba(107,45,124,0.4)",
+        boxShadow: "0 20px 60px var(--color-geko-purple-a40)",
       }}>
         <div style={{ textAlign: "center" }}>
           <p style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.5rem", color: "#fff", letterSpacing: "-0.025em" }}>Geko.mkt</p>
-          <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.68rem", color: "rgba(255,255,255,0.55)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Agencia de marketing</p>
+          <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.68rem", color: "var(--fg-secondary)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Agencia de marketing</p>
         </div>
       </div>
     </motion.div>
@@ -194,7 +193,7 @@ function BusinessCard({ active }: { active: boolean }) {
 }
 
 function SocialTemplate({ active, index }: { active: boolean; index: number }) {
-  const colors = ["#E1306C", "#3B82F6", "#F59E0B"]
+  const colors = ["#E1306C", "var(--color-geko-blue-light)", "#F59E0B"]
   const color = colors[index % colors.length]
 
   return (
@@ -222,7 +221,7 @@ function SocialTemplate({ active, index }: { active: boolean; index: number }) {
       }}><Icon name="LayoutTemplate" size={24} /></div>
       <p style={{
         fontFamily: "var(--font-ui)", fontSize: "0.62rem",
-        fontWeight: 600, color: "rgba(255,255,255,0.40)",
+        fontWeight: 600, color: "var(--fg-muted)",
         textAlign: "center",
       }}>{["Story 9:16", "Post 1:1", "Cover"][index]}</p>
     </motion.div>
@@ -254,7 +253,7 @@ export function BrandingReveal() {
       style={{
         paddingTop: isDesktop ? 100 : 72,
         paddingBottom: isDesktop ? 100 : 72,
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--border-subtle)",
         position: "relative", overflow: "hidden",
       }}
     >
@@ -263,7 +262,7 @@ export function BrandingReveal() {
         <div style={{
           position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
           width: "60%", height: "60%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(155,77,188,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-purple-accent-a08) 0%, transparent 70%)",
           filter: "blur(80px)",
         }} />
       </div>
@@ -278,7 +277,7 @@ export function BrandingReveal() {
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(155,77,188,0.35)", background: "rgba(155,77,188,0.10)",
+            border: "1px solid var(--color-geko-purple-accent-a35)", background: "var(--color-geko-purple-accent-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
             color: "#C084FC", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 16,
@@ -288,19 +287,19 @@ export function BrandingReveal() {
             fontSize: "clamp(1.875rem, 4vw, 3rem)",
             fontWeight: 800, lineHeight: 1.1,
             letterSpacing: "-0.03em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             marginBottom: 16,
           }}>
             Una marca construida.{" "}
             <span style={{
-              background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+              background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}>Pieza a pieza.</span>
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: isMd ? "1.0625rem" : "0.9375rem",
-            color: "rgba(255,255,255,0.40)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7,
+            color: "var(--fg-muted)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7,
           }}>
             Esto es lo que construimos para cada cliente. Cada elemento diseñado con intención, cada decisión tomada para que tu marca sea inconfundible.
           </p>
@@ -313,25 +312,25 @@ export function BrandingReveal() {
           transition={{ duration: 0.5, delay: 0.1 }}
           style={{ display: "flex", gap: 8, marginBottom: 32, flexWrap: "wrap", justifyContent: "center" }}
         >
-          {BRAND_ELEMENTS.map((el, i) => {
+          {BRAND_ELEMENTS.map((el) => {
             const done = stage > el.stage - 1
             return (
               <div key={el.label} style={{
                 display: "flex", alignItems: "center", gap: 6,
                 padding: "5px 12px", borderRadius: 9999,
-                background: done ? "rgba(155,77,188,0.12)" : "rgba(255,255,255,0.04)",
-                border: done ? "1px solid rgba(155,77,188,0.30)" : "1px solid rgba(255,255,255,0.08)",
+                background: done ? "var(--color-geko-purple-accent-a12)" : "var(--surface)",
+                border: done ? "1px solid var(--color-geko-purple-accent-a30)" : "1px solid var(--border)",
                 transition: "all 0.4s ease",
               }}>
                 <motion.span
                   animate={{ scale: done ? [1, 1.3, 1] : 1 }}
                   transition={{ duration: 0.3 }}
-                  style={{ display: "flex", color: done ? "rgba(155,77,188,0.80)" : "rgba(255,255,255,0.25)" }}
+                  style={{ display: "flex", color: done ? "var(--color-geko-purple-accent-a80)" : "var(--fg-subtle)" }}
                 ><Icon name={el.icon} size={13} /></motion.span>
                 <span style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.75rem",
                   fontWeight: 500,
-                  color: done ? "rgba(155,77,188,0.90)" : "rgba(255,255,255,0.28)",
+                  color: done ? "var(--color-geko-purple-accent-a90)" : "var(--fg-subtle)",
                   transition: "color 0.4s ease",
                 }}>{el.label}</span>
                 {done && (
@@ -361,15 +360,15 @@ export function BrandingReveal() {
             transition={{ duration: 0.55, delay: 0.1, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               padding: "24px",
             }}
           >
             <p style={{
               fontFamily: "var(--font-ui)", fontSize: "0.72rem",
               fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+              textTransform: "uppercase", color: "var(--fg-subtle)",
               marginBottom: 20,
             }}>Paleta de color</p>
             <PaletteReveal active={stage >= 1} />
@@ -383,8 +382,8 @@ export function BrandingReveal() {
                   style={{ display: "flex", alignItems: "center", gap: 10 }}
                 >
                   <div style={{ width: 20, height: 20, borderRadius: 5, background: p.hex, flexShrink: 0 }} />
-                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", color: "rgba(255,255,255,0.45)" }}>{p.name}</span>
-                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.68rem", color: "rgba(255,255,255,0.20)", marginLeft: "auto" }}>{p.hex}</span>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", color: "var(--fg-secondary)" }}>{p.name}</span>
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.68rem", color: "var(--fg-subtle)", marginLeft: "auto" }}>{p.hex}</span>
                 </motion.div>
               ))}
             </div>
@@ -397,8 +396,8 @@ export function BrandingReveal() {
             transition={{ duration: 0.55, delay: 0.2, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(107,45,124,0.06)",
-              border: "1px solid rgba(107,45,124,0.20)",
+              background: "var(--color-geko-purple-a06)",
+              border: "1px solid var(--color-geko-purple-a20)",
               padding: "24px",
               display: "flex", flexDirection: "column", gap: 20,
               alignItems: "center",
@@ -407,7 +406,7 @@ export function BrandingReveal() {
             <p style={{
               fontFamily: "var(--font-ui)", fontSize: "0.72rem",
               fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+              textTransform: "uppercase", color: "var(--fg-subtle)",
               alignSelf: "flex-start",
             }}>Logo · Tarjeta</p>
             <LogoReveal active={stage >= 2} />
@@ -421,8 +420,8 @@ export function BrandingReveal() {
             transition={{ duration: 0.55, delay: 0.3, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               padding: "24px",
               gridColumn: isDesktop ? "auto" : isMd ? "1 / -1" : "auto",
             }}
@@ -430,7 +429,7 @@ export function BrandingReveal() {
             <p style={{
               fontFamily: "var(--font-ui)", fontSize: "0.72rem",
               fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+              textTransform: "uppercase", color: "var(--fg-subtle)",
               marginBottom: 20,
             }}>Sistema tipográfico</p>
             <TypographyReveal active={stage >= 3} />
@@ -450,15 +449,15 @@ export function BrandingReveal() {
             transition={{ duration: 0.55, delay: 0.4, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               padding: "24px",
             }}
           >
             <p style={{
               fontFamily: "var(--font-ui)", fontSize: "0.72rem",
               fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+              textTransform: "uppercase", color: "var(--fg-subtle)",
               marginBottom: 20,
             }}>20+ Templates para RRSS</p>
             <div style={{ display: "flex", gap: 10 }}>
@@ -473,7 +472,7 @@ export function BrandingReveal() {
             transition={{ duration: 0.55, delay: 0.5, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(59,130,246,0.05)",
+              background: "var(--color-geko-blue-light-a05)",
               border: "1px solid rgba(59,130,246,0.18)",
               padding: "24px",
             }}
@@ -481,7 +480,7 @@ export function BrandingReveal() {
             <p style={{
               fontFamily: "var(--font-ui)", fontSize: "0.72rem",
               fontWeight: 600, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+              textTransform: "uppercase", color: "var(--fg-subtle)",
               marginBottom: 16,
             }}>Manual de marca</p>
 
@@ -507,8 +506,8 @@ export function BrandingReveal() {
                       transition={{ duration: 0.35, delay: i * 0.1, ease: EASE }}
                       style={{ display: "flex", alignItems: "center", gap: 10 }}
                     >
-                      <Icon name={item.icon} size={15} style={{ color: "#3B82F6", flexShrink: 0 }} />
-                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.55)" }}>
+                      <Icon name={item.icon} size={15} style={{ color: "var(--color-geko-blue-light)", flexShrink: 0 }} />
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8125rem", color: "var(--fg-secondary)" }}>
                         {item.label}
                       </span>
                     </motion.div>
@@ -520,7 +519,7 @@ export function BrandingReveal() {
             {stage < 6 && (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {[85, 65, 75, 55, 70].map((w, i) => (
-                  <div key={i} style={{ height: 8, borderRadius: 4, background: "rgba(255,255,255,0.05)", width: `${w}%` }} />
+                  <div key={i} style={{ height: 8, borderRadius: 4, background: "var(--border-subtle)", width: `${w}%` }} />
                 ))}
               </div>
             )}

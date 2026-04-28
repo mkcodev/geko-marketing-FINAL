@@ -1,27 +1,24 @@
 "use client"
 
 import { useRef } from "react"
+import Image from "next/image"
 import Link from "next/link"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion } from "motion/react"
 import { ArrowRight, Star, Users, TrendingUp, ChevronDown } from "lucide-react"
 import { Typewriter } from "@/components/ui/typewriter"
 import { Magnetic } from "@/components/ui/magnetic"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import { HeroBackground } from "./HeroBackground"
 import { SocialCommandCenter } from "./SocialCommandCenter"
 import { EASE } from "@/lib/animations"
 
-const TYPEWRITER_WORDS = ["clientes", "ventas", "resultados", "impacto"]
-
-const STATS = [
-  { icon: <Users size={16} />, value: "50+", label: "Clientes activos" },
-  { icon: <TrendingUp size={16} />, value: "3+", label: "Años de experiencia" },
-  { icon: <Star size={16} />, value: "98%", label: "Tasa de retención" },
-]
+const STAT_ICONS = [<Users size={16} key="u" />, <TrendingUp size={16} key="t" />, <Star size={16} key="s" />]
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const t = useT()
   const prefersReduced = useReducedMotion()
 
   const anim = (delay: number) => ({
@@ -42,14 +39,14 @@ export function Hero() {
   return (
     <section
       ref={ref}
+      className="hero-height"
       style={{
         position: "relative",
-        height: "calc(100svh - 56px - var(--ann-h, 40px))",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         overflow: "hidden",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--border-subtle)",
       }}
     >
       <HeroBackground />
@@ -63,8 +60,8 @@ export function Hero() {
           gridTemplateColumns: isDesktop ? "1fr 1fr" : "1fr",
           alignItems: "center",
           gap: isDesktop ? "48px" : "32px",
-          paddingTop: isDesktop ? 32 : 20,
-          paddingBottom: 72,
+          paddingTop: isDesktop ? 32 : 16,
+          paddingBottom: isDesktop ? 72 : 56,
         }}
       >
         {/* LEFT: Copy */}
@@ -78,11 +75,11 @@ export function Hero() {
                 gap: 7,
                 padding: "5px 14px 5px 8px",
                 borderRadius: 9999,
-                border: "1px solid rgba(107,45,124,0.35)",
-                background: "rgba(107,45,124,0.10)",
+                border: "1px solid var(--color-geko-purple-a35)",
+                background: "var(--color-geko-purple-a10)",
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.8125rem",
-                color: "rgba(255,255,255,0.80)",
+                color: "var(--fg)",
               }}
             >
               <span
@@ -93,13 +90,17 @@ export function Hero() {
                   width: 20,
                   height: 20,
                   borderRadius: "50%",
-                  background: "linear-gradient(135deg, #6B2D7C, #1D4ED8)",
-                  fontSize: "0.75rem",
+                  background: "linear-gradient(135deg, var(--color-geko-purple), var(--color-geko-blue))",
                 }}
               >
-                🦎
+                <Image
+                  src="/logos/geko/white-minimal-clean.svg"
+                  alt=""
+                  width={13}
+                  height={13}
+                />
               </span>
-              Agencia de Marketing Digital · Tres Cantos, Madrid
+              {t.hero.badge}
             </span>
           </motion.div>
 
@@ -112,23 +113,21 @@ export function Hero() {
               fontWeight: 800,
               lineHeight: 1.1,
               letterSpacing: "-0.03em",
-              color: "rgba(255,255,255,0.96)",
+              color: "var(--fg)",
               marginBottom: 12,
             }}
           >
-            Transformamos
-            <br />
-            seguidores en
+            {t.hero.headline}
             <br />
             <span
               style={{
-                background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+                background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}
             >
-              <Typewriter words={TYPEWRITER_WORDS} />
+              <Typewriter words={t.hero.typewriterWords} />
             </span>
           </motion.h1>
 
@@ -138,17 +137,13 @@ export function Hero() {
             style={{
               fontFamily: "var(--font-body)",
               fontSize: isDesktop ? "1.0625rem" : "1rem",
-              color: "rgba(255,255,255,0.52)",
+              color: "var(--fg-secondary)",
               lineHeight: 1.7,
               marginBottom: 28,
               maxWidth: 480,
             }}
           >
-            Gestionamos tus redes sociales y potenciamos tu marca para que{" "}
-            <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 500 }}>
-              atraigas más clientes y aumentes tus ventas
-            </strong>
-            . Sin complicaciones. Con resultados medibles en 60 días.
+            {t.hero.subheadline}
           </motion.p>
 
           {/* CTAs */}
@@ -170,12 +165,12 @@ export function Hero() {
                   fontWeight: 600,
                   color: "#fff",
                   textDecoration: "none",
-                  background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
-                  boxShadow: "0 4px 24px rgba(107,45,124,0.45), 0 1px 4px rgba(0,0,0,0.3)",
+                  background: "var(--gradient-brand)",
+                  boxShadow: "0 4px 24px var(--color-geko-purple-a45), 0 1px 4px rgba(0,0,0,0.3)",
                   whiteSpace: "nowrap",
                 }}
               >
-                Ver nuestros servicios
+                {t.hero.ctaSecondary}
                 <ArrowRight size={16} />
               </Link>
             </Magnetic>
@@ -192,15 +187,15 @@ export function Hero() {
                   fontFamily: "var(--font-ui)",
                   fontSize: "0.9375rem",
                   fontWeight: 500,
-                  color: "rgba(255,255,255,0.82)",
+                  color: "var(--fg)",
                   textDecoration: "none",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid var(--border-strong)",
+                  background: "var(--surface)",
                   backdropFilter: "blur(12px)",
                   whiteSpace: "nowrap",
                 }}
               >
-                Habla con nosotros
+                {t.hero.cta}
               </Link>
             </Magnetic>
           </motion.div>
@@ -213,10 +208,10 @@ export function Hero() {
               flexWrap: "wrap",
               gap: isDesktop ? "32px" : "20px",
               paddingTop: 24,
-              borderTop: "1px solid rgba(255,255,255,0.07)",
+              borderTop: "1px solid var(--border-subtle)",
             }}
           >
-            {STATS.map((stat) => (
+            {t.hero.stats.map((stat, i) => (
               <div key={stat.label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <div
                   style={{
@@ -226,13 +221,13 @@ export function Hero() {
                     width: 34,
                     height: 34,
                     borderRadius: 9,
-                    background: "rgba(107,45,124,0.15)",
-                    color: "#9B4DBC",
-                    border: "1px solid rgba(107,45,124,0.25)",
+                    background: "var(--color-geko-purple-a15)",
+                    color: "var(--color-geko-purple-accent)",
+                    border: "1px solid var(--color-geko-purple-a25)",
                     flexShrink: 0,
                   }}
                 >
-                  {stat.icon}
+                  {STAT_ICONS[i]}
                 </div>
                 <div>
                   <p
@@ -240,7 +235,7 @@ export function Hero() {
                       fontFamily: "var(--font-heading)",
                       fontSize: "1.25rem",
                       fontWeight: 700,
-                      color: "#fff",
+                      color: "var(--fg)",
                       lineHeight: 1.1,
                     }}
                   >
@@ -250,7 +245,7 @@ export function Hero() {
                     style={{
                       fontFamily: "var(--font-ui)",
                       fontSize: "0.78rem",
-                      color: "rgba(255,255,255,0.40)",
+                      color: "var(--fg-muted)",
                     }}
                   >
                     {stat.label}
@@ -290,7 +285,7 @@ export function Hero() {
           flexDirection: "column",
           alignItems: "center",
           gap: 6,
-          color: "rgba(255,255,255,0.30)",
+          color: "var(--fg-muted)",
           background: "none",
           border: "none",
           cursor: "pointer",

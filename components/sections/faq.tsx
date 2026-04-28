@@ -1,37 +1,13 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion"
+import { motion, useInView, AnimatePresence, useReducedMotion } from "motion/react"
 import { ChevronDown } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import { EASE } from "@/lib/animations"
+import { Section } from "@/components/ui/section"
 
-const FAQS = [
-  {
-    q: "¿Cuánto tiempo tarda en verse resultados?",
-    a: "Los primeros resultados medibles suelen aparecer entre las semanas 4-8. Las métricas de engagement mejoran rápidamente, mientras que el impacto en ventas se consolida en 60-90 días. Somos transparentes: si algo no funciona, lo ajustamos.",
-  },
-  {
-    q: "¿Gestionáis todos los tipos de negocio?",
-    a: "Trabajamos con pymes, autónomos y marcas en crecimiento de cualquier sector. Nos especializamos en negocios locales, e-commerce, servicios profesionales y hostelería. Si tienes dudas sobre si somos el fit correcto, cuéntanoslo en la consulta gratuita.",
-  },
-  {
-    q: "¿Tengo que firmar un contrato de permanencia?",
-    a: "No. Todos nuestros planes son mensuales y sin permanencia. Puedes cancelar cuando quieras con 15 días de antelación. Confiamos en los resultados para retenerte, no en las letras pequeñas.",
-  },
-  {
-    q: "¿Qué incluye la consulta gratuita?",
-    a: "Una videollamada de 30-45 minutos donde analizamos tu situación actual, tus objetivos y te presentamos una hoja de ruta preliminar. Sin presión, sin ventas agresivas. Si no somos el partner adecuado para ti, te lo diremos.",
-  },
-  {
-    q: "¿Quién crea el contenido?",
-    a: "Nuestro equipo interno de copywriters y diseñadores crea todo el contenido adaptado a tu voz de marca. Tú revisas y apruebas antes de publicar. Con el tiempo, el proceso se vuelve más fluido y requiere menos de tu tiempo.",
-  },
-  {
-    q: "¿Puedo cambiar de plan más adelante?",
-    a: "Por supuesto. Puedes subir o bajar de plan en cualquier momento. Muchos clientes empiezan con Silver y escalan a Gold cuando ven resultados. El cambio se aplica en el próximo ciclo de facturación.",
-  },
-]
 
 export function Faq() {
   const ref = useRef(null)
@@ -39,13 +15,11 @@ export function Faq() {
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
   const [open, setOpen] = useState<number | null>(null)
+  const t = useT()
 
   return (
-    <section
-      ref={ref}
-      className="section-container"
-      style={{ paddingTop: 80, paddingBottom: 80 }}
-    >
+    <Section spacing="tight">
+      <div ref={ref} className="section-container">
       {/* Header */}
       <motion.div
         initial={prefersReduced ? false : { opacity: 0, y: 20 }}
@@ -78,16 +52,16 @@ export function Faq() {
             fontWeight: 800,
             lineHeight: 1.1,
             letterSpacing: "-0.03em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
           }}
         >
-          Preguntas frecuentes
+          {t.faq.headline}
         </h2>
       </motion.div>
 
       {/* Accordion */}
       <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", flexDirection: "column", gap: 10 }}>
-        {FAQS.map((faq, i) => (
+        {t.faq.items.map((faq, i) => (
           <motion.div
             key={i}
             initial={prefersReduced ? false : { opacity: 0, y: 16 }}
@@ -97,8 +71,8 @@ export function Faq() {
             <div
               style={{
                 borderRadius: 14,
-                border: open === i ? "1px solid rgba(107,45,124,0.35)" : "1px solid rgba(255,255,255,0.07)",
-                background: open === i ? "rgba(107,45,124,0.06)" : "rgba(255,255,255,0.02)",
+                border: open === i ? "1px solid var(--color-geko-purple-a35)" : "1px solid var(--border-subtle)",
+                background: open === i ? "var(--color-geko-purple-a06)" : "var(--surface)",
                 overflow: "hidden",
                 transition: "border-color 0.2s, background 0.2s",
               }}
@@ -125,7 +99,7 @@ export function Faq() {
                     fontFamily: "var(--font-heading)",
                     fontSize: "1rem",
                     fontWeight: 600,
-                    color: open === i ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.78)",
+                    color: open === i ? "var(--fg)" : "var(--fg)",
                     lineHeight: 1.3,
                   }}
                 >
@@ -134,7 +108,7 @@ export function Faq() {
                 <motion.div
                   animate={{ rotate: open === i ? 180 : 0 }}
                   transition={prefersReduced ? { duration: 0 } : { duration: 0.25 }}
-                  style={{ flexShrink: 0, color: open === i ? "#9B4DBC" : "rgba(255,255,255,0.30)" }}
+                  style={{ flexShrink: 0, color: open === i ? "var(--color-geko-purple-accent)" : "var(--fg-muted)" }}
                 >
                   <ChevronDown size={18} />
                 </motion.div>
@@ -155,7 +129,7 @@ export function Faq() {
                         padding: "0 24px 20px",
                         fontFamily: "var(--font-body)",
                         fontSize: "0.9375rem",
-                        color: "rgba(255,255,255,0.48)",
+                        color: "var(--fg-secondary)",
                         lineHeight: 1.7,
                       }}
                     >
@@ -168,6 +142,7 @@ export function Faq() {
           </motion.div>
         ))}
       </div>
-    </section>
+    </div>
+    </Section>
   )
 }

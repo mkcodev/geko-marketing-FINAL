@@ -28,16 +28,16 @@ export function ArticleReadingProgress() {
         right: 0,
         height: 2,
         zIndex: 999,
-        background: "rgba(255,255,255,0.06)",
+        background: "var(--border-subtle)",
       }}
     >
       <div
         style={{
           height: "100%",
           width: `${progress}%`,
-          background: "linear-gradient(90deg, #6B2D7C, #3B82F6)",
+          background: "var(--gradient-brand-90)",
           transition: "width 0.1s linear",
-          boxShadow: "0 0 8px rgba(107,45,124,0.6)",
+          boxShadow: "0 0 8px var(--color-geko-purple-a60)",
         }}
       />
     </div>

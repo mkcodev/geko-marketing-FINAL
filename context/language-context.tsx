@@ -32,9 +32,10 @@ export function LanguageProvider({ children, initialLang = "es" }: {
 
   useEffect(() => {
     const stored = localStorage.getItem("geko-lang") as Language | null
-    if (stored && stored !== language) setLanguageState(stored)
-    document.documentElement.lang = stored ?? language
-  }, [])
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (stored && stored !== initialLang) setLanguageState(stored)
+    document.documentElement.lang = stored ?? initialLang
+  }, [initialLang])
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, isEnglish: language === "en" }}>

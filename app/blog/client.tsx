@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { ArticleCard } from "@/components/blog/article-card"
 import { BlogSearch } from "@/components/blog/blog-search"
 import { TagFilter } from "@/components/blog/tag-filter"
 import type { BlogPostMeta, Category } from "@/lib/blog-constants"
+import { useT } from "@/hooks/use-translations"
 
 const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
 
@@ -15,6 +16,7 @@ interface BlogClientProps {
 }
 
 export function BlogClient({ posts }: BlogClientProps) {
+  const t = useT()
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [searchResults, setSearchResults] = useState<BlogPostMeta[] | null>(null)
   const [activeCategory, setActiveCategory] = useState<Category | null>(null)
@@ -38,7 +40,7 @@ export function BlogClient({ posts }: BlogClientProps) {
   const rest = displayPosts.filter((p) => !p.featured || searchResults !== null || activeCategory !== null)
 
   return (
-    <div style={{ paddingTop: 64, paddingBottom: 96 }}>
+    <div style={{ paddingTop: "var(--section-padding-tight)", paddingBottom: "var(--section-padding-v)" }}>
       {/* ── Hero header ── */}
       <div className="section-container">
         <motion.div
@@ -63,7 +65,7 @@ export function BlogClient({ posts }: BlogClientProps) {
               marginBottom: 16,
             }}
           >
-            Blog
+            {t.blog.label}
           </span>
 
           <h1
@@ -73,35 +75,24 @@ export function BlogClient({ posts }: BlogClientProps) {
               fontWeight: 800,
               lineHeight: 1.05,
               letterSpacing: "-0.035em",
-              color: "rgba(255,255,255,0.96)",
+              color: "var(--fg)",
               marginBottom: 14,
             }}
           >
-            Ideas que{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #9B4DBC, #3B82F6)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              impulsan tu negocio
-            </span>
+            {t.blog.headline}
           </h1>
 
           <p
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "1.0625rem",
-              color: "rgba(255,255,255,0.42)",
+              color: "var(--fg-muted)",
               maxWidth: 480,
               margin: "0 auto 32px",
               lineHeight: 1.7,
             }}
           >
-            Estrategias, guías y tendencias de marketing digital.
-            Sin relleno — solo lo que funciona.
+            {t.blog.subheadline}
           </p>
 
           {/* Search */}
@@ -130,13 +121,13 @@ export function BlogClient({ posts }: BlogClientProps) {
             style={{
               fontFamily: "var(--font-ui)",
               fontSize: "0.82rem",
-              color: "rgba(255,255,255,0.28)",
+              color: "var(--fg-subtle)",
               marginBottom: 24,
               textAlign: "center",
             }}
           >
             {displayPosts.length === 0
-              ? "No se encontraron artículos"
+              ? t.blog.noResults
               : `${displayPosts.length} artículo${displayPosts.length !== 1 ? "s" : ""} encontrado${displayPosts.length !== 1 ? "s" : ""}`}
           </motion.p>
         )}
@@ -172,7 +163,7 @@ export function BlogClient({ posts }: BlogClientProps) {
             style={{
               textAlign: "center",
               padding: "60px 0",
-              color: "rgba(255,255,255,0.28)",
+              color: "var(--fg-subtle)",
               fontFamily: "var(--font-ui)",
               fontSize: "0.9rem",
             }}

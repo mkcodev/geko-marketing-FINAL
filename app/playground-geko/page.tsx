@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
-import { motion, useInView, useMotionValue, useTransform, AnimatePresence } from "framer-motion"
+import { motion, useInView, useMotionValue, useTransform, AnimatePresence } from "motion/react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   InstagramReelCard,

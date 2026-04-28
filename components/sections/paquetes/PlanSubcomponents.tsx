@@ -1,14 +1,16 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { Check, ArrowRight, Zap } from "lucide-react"
 import { Icon } from "@/lib/icons"
 import type { PlanData, Billing } from "./paquetes.types"
 import { BILLING_OPTIONS, getPrice } from "./paquetes.types"
 import { EASE } from "@/lib/animations"
+import { useT } from "@/hooks/use-translations"
 
 export function PriceDisplay({ plan, billing }: { plan: PlanData; billing: Billing }) {
+  const t = useT()
   const opt = BILLING_OPTIONS.find((o) => o.id === billing)!
   const price = getPrice(plan.monthly, billing)
   const totalSavings = (plan.monthly - price) * opt.months
@@ -27,7 +29,7 @@ export function PriceDisplay({ plan, billing }: { plan: PlanData; billing: Billi
               fontFamily: "var(--font-heading)",
               fontSize: "2.5rem",
               fontWeight: 800,
-              color: "#fff",
+              color: "var(--fg)",
               letterSpacing: "-0.03em",
               lineHeight: 1,
               display: "block",
@@ -40,10 +42,10 @@ export function PriceDisplay({ plan, billing }: { plan: PlanData; billing: Billi
           style={{
             fontFamily: "var(--font-ui)",
             fontSize: "0.85rem",
-            color: "rgba(255,255,255,0.35)",
+            color: "var(--fg-muted)",
           }}
         >
-          /mes
+          {t.plans.perMonth}
         </span>
       </div>
       <AnimatePresence mode="wait">
@@ -61,7 +63,9 @@ export function PriceDisplay({ plan, billing }: { plan: PlanData; billing: Billi
               marginTop: 4,
             }}
           >
-            Ahorras {totalSavings.toLocaleString("es-ES")}€ en {opt.months} meses
+            {t.plans.savings
+              .replace("{amount}", totalSavings.toLocaleString("es-ES"))
+              .replace("{months}", String(opt.months))}
           </motion.p>
         )}
       </AnimatePresence>
@@ -108,7 +112,7 @@ export function FeatureList({ plan }: { plan: PlanData }) {
             style={{
               fontFamily: "var(--font-ui)",
               fontSize: "0.875rem",
-              color: "rgba(255,255,255,0.65)",
+              color: "var(--fg-secondary)",
               lineHeight: 1.4,
             }}
           >
@@ -141,7 +145,7 @@ export function PlanHeader({ plan }: { plan: PlanData }) {
         style={{
           fontFamily: "var(--font-ui)",
           fontSize: "0.82rem",
-          color: "rgba(255,255,255,0.40)",
+          color: "var(--fg-muted)",
           lineHeight: 1.4,
         }}
       >
@@ -154,14 +158,15 @@ export function PlanHeader({ plan }: { plan: PlanData }) {
 type CTAVariant = "default" | "gold" | "platinum"
 
 export function PlanCTA({ plan, variant }: { plan: PlanData; variant: CTAVariant }) {
+  const t = useT()
   const bg: Record<CTAVariant, string> = {
-    default: "rgba(255,255,255,0.06)",
-    gold: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
-    platinum: "linear-gradient(135deg, #4C1D95 0%, #1D4ED8 100%)",
+    default: "var(--surface-strong)",
+    gold: "var(--gradient-brand)",
+    platinum: "linear-gradient(135deg, #4C1D95 0%, var(--color-geko-blue) 100%)",
   }
   const shadow: Record<CTAVariant, string> = {
     default: "none",
-    gold: "0 4px 20px rgba(107,45,124,0.40)",
+    gold: "0 4px 20px var(--color-geko-purple-a40)",
     platinum: "0 4px 20px rgba(139,92,246,0.40)",
   }
 
@@ -179,14 +184,14 @@ export function PlanCTA({ plan, variant }: { plan: PlanData; variant: CTAVariant
         fontSize: "0.9375rem",
         fontWeight: 600,
         textDecoration: "none",
-        color: variant === "default" ? "rgba(255,255,255,0.80)" : "#fff",
+        color: variant === "default" ? "var(--fg)" : "#fff",
         background: bg[variant],
-        border: variant === "default" ? "1px solid rgba(255,255,255,0.10)" : "none",
+        border: variant === "default" ? "1px solid var(--border-strong)" : "none",
         boxShadow: shadow[variant],
         transition: "opacity 0.2s, transform 0.2s",
       }}
     >
-      Empezar con {plan.name}
+      {variant === "platinum" ? t.plans.ctaPlatinum : `${t.plans.ctaDefault} ${plan.name}`}
       <ArrowRight size={15} />
     </Link>
   )

@@ -1,63 +1,55 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
+import { useT } from "@/hooks/use-translations"
+import { CLIENT_LOGOS } from "@/constants/social-proof"
 
-const LOGOS = [
-  { src: "/logos/logo-bioresina.webp",   alt: "Bioresina" },
-  { src: "/logos/logo-camaron.webp",     alt: "Camarón" },
-  { src: "/logos/logo-ducha.webp",       alt: "Ducha" },
-  { src: "/logos/logo-la-sala.webp",     alt: "La Sala" },
-  { src: "/logos/logo-malabella.webp",   alt: "Malabella" },
-  { src: "/logos/logo-marpe.webp",       alt: "Marpe" },
-  { src: "/logos/logo-mkcodev.webp",     alt: "MKCoDev" },
-  { src: "/logos/logo-pull-people.webp", alt: "Pull People" },
-]
-
-// Quadruple the array so both rows have enough content to fill wide screens
-const TRACK = [...LOGOS, ...LOGOS, ...LOGOS, ...LOGOS]
+const TRACK = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS]
 
 export function SocialProof() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const prefersReduced = useReducedMotion()
+  const t = useT()
 
   return (
     <section
       ref={ref}
       style={{
-        paddingTop: 72,
-        paddingBottom: 72,
-        borderTop: "1px solid rgba(255,255,255,0.05)",
+        paddingTop: "var(--section-padding-tight)",
+        paddingBottom: "var(--section-padding-tight)",
+        borderTop: "1px solid var(--border-subtle)",
         overflow: "hidden",
       }}
     >
       {/* Label */}
       <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 10 }}
+        animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.5 }}
         style={{
           textAlign: "center",
           fontFamily: "var(--font-ui)",
           fontSize: "0.78rem",
           fontWeight: 500,
           letterSpacing: "0.12em",
-          color: "rgba(255,255,255,0.28)",
+          color: "var(--fg-subtle)",
           textTransform: "uppercase",
           marginBottom: 40,
         }}
       >
-        Empresas que confían en nosotros
+        {t.socialProof.label}
       </motion.p>
 
       {/* ── ROW: left → ── */}
-      <MarqueeRow direction="left" speed={55} />
+      <MarqueeRow direction="left" speed={55} paused={!!prefersReduced} />
 
       {/* Trust stats */}
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.25 }}
+        initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+        animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+        transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.25 }}
         style={{
           display: "flex",
           justifyContent: "center",
@@ -66,12 +58,7 @@ export function SocialProof() {
           marginTop: 56,
         }}
       >
-        {[
-          { value: "50+",  label: "Clientes activos" },
-          { value: "3 años", label: "De experiencia" },
-          { value: "98%",  label: "Tasa de retención" },
-          { value: "€2M+", label: "En ventas generadas" },
-        ].map((s) => (
+        {t.socialProof.stats.map((s) => (
           <div key={s.label} style={{ textAlign: "center" }}>
             <p style={{
               fontFamily: "var(--font-heading)",
@@ -80,7 +67,7 @@ export function SocialProof() {
               letterSpacing: "-0.03em",
               lineHeight: 1,
               marginBottom: 5,
-              background: "linear-gradient(135deg, #9B4DBC, #3B82F6)",
+              background: "linear-gradient(135deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -90,7 +77,7 @@ export function SocialProof() {
             <p style={{
               fontFamily: "var(--font-ui)",
               fontSize: "0.8125rem",
-              color: "rgba(255,255,255,0.35)",
+              color: "var(--fg-muted)",
             }}>
               {s.label}
             </p>
@@ -106,11 +93,14 @@ export function SocialProof() {
 function MarqueeRow({
   direction,
   speed,
+  paused: reducedMotionPaused,
 }: {
   direction: "left" | "right"
   speed: number
+  paused: boolean
 }) {
-  const [paused, setPaused] = useState(false)
+  const [hoverPaused, setHoverPaused] = useState(false)
+  const paused = reducedMotionPaused || hoverPaused
   const anim = direction === "left" ? "marquee" : "marquee-reverse"
 
   return (
@@ -157,8 +147,8 @@ function MarqueeRow({
             <LogoItem
               key={i}
               logo={logo}
-              onHoverStart={() => setPaused(true)}
-              onHoverEnd={() => setPaused(false)}
+              onHoverStart={() => setHoverPaused(true)}
+              onHoverEnd={() => setHoverPaused(false)}
             />
           ))}
         </div>
@@ -182,12 +172,8 @@ function LogoItem({
 
   return (
     <div
+      className="marquee-logo-item"
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "0 48px",
-        height: 80,
         flexShrink: 0,
       }}
       onMouseEnter={() => { setHovered(true); onHoverStart() }}

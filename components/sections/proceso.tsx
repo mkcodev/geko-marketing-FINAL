@@ -1,61 +1,23 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion, useInView } from "motion/react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
+import { Section } from "@/components/ui/section"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
+import { EASE } from "@/lib/animations"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
-
-const STEPS: {
-  number: string
-  title: string
-  description: string
-  duration: string
-  icon: IconName
-  color: string
-}[] = [
-  {
-    number: "01",
-    title: "Diagnóstico gratuito",
-    description:
-      "Analizamos tu presencia digital actual, tu competencia y tu audiencia objetivo. Sin compromiso. Con datos reales.",
-    duration: "Semana 1",
-    icon: "Target",
-    color: "#3B82F6",
-  },
-  {
-    number: "02",
-    title: "Estrategia a medida",
-    description:
-      "Diseñamos un plan de acción personalizado con objetivos claros, KPIs medibles y un roadmap de los primeros 90 días.",
-    duration: "Semana 2",
-    icon: "Layers",
-    color: "#8B5CF6",
-  },
-  {
-    number: "03",
-    title: "Ejecución & contenido",
-    description:
-      "Nuestro equipo crea y publica el contenido. Gestionamos campañas. Tú te enfocas en tu negocio.",
-    duration: "Mes 1-2",
-    icon: "Megaphone",
-    color: "#EC4899",
-  },
-  {
-    number: "04",
-    title: "Optimización continua",
-    description:
-      "Revisamos métricas cada semana, ajustamos lo que no funciona y escalamos lo que sí. Resultados medibles en 60 días.",
-    duration: "Ongoing",
-    icon: "LineChart",
-    color: "#10B981",
-  },
+const STEP_META: { icon: IconName; color: string }[] = [
+  { icon: "Target",    color: "var(--color-geko-blue-light)" },
+  { icon: "Layers",    color: "#8B5CF6" },
+  { icon: "Megaphone", color: "#EC4899" },
+  { icon: "LineChart", color: "#10B981" },
 ]
 
 // SVG path control points for the connector line (horizontal, desktop)
@@ -67,15 +29,19 @@ const NODE_FRACTIONS = [0, 0.26, 0.54, 0.82]
 // ─── Main section ─────────────────────────────────────────────────────────────
 
 export function Proceso() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
   const [activeNodes, setActiveNodes] = useState<boolean[]>([false, false, false, false])
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
+  const headerInView = useInView(headerRef, { once: true, margin: "-80px" })
+  const t = useT()
 
   useEffect(() => {
     if (!isDesktop || prefersReduced) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveNodes([true, true, true, true])
       return
     }
@@ -112,23 +78,13 @@ export function Proceso() {
   }, [isDesktop, prefersReduced])
 
   return (
-    <section
-      ref={sectionRef}
-      style={{
-        paddingTop: 96,
-        paddingBottom: 96,
-        background: "rgba(255,255,255,0.012)",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
-        overflow: "hidden",
-      }}
-    >
-      <div className="section-container">
+    <Section background="var(--section-alt)" borderTop borderBottom className="overflow-hidden">
+      <div ref={sectionRef} className="section-container">
         {/* Header */}
         <motion.div
+          ref={headerRef}
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          animate={headerInView || prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: EASE }}
           style={{ marginBottom: 64, textAlign: "center" }}
         >
@@ -137,18 +93,18 @@ export function Proceso() {
               display: "inline-block",
               padding: "4px 12px",
               borderRadius: 9999,
-              background: "rgba(29,78,216,0.12)",
-              border: "1px solid rgba(29,78,216,0.30)",
+              background: "var(--color-geko-blue-a12)",
+              border: "1px solid var(--color-geko-blue-a30)",
               fontFamily: "var(--font-ui)",
               fontSize: "0.78rem",
               fontWeight: 500,
-              color: "#3B82F6",
+              color: "var(--color-geko-blue-light)",
               letterSpacing: "0.05em",
               textTransform: "uppercase",
               marginBottom: 16,
             }}
           >
-            Proceso
+            {t.process.label}
           </span>
           <h2
             style={{
@@ -159,10 +115,10 @@ export function Proceso() {
               fontWeight: 800,
               lineHeight: 1.1,
               letterSpacing: "-0.03em",
-              color: "rgba(255,255,255,0.96)",
+              color: "var(--fg)",
             }}
           >
-            Cómo trabajamos contigo
+            {t.process.headline}
           </h2>
         </motion.div>
 
@@ -195,7 +151,7 @@ export function Proceso() {
                 <path
                   d={LINE_PATH}
                   fill="none"
-                  stroke="rgba(255,255,255,0.06)"
+                  style={{ stroke: "var(--border-subtle)" }}
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 />
@@ -210,7 +166,7 @@ export function Proceso() {
                 />
                 <defs>
                   <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.8" />
+                    <stop offset="0%" stopColor="var(--color-geko-blue-light)" stopOpacity="0.8" />
                     <stop offset="33%" stopColor="#8B5CF6" stopOpacity="0.9" />
                     <stop offset="66%" stopColor="#EC4899" stopOpacity="0.9" />
                     <stop offset="100%" stopColor="#10B981" stopOpacity="0.8" />
@@ -230,10 +186,10 @@ export function Proceso() {
               zIndex: 1,
             }}
           >
-            {STEPS.map((step, i) => (
+            {t.process.steps.map((step, i) => (
               <StepCard
                 key={step.number}
-                step={step}
+                step={{ ...step, ...STEP_META[i] }}
                 index={i}
                 isDesktop={isDesktop}
                 active={activeNodes[i]}
@@ -243,7 +199,7 @@ export function Proceso() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
 
@@ -285,10 +241,10 @@ function StepCard({
         style={{
           padding: isDesktop ? "28px 22px" : "22px",
           borderRadius: 20,
-          background: "rgba(255,255,255,0.028)",
+          background: "var(--surface)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          border: `1px solid rgba(255,255,255,${active ? "0.10" : "0.05"})`,
+          border: `1px solid ${active ? "var(--border-strong)" : "var(--border-subtle)"}`,
           display: "flex",
           flexDirection: isDesktop ? "column" : "row",
           gap: isDesktop ? 20 : 16,
@@ -349,12 +305,12 @@ function StepCard({
               borderRadius: "50%",
               background: active
                 ? `linear-gradient(135deg, ${step.color}33, ${step.color}18)`
-                : "rgba(255,255,255,0.04)",
-              border: `1.5px solid ${active ? step.color + "66" : "rgba(255,255,255,0.10)"}`,
+                : "var(--surface)",
+              border: `1.5px solid ${active ? step.color + "66" : "var(--border-strong)"}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: active ? step.color : "rgba(255,255,255,0.30)",
+              color: active ? step.color : "var(--fg-muted)",
               transition: "background 0.4s, border-color 0.4s, color 0.4s",
               boxShadow: active ? `0 0 20px ${step.color}30` : "none",
             }}
@@ -373,14 +329,14 @@ function StepCard({
               borderRadius: "50%",
               background: active
                 ? `linear-gradient(135deg, ${step.color}, ${step.color}cc)`
-                : "rgba(255,255,255,0.10)",
+                : "var(--border-strong)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontFamily: "var(--font-ui)",
               fontSize: "0.6rem",
               fontWeight: 700,
-              color: active ? "#fff" : "rgba(255,255,255,0.30)",
+              color: active ? "#fff" : "var(--fg-muted)",
               transition: "background 0.4s, color 0.4s",
             }}
           >
@@ -394,7 +350,7 @@ function StepCard({
             style={{
               fontFamily: "var(--font-ui)",
               fontSize: "0.70rem",
-              color: active ? `${step.color}cc` : "rgba(255,255,255,0.25)",
+              color: active ? `${step.color}cc` : "var(--fg-subtle)",
               letterSpacing: "0.09em",
               textTransform: "uppercase",
               display: "block",
@@ -409,7 +365,7 @@ function StepCard({
               fontFamily: "var(--font-heading)",
               fontSize: "1rem",
               fontWeight: 700,
-              color: active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.55)",
+              color: active ? "var(--fg)" : "var(--fg-secondary)",
               letterSpacing: "-0.01em",
               marginBottom: 8,
               transition: "color 0.4s",
@@ -421,7 +377,7 @@ function StepCard({
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "0.875rem",
-              color: active ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.28)",
+              color: active ? "var(--fg-secondary)" : "var(--fg-subtle)",
               lineHeight: 1.7,
               transition: "color 0.4s",
             }}

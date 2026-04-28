@@ -16,12 +16,12 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://www.recaptcha.net https://client.crisp.chat",
-      "style-src 'self' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://www.recaptcha.net https://client.crisp.chat https://cusdis.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' data: blob: https:",
-      "font-src 'self' data:",
-      "connect-src 'self' https://api.resend.com https://api.hubspot.com https://www.google-analytics.com https://www.clarity.ms https://client.crisp.chat wss://client.relay.crisp.chat https://api.github.com",
-      "frame-src https://calendly.com https://www.recaptcha.net",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "connect-src 'self' https://api.web3forms.com https://www.google-analytics.com https://www.googletagmanager.com https://www.clarity.ms https://client.crisp.chat wss://client.relay.crisp.chat https://cusdis.com",
+      "frame-src https://calendly.com https://www.recaptcha.net https://cusdis.com",
       "worker-src blob:",
     ].join("; "),
   },
@@ -70,7 +70,14 @@ const nextConfig: NextConfig = {
   },
 
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: [
+      "lucide-react",
+      "motion",
+      "@radix-ui/react-accordion",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-select",
+    ],
   },
 }
 

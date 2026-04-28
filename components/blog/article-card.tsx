@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import Link from "next/link"
-import { motion, useMotionValue, useTransform, useReducedMotion } from "framer-motion"
+import { motion, useMotionValue, useTransform, useReducedMotion } from "motion/react"
 import { Clock, Calendar, ArrowUpRight } from "lucide-react"
 import { Icon } from "@/lib/icons"
 import { CATEGORY_META, formatDate } from "@/lib/blog-constants"
@@ -47,15 +47,15 @@ function FeaturedCard({
           style={{
             position: "relative",
             borderRadius: 24,
-            background: "rgba(255,255,255,0.028)",
-            border: `1px solid rgba(255,255,255,${hovered ? "0.12" : "0.07"})`,
+            background: "var(--surface)",
+            border: `1px solid ${hovered ? "var(--border-strong)" : "var(--border-subtle)"}`,
             overflow: "hidden",
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             minHeight: 280,
             transition: "border-color 0.3s, box-shadow 0.3s",
             boxShadow: hovered
-              ? "0 24px 56px rgba(0,0,0,0.35), 0 0 48px rgba(107,45,124,0.10)"
+              ? "0 24px 56px rgba(0,0,0,0.35), 0 0 48px var(--color-geko-purple-a10)"
               : "0 4px 24px rgba(0,0,0,0.18)",
           }}
         >
@@ -96,7 +96,7 @@ function FeaturedCard({
                 borderRadius: 9999,
                 background: "rgba(0,0,0,0.30)",
                 backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255,255,255,0.18)",
+                border: "1px solid var(--fg-faint)",
               }}
             >
               <Icon name={cat.icon as import("@/lib/icons").IconName} size={12} color="#fff" />
@@ -147,7 +147,7 @@ function FeaturedCard({
                 gap: 5,
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.75rem",
-                color: "rgba(255,255,255,0.65)",
+                color: "var(--fg-secondary)",
               }}
             >
               <Clock size={12} />
@@ -186,7 +186,7 @@ function FeaturedCard({
                   fontWeight: 800,
                   lineHeight: 1.2,
                   letterSpacing: "-0.025em",
-                  color: "rgba(255,255,255,0.94)",
+                  color: "var(--fg)",
                   marginBottom: 14,
                 }}
               >
@@ -198,7 +198,7 @@ function FeaturedCard({
                   fontFamily: "var(--font-body)",
                   fontSize: "0.9375rem",
                   lineHeight: 1.7,
-                  color: "rgba(255,255,255,0.45)",
+                  color: "var(--fg-secondary)",
                   display: "-webkit-box",
                   WebkitLineClamp: 3,
                   WebkitBoxOrient: "vertical",
@@ -215,7 +215,7 @@ function FeaturedCard({
                 alignItems: "center",
                 justifyContent: "space-between",
                 paddingTop: 20,
-                borderTop: "1px solid rgba(255,255,255,0.07)",
+                borderTop: "1px solid var(--border-subtle)",
                 marginTop: 24,
               }}
             >
@@ -226,7 +226,7 @@ function FeaturedCard({
                   gap: 6,
                   fontFamily: "var(--font-ui)",
                   fontSize: "0.78rem",
-                  color: "rgba(255,255,255,0.30)",
+                  color: "var(--fg-muted)",
                 }}
               >
                 <Calendar size={12} />
@@ -313,8 +313,8 @@ function StandardCard({
           style={{
             position: "relative",
             borderRadius: 20,
-            background: "rgba(255,255,255,0.025)",
-            border: `1px solid rgba(255,255,255,${hovered ? "0.11" : "0.06"})`,
+            background: "var(--surface)",
+            border: `1px solid ${hovered ? "var(--border-strong)" : "var(--border-subtle)"}`,
             overflow: "hidden",
             height: "100%",
             display: "flex",
@@ -322,7 +322,7 @@ function StandardCard({
             transition: "border-color 0.25s, box-shadow 0.25s, transform 0.25s",
             transform: hovered ? "translateY(-4px)" : "translateY(0)",
             boxShadow: hovered
-              ? "0 20px 48px rgba(0,0,0,0.32), 0 0 40px rgba(107,45,124,0.08)"
+              ? "0 20px 48px rgba(0,0,0,0.32), 0 0 40px var(--color-geko-purple-a08)"
               : "0 2px 16px rgba(0,0,0,0.14)",
           }}
         >
@@ -381,7 +381,7 @@ function StandardCard({
                 borderRadius: 9999,
                 background: "rgba(0,0,0,0.32)",
                 backdropFilter: "blur(8px)",
-                border: "1px solid rgba(255,255,255,0.14)",
+                border: "1px solid var(--border-strong)",
               }}
             >
               <Icon name={cat.icon as import("@/lib/icons").IconName} size={10} color="#fff" />
@@ -414,7 +414,7 @@ function StandardCard({
                 backdropFilter: "blur(8px)",
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.68rem",
-                color: "rgba(255,255,255,0.60)",
+                color: "var(--fg-secondary)",
               }}
             >
               <Clock size={10} />
@@ -440,7 +440,7 @@ function StandardCard({
                 fontWeight: 700,
                 lineHeight: 1.3,
                 letterSpacing: "-0.02em",
-                color: "rgba(255,255,255,0.93)",
+                color: "var(--fg)",
                 marginBottom: 10,
                 display: "-webkit-box",
                 WebkitLineClamp: 2,
@@ -456,7 +456,7 @@ function StandardCard({
                 fontFamily: "var(--font-body)",
                 fontSize: "0.875rem",
                 lineHeight: 1.65,
-                color: "rgba(255,255,255,0.40)",
+                color: "var(--fg-muted)",
                 marginBottom: 18,
                 flex: 1,
                 display: "-webkit-box",
@@ -505,7 +505,7 @@ function StandardCard({
                 alignItems: "center",
                 justifyContent: "space-between",
                 paddingTop: 14,
-                borderTop: "1px solid rgba(255,255,255,0.06)",
+                borderTop: "1px solid var(--border-subtle)",
               }}
             >
               <span
@@ -515,7 +515,7 @@ function StandardCard({
                   gap: 5,
                   fontFamily: "var(--font-ui)",
                   fontSize: "0.75rem",
-                  color: "rgba(255,255,255,0.28)",
+                  color: "var(--fg-subtle)",
                 }}
               >
                 <Calendar size={11} />

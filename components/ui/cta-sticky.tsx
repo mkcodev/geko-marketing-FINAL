@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
@@ -47,14 +47,14 @@ export function CtaSticky() {
               padding: hovered ? "18px 16px" : "16px 14px",
               borderRadius: 16,
               background: hovered
-                ? "rgba(107,45,124,0.20)"
+                ? "var(--color-geko-purple-a20)"
                 : "rgba(8,8,16,0.90)",
               border: hovered
-                ? "1px solid rgba(107,45,124,0.50)"
-                : "1px solid rgba(255,255,255,0.10)",
+                ? "1px solid var(--color-geko-purple-a50)"
+                : "1px solid var(--border-strong)",
               backdropFilter: "blur(20px)",
               boxShadow: hovered
-                ? "0 8px 32px rgba(107,45,124,0.30), 0 0 0 1px rgba(107,45,124,0.15)"
+                ? "0 8px 32px var(--color-geko-purple-a30), 0 0 0 1px var(--color-geko-purple-a15)"
                 : "0 8px 24px rgba(0,0,0,0.40)",
               textDecoration: "none",
               transition: "all 0.3s ease",
@@ -68,8 +68,8 @@ export function CtaSticky() {
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 width: 8, height: 8, borderRadius: "50%",
-                background: "linear-gradient(135deg, #9B4DBC, #3B82F6)",
-                boxShadow: "0 0 8px rgba(107,45,124,0.6)",
+                background: "linear-gradient(135deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
+                boxShadow: "0 0 8px var(--color-geko-purple-a60)",
               }}
             />
 
@@ -84,7 +84,7 @@ export function CtaSticky() {
                 fontSize: "0.75rem",
                 fontWeight: 600,
                 letterSpacing: "0.04em",
-                color: hovered ? "rgba(255,255,255,0.90)" : "rgba(255,255,255,0.55)",
+                color: hovered ? "var(--fg)" : "var(--fg-secondary)",
                 transition: "color 0.2s",
                 whiteSpace: "nowrap",
               }}>
@@ -97,7 +97,7 @@ export function CtaSticky() {
               animate={hovered ? { y: [0, 3, 0] } : {}}
               transition={{ duration: 0.8, repeat: Infinity }}
               style={{
-                color: hovered ? "#9B4DBC" : "rgba(255,255,255,0.30)",
+                color: hovered ? "var(--color-geko-purple-accent)" : "var(--fg-muted)",
                 transition: "color 0.2s",
                 transform: "rotate(90deg)",
               }}

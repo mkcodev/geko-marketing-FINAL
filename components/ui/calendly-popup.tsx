@@ -1,11 +1,15 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { InlineWidget } from "react-calendly"
-import { motion, AnimatePresence } from "framer-motion"
-import { X, CalendarDays, Clock, Video } from "lucide-react"
+import dynamic from "next/dynamic"
+import { motion, AnimatePresence } from "motion/react"
 
-const CALENDLY_URL = "https://calendly.com/info-gekomarketing/30min"
+const InlineWidget = dynamic(
+  () => import("react-calendly").then((m) => ({ default: m.InlineWidget })),
+  { ssr: false, loading: () => <div style={{ height: 660 }} /> }
+)
+import { X, CalendarDays, Clock, Video } from "lucide-react"
+import { CALENDLY_URL } from "@/constants/contact"
 
 const PAGE_SETTINGS = {
   backgroundColor: "080810",
@@ -62,7 +66,7 @@ function CalendlyModal({ onClose }: { onClose: () => void }) {
           borderRadius: 20,
           overflow: "hidden",
           background: "#080810",
-          border: "1px solid rgba(255,255,255,0.08)",
+          border: "1px solid var(--border)",
           boxShadow: "0 32px 80px rgba(0,0,0,0.80)",
         }}
       >
@@ -73,10 +77,10 @@ function CalendlyModal({ onClose }: { onClose: () => void }) {
           style={{
             position: "absolute", top: 14, right: 14, zIndex: 10,
             width: 32, height: 32, borderRadius: "50%",
-            background: "rgba(255,255,255,0.08)",
-            border: "1px solid rgba(255,255,255,0.12)",
+            background: "var(--border)",
+            border: "1px solid var(--border-strong)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            cursor: "pointer", color: "rgba(255,255,255,0.60)",
+            cursor: "pointer", color: "var(--fg-secondary)",
             transition: "background 0.2s",
           }}
         >
@@ -100,6 +104,7 @@ function CalendlyModal({ onClose }: { onClose: () => void }) {
 export function CalendlyCard() {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMounted(true) }, [])
 
   const close = useCallback(() => setOpen(false), [])
@@ -110,8 +115,8 @@ export function CalendlyCard() {
         style={{
           padding: "28px 24px",
           borderRadius: 20,
-          background: "linear-gradient(135deg, rgba(107,45,124,0.12) 0%, rgba(29,78,216,0.08) 100%)",
-          border: "1px solid rgba(107,45,124,0.25)",
+          background: "linear-gradient(135deg, var(--color-geko-purple-a12) 0%, var(--color-geko-blue-a08) 100%)",
+          border: "1px solid var(--color-geko-purple-a25)",
           position: "relative",
           overflow: "hidden",
         }}
@@ -120,7 +125,7 @@ export function CalendlyCard() {
         <div aria-hidden style={{
           position: "absolute", top: -40, right: -40,
           width: 160, height: 160, borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(107,45,124,0.30) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-purple-a30) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
 
@@ -128,9 +133,9 @@ export function CalendlyCard() {
         <div style={{
           display: "inline-flex", alignItems: "center", justifyContent: "center",
           width: 48, height: 48, borderRadius: 14,
-          background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+          background: "var(--gradient-brand)",
           marginBottom: 16,
-          boxShadow: "0 4px 16px rgba(107,45,124,0.45)",
+          boxShadow: "0 4px 16px var(--color-geko-purple-a45)",
         }}>
           <CalendarDays size={22} color="#fff" />
         </div>
@@ -139,20 +144,20 @@ export function CalendlyCard() {
         <p style={{
           fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 600,
           letterSpacing: "0.10em", textTransform: "uppercase",
-          color: "#9B4DBC", marginBottom: 8,
+          color: "var(--color-geko-purple-accent)", marginBottom: 8,
         }}>
           Gratis · Sin compromiso
         </p>
         <h3 style={{
           fontFamily: "var(--font-heading)", fontSize: "1.25rem",
           fontWeight: 700, lineHeight: 1.2, letterSpacing: "-0.02em",
-          color: "rgba(255,255,255,0.95)", marginBottom: 8,
+          color: "var(--fg)", marginBottom: 8,
         }}>
           Consulta gratuita de 30&nbsp;min
         </h3>
         <p style={{
           fontFamily: "var(--font-body)", fontSize: "0.875rem",
-          color: "rgba(255,255,255,0.45)", lineHeight: 1.6, marginBottom: 20,
+          color: "var(--fg-secondary)", lineHeight: 1.6, marginBottom: 20,
         }}>
           Cuéntanos tu situación y te damos una estrategia inicial adaptada a tu negocio.
         </p>
@@ -161,8 +166,8 @@ export function CalendlyCard() {
         <ul style={{ listStyle: "none", padding: 0, margin: "0 0 24px", display: "flex", flexDirection: "column", gap: 8 }}>
           {PERKS.map((p) => (
             <li key={p.text} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ color: "#9B4DBC", flexShrink: 0 }}>{p.icon}</span>
-              <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.55)" }}>
+              <span style={{ color: "var(--color-geko-purple-accent)", flexShrink: 0 }}>{p.icon}</span>
+              <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "var(--fg-secondary)" }}>
                 {p.text}
               </span>
             </li>
@@ -175,10 +180,10 @@ export function CalendlyCard() {
             onClick={() => setOpen(true)}
             style={{
               width: "100%", padding: "13px 20px", borderRadius: 12,
-              background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+              background: "var(--gradient-brand)",
               border: "none", cursor: "pointer",
               fontFamily: "var(--font-ui)", fontSize: "0.9375rem", fontWeight: 600,
-              color: "#fff", boxShadow: "0 4px 20px rgba(107,45,124,0.45)",
+              color: "#fff", boxShadow: "0 4px 20px var(--color-geko-purple-a45)",
               transition: "opacity 0.2s",
             }}
           >

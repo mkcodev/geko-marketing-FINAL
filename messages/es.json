@@ -1,0 +1,673 @@
+{
+  "common": {
+    "cta": "Hablemos",
+    "ctaFree": "Consulta gratuita",
+    "learnMore": "Ver más",
+    "bookFree": "Reserva gratis",
+    "month": "mes",
+    "year": "año",
+    "monthly": "Mensual",
+    "annual": "Anual",
+    "save": "Ahorra",
+    "popular": "Más popular",
+    "freeConsult": "Reserva tu consulta gratuita",
+    "noCommitment": "Sin permanencia · Sin compromiso",
+    "responseTime": "Respuesta en menos de 24 horas laborables",
+    "startToday": "Empieza hoy"
+  },
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "blog": "Blog",
+    "cta": "Hablemos",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "lightMode": "Modo claro",
+    "darkMode": "Modo oscuro",
+    "changeLanguage": "Cambiar idioma",
+    "megaMenu": {
+      "whyGeko": "Por qué Geko",
+      "headline": "Resultados reales,",
+      "headlineAccent": "medidos desde el día 1.",
+      "viewAll": "Ver comparativa completa",
+      "stats": [
+        {
+          "value": "+247%",
+          "label": "Engagement",
+          "sub": "media en 90 días"
+        },
+        {
+          "value": "×4.2",
+          "label": "ROAS",
+          "sub": "en Meta & Google"
+        },
+        {
+          "value": "98/100",
+          "label": "PageSpeed",
+          "sub": "velocidad web"
+        }
+      ],
+      "tags": [
+        "Sin permanencia",
+        "Resultados en 60 días",
+        "Soporte prioritario"
+      ]
+    }
+  },
+  "announcementBar": {
+    "spots": "3",
+    "month": "Mayo",
+    "text": "Solo quedan {spots} plazas para nuevos clientes en {month}",
+    "cta": "Reserva gratis →",
+    "close": "Cerrar anuncio"
+  },
+  "footer": {
+    "company": "Empresa",
+    "services": "Servicios",
+    "legal": "Legal",
+    "followUs": "Síguenos",
+    "newsletter": {
+      "title": "Estrategias que funcionan,",
+      "titleAccent": "directo a tu inbox.",
+      "subtitle": "Sin spam. Solo insights de marketing digital cada semana.",
+      "placeholder": "tu@email.com",
+      "cta": "Suscribirme",
+      "success": "¡Suscrito! Gracias.",
+      "error": "Error al suscribirse."
+    },
+    "disclaimer": "Agencia de marketing digital en Tres Cantos, Madrid. Ayudamos a pymes a crecer con estrategias reales y resultados medibles.",
+    "rights": "Todos los derechos reservados.",
+    "links": {
+      "home": "Inicio",
+      "services": "Servicios",
+      "about": "Nosotros",
+      "blog": "Blog",
+      "contact": "Contacto",
+      "social": "Redes Sociales",
+      "branding": "Impulso de Marca",
+      "web": "Páginas Web",
+      "privacy": "Privacidad",
+      "cookies": "Cookies",
+      "legal": "Aviso Legal"
+    }
+  },
+  "hero": {
+    "badge": "Agencia de Marketing Digital · Tres Cantos, Madrid",
+    "headline": "Transformamos seguidores en",
+    "typewriterWords": [
+      "clientes",
+      "ventas",
+      "resultados"
+    ],
+    "subheadline": "Gestionamos tus redes sociales, creamos tu identidad de marca y diseñamos webs que convierten. Todo para que tú te centres en lo que mejor sabes hacer.",
+    "cta": "Quiero resultados reales",
+    "ctaSecondary": "Ver nuestros servicios",
+    "stats": [
+      {
+        "value": "50+",
+        "label": "Clientes activos"
+      },
+      {
+        "value": "3+",
+        "label": "Años de experiencia"
+      },
+      {
+        "value": "98%",
+        "label": "Tasa de retención"
+      }
+    ]
+  },
+  "socialProof": {
+    "label": "Empresas que confían en nosotros",
+    "stats": [
+      {
+        "value": "50+",
+        "label": "Clientes activos"
+      },
+      {
+        "value": "3 años",
+        "label": "De experiencia"
+      },
+      {
+        "value": "98%",
+        "label": "Tasa de retención"
+      },
+      {
+        "value": "€2M+",
+        "label": "En ventas generadas"
+      }
+    ]
+  },
+  "painSolution": {
+    "headline": "¿Te suena alguna de estas situaciones?",
+    "subheadline": "Si es así, no estás solo. Y tienen solución.",
+    "problemsLabel": "El problema",
+    "solutionsLabel": "Nuestra solución",
+    "pains": [
+      "Publicas sin estrategia y sin ver resultados",
+      "No sabes si tus seguidores son clientes potenciales",
+      "Pierdes tiempo creando contenido que no convierte",
+      "Tus competidores crecen mientras tú te quedas estancado",
+      "Pagas publicidad sin saber si funciona de verdad",
+      "No tienes datos claros para tomar decisiones"
+    ],
+    "gains": [
+      "Estrategia clara con objetivos y KPIs desde el día 1",
+      "Audiencia cualificada que se convierte en clientes reales",
+      "Contenido diario gestionado por nuestro equipo",
+      "Ventaja competitiva medible en 60 días",
+      "Campañas optimizadas con ROAS real y transparente",
+      "Dashboard en tiempo real con todo lo que importa"
+    ]
+  },
+  "services": {
+    "label": "Servicios",
+    "headline": "Todo lo que tu marca necesita",
+    "subheadline": "Soluciones de marketing digital integrales para que tu negocio crezca sin complicaciones.",
+    "cta": "Ver todos los servicios",
+    "items": {
+      "gestion-redes": {
+        "name": "Gestión de Redes Sociales",
+        "tagline": "Presencia activa, comunidad real, resultados medibles",
+        "description": "Nos ocupamos de todo: estrategia, creación de contenido, publicación diaria y análisis mensual. Tú te centras en tu negocio, nosotros en que tu marca crezca y tu comunidad se convierta en clientes.",
+        "deliverables": [
+          "Estrategia de contenido mensual personalizada",
+          "Creación de posts, reels y stories de alta calidad",
+          "Publicación y programación en todas tus redes",
+          "Gestión de comentarios y mensajes directos",
+          "Campañas de Social Ads optimizadas para conversión",
+          "Informe mensual detallado con métricas y próximos pasos"
+        ],
+        "caseStudy": {
+          "client": "Restaurante local, Tres Cantos",
+          "metricLabel": "de engagement en 90 días",
+          "detail": "De 800 a 12.400 seguidores"
+        },
+        "metrics": [
+          {
+            "label": "Alcance semanal medio"
+          },
+          {
+            "label": "Incremento engagement"
+          },
+          {
+            "label": "ROAS en campañas"
+          }
+        ]
+      },
+      "branding": {
+        "name": "Impulso de Marca",
+        "tagline": "Una identidad que inspira confianza y atrae a tu cliente ideal",
+        "description": "Construimos o renovamos tu identidad de marca para que cada punto de contacto con el cliente transmita profesionalidad, coherencia y valores. Porque antes de contratar, la gente ya juzga por la imagen.",
+        "deliverables": [
+          "Identidad visual completa — logo, colores y tipografías",
+          "Manual de marca con guías de uso claras",
+          "Pack de 20+ plantillas editables para redes sociales",
+          "Fotografía y video corporativo",
+          "Naming y copywriting de marca alineado a tu público",
+          "Estrategia de comunicación y definición del tono de voz"
+        ],
+        "caseStudy": {
+          "client": "Clínica de estética, Madrid",
+          "metricLabel": "reconocimiento de marca",
+          "detail": "Rebrand completo en 6 semanas"
+        },
+        "metrics": [
+          {
+            "label": "Entrega completa"
+          },
+          {
+            "label": "Reconocimiento marca"
+          },
+          {
+            "label": "Coherencia en todos los canales"
+          }
+        ]
+      },
+      "paginas-web": {
+        "name": "Páginas Web",
+        "tagline": "Webs que cargan rápido, se ven perfectas y convierten visitas en clientes",
+        "description": "Diseñamos y desarrollamos tu web desde cero con foco en tres cosas: que sea rápida, que se vea increíble en cualquier dispositivo y que convierta visitas en clientes reales.",
+        "deliverables": [
+          "Diseño UI/UX personalizado y totalmente responsive",
+          "Desarrollo en Next.js o WordPress según necesidad",
+          "SEO técnico on-page implementado desde el primer día",
+          "Integración con tu CRM, formularios y analytics",
+          "Optimización Core Web Vitals — velocidad máxima",
+          "Mantenimiento y soporte técnico post-lanzamiento"
+        ],
+        "caseStudy": {
+          "client": "Inmobiliaria, Tres Cantos",
+          "metricLabel": "tráfico orgánico en 4 meses",
+          "detail": "Velocidad ×4 vs web anterior"
+        },
+        "metrics": [
+          {
+            "label": "Tiempo de carga"
+          },
+          {
+            "label": "Tráfico orgánico"
+          },
+          {
+            "label": "Google PageSpeed"
+          }
+        ]
+      }
+    }
+  },
+  "plans": {
+    "label": "Precios",
+    "headline": "Planes diseñados para crecer",
+    "subheadline": "Sin letras pequeñas. Sin sorpresas. Empieza cuando quieras, cancela cuando quieras.",
+    "billingMonthly": "Mensual",
+    "billingQuarterly": "Trimestral",
+    "billingBiannual": "Semestral",
+    "billingAnnual": "Anual",
+    "saveBadge": "Ahorra 2 meses",
+    "perMonth": "/ mes",
+    "savings": "Ahorras {amount}€ en {months} meses",
+    "customNote": "¿Necesitas algo personalizado?",
+    "customCta": "Hablemos →",
+    "popular": "Más popular",
+    "ctaDefault": "Empezar ahora",
+    "ctaPlatinum": "Contactar",
+    "items": {
+      "silver": {
+        "name": "Silver",
+        "tagline": "Para empezar con fuerza",
+        "features": [
+          "Gestión de 2 redes sociales",
+          "12 publicaciones/mes",
+          "Diseño de contenido",
+          "Reporte mensual",
+          "Soporte por email",
+          "1 campaña Meta Ads/mes"
+        ]
+      },
+      "golden": {
+        "name": "Golden",
+        "tagline": "El más popular entre nuestros clientes",
+        "features": [
+          "Gestión de 4 redes sociales",
+          "24 publicaciones/mes",
+          "Reels & stories semanales",
+          "Gestión de comunidad",
+          "Reportes semanales",
+          "Campañas Meta + Google Ads",
+          "Email marketing (2/mes)",
+          "Soporte prioritario"
+        ]
+      },
+      "platinum": {
+        "name": "Platinum",
+        "tagline": "Para marcas con ambición",
+        "features": [
+          "Gestión ilimitada de redes",
+          "Contenido diario",
+          "Producción de vídeo mensual",
+          "Estrategia SEO & blog",
+          "Dashboard en tiempo real",
+          "Campañas multi-plataforma",
+          "Email marketing ilimitado",
+          "Account manager dedicado",
+          "Reunión estratégica quincenal"
+        ]
+      }
+    }
+  },
+  "process": {
+    "label": "Proceso",
+    "headline": "De cero a resultados en 60 días",
+    "subheadline": "Un proceso estructurado, sin improvisación, donde cada semana cuenta.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Diagnóstico gratuito",
+        "description": "Analizamos tu presencia digital actual, tu competencia y tu audiencia objetivo. Sin compromiso. Con datos reales.",
+        "duration": "Semana 1"
+      },
+      {
+        "number": "02",
+        "title": "Estrategia a medida",
+        "description": "Diseñamos un plan de acción personalizado con objetivos claros, KPIs medibles y un roadmap de los primeros 90 días.",
+        "duration": "Semana 2"
+      },
+      {
+        "number": "03",
+        "title": "Ejecución & contenido",
+        "description": "Nuestro equipo crea y publica el contenido. Gestionamos campañas. Tú te enfocas en tu negocio.",
+        "duration": "Mes 1-2"
+      },
+      {
+        "number": "04",
+        "title": "Optimización continua",
+        "description": "Revisamos métricas cada semana, ajustamos lo que no funciona y escalamos lo que sí. Resultados medibles en 60 días.",
+        "duration": "Ongoing"
+      }
+    ]
+  },
+  "metrics": {
+    "label": "Resultados",
+    "headline": "Números que hablan por sí solos",
+    "items": [
+      {
+        "value": 247,
+        "suffix": "%",
+        "label": "Aumento de engagement medio",
+        "sublabel": "en los primeros 90 días"
+      },
+      {
+        "value": 4.2,
+        "suffix": "×",
+        "label": "ROAS medio en campañas",
+        "sublabel": "Meta Ads + Google Ads"
+      },
+      {
+        "value": 98,
+        "suffix": "%",
+        "label": "Tasa de retención",
+        "sublabel": "clientes que renuevan contrato"
+      },
+      {
+        "value": 2.1,
+        "suffix": "M€",
+        "label": "En ventas generadas",
+        "sublabel": "para clientes en 2024"
+      }
+    ]
+  },
+  "testimonials": {
+    "label": "Testimonios",
+    "headline": "Lo que dicen nuestros clientes",
+    "subheadline": "Resultados reales de negocios reales.",
+    "items": [
+      {
+        "name": "Laura Martínez",
+        "role": "CEO · Clínica Estética Lumina",
+        "avatar": "LM",
+        "color": "#9B4DBC",
+        "stars": 5,
+        "text": "En 3 meses duplicamos las reservas online desde Instagram. Geko no solo gestiona las redes — entienden el negocio y crean contenido que convierte. El equipo es increíblemente rápido y profesional.",
+        "platform": "Google",
+        "result": "+112% reservas online"
+      },
+      {
+        "name": "Carlos Ruiz",
+        "role": "Fundador · TechFix Soluciones",
+        "avatar": "CR",
+        "color": "#3B82F6",
+        "stars": 5,
+        "text": "Llevábamos años sin presencia digital real. En 60 días teníamos una estrategia sólida, contenido diario y nuestras primeras campañas de Meta con un ROAS de ×3.8. Ahora no podemos imaginar el negocio sin Geko.",
+        "platform": "Google",
+        "result": "ROAS ×3.8 desde el mes 2"
+      },
+      {
+        "name": "Sofía Delgado",
+        "role": "Directora · Academia Idiomas Berlin",
+        "avatar": "SD",
+        "color": "#10B981",
+        "stars": 5,
+        "text": "Lo que más me sorprendió fue la rapidez. El primer mes ya notamos el cambio en las consultas. Ahora tenemos lista de espera para septiembre — algo que nunca habíamos conseguido con otras agencias.",
+        "platform": "Google",
+        "result": "Lista de espera en 90 días"
+      },
+      {
+        "name": "Marcos Jiménez",
+        "role": "Propietario · Restaurante La Brasa",
+        "avatar": "MJ",
+        "color": "#F59E0B",
+        "stars": 5,
+        "text": "Con Geko pasamos de 400 a 8.200 seguidores en Instagram en 4 meses. Las reservas por redes sociales aumentaron un 340%. Su estrategia de contenido es diferente — cada publicación tiene un propósito.",
+        "platform": "Google",
+        "result": "+8K seguidores · +340% reservas"
+      },
+      {
+        "name": "Ana Vega",
+        "role": "Directora Mkt · Grupo Inmobiliario Solaris",
+        "avatar": "AV",
+        "color": "#EC4899",
+        "stars": 5,
+        "text": "Gestionamos con Geko tres marcas a la vez y el nivel de organización es impresionante. Reportes semanales claros, respuesta en menos de 2 horas siempre y resultados que presentamos sin vergüenza a dirección.",
+        "platform": "Google",
+        "result": "3 marcas · +89% leads"
+      }
+    ]
+  },
+  "faq": {
+    "label": "FAQ",
+    "headline": "Preguntas frecuentes",
+    "items": [
+      {
+        "q": "¿Cuánto tiempo tarda en verse resultados?",
+        "a": "Los primeros resultados medibles suelen aparecer entre las semanas 4-8. Las métricas de engagement mejoran rápidamente, mientras que el impacto en ventas se consolida en 60-90 días. Somos transparentes: si algo no funciona, lo ajustamos."
+      },
+      {
+        "q": "¿Gestionáis todos los tipos de negocio?",
+        "a": "Trabajamos con pymes, autónomos y marcas en crecimiento de cualquier sector. Nos especializamos en negocios locales, e-commerce, servicios profesionales y hostelería. Si tienes dudas sobre si somos el fit correcto, cuéntanoslo en la consulta gratuita."
+      },
+      {
+        "q": "¿Tengo que firmar un contrato de permanencia?",
+        "a": "No. Todos nuestros planes son mensuales y sin permanencia. Puedes cancelar cuando quieras con 15 días de antelación. Confiamos en los resultados para retenerte, no en las letras pequeñas."
+      },
+      {
+        "q": "¿Qué incluye la consulta gratuita?",
+        "a": "Una videollamada de 30-45 minutos donde analizamos tu situación actual, tus objetivos y te presentamos una hoja de ruta preliminar. Sin presión, sin ventas agresivas. Si no somos el partner adecuado para ti, te lo diremos."
+      },
+      {
+        "q": "¿Quién crea el contenido?",
+        "a": "Nuestro equipo interno de copywriters y diseñadores crea todo el contenido adaptado a tu voz de marca. Tú revisas y apruebas antes de publicar. Con el tiempo, el proceso se vuelve más fluido y requiere menos de tu tiempo."
+      },
+      {
+        "q": "¿Puedo cambiar de plan más adelante?",
+        "a": "Por supuesto. Puedes subir o bajar de plan en cualquier momento. Muchos clientes empiezan con Silver y escalan a Gold cuando ven resultados. El cambio se aplica en el próximo ciclo de facturación."
+      }
+    ]
+  },
+  "ctaFinal": {
+    "badge": "Aceptamos nuevos clientes",
+    "headline": "¿Listo para ver resultados reales?",
+    "subheadline": "Reserva una consulta gratuita de 30 minutos y te decimos exactamente qué haríamos con tu marca.",
+    "cta": "Reservar consulta gratuita",
+    "ctaSecondary": "Ver planes",
+    "disclaimer": "Sin permanencia · Cancela cuando quieras · Resultados en 60 días"
+  },
+  "contact": {
+    "label": "Contacto",
+    "headline": "Hablemos sobre",
+    "headlineAccent": "tu proyecto",
+    "subheadline": "Cuéntanos tu situación y en menos de 24 horas te contactamos con una propuesta inicial sin compromiso.",
+    "info": {
+      "title": "Información de contacto",
+      "phone": "Teléfono",
+      "email": "Email",
+      "location": "Ubicación",
+      "hours": "Horario"
+    },
+    "responseGuarantee": "Respuesta garantizada",
+    "responseTime": "en menos de 24 horas laborables.",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "email": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "600 000 000",
+      "business": "Empresa / Negocio",
+      "businessPlaceholder": "Nombre de tu negocio",
+      "service": "¿Qué servicio te interesa?",
+      "servicePlaceholder": "Selecciona un servicio",
+      "serviceOptions": {
+        "social": "Gestión de Redes Sociales",
+        "ads": "Publicidad Digital",
+        "seo": "SEO & Contenido",
+        "email": "Email Marketing",
+        "branding": "Branding & Diseño",
+        "full": "Pack completo"
+      },
+      "message": "Cuéntanos sobre tu proyecto",
+      "messagePlaceholder": "¿Cuál es tu situación actual? ¿Qué objetivos tienes? ¿Cuál es tu presupuesto aproximado?",
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando...",
+      "privacy": "Tus datos son tratados de forma confidencial. Sin spam.",
+      "nameRequired": "Introduce tu nombre",
+      "emailInvalid": "Email inválido",
+      "messageMin": "Cuéntanos algo más sobre tu proyecto (mínimo 15 caracteres)"
+    },
+    "success": {
+      "title": "¡Mensaje recibido!",
+      "message": "Te contactaremos en menos de 24 horas para agendar una consulta gratuita y hablar sobre cómo podemos ayudarte."
+    },
+    "error": {
+      "message": "Hubo un problema al enviar. Inténtalo de nuevo o escríbenos a"
+    }
+  },
+  "about": {
+    "label": "Nosotros",
+    "headline": "Somos Geko",
+    "subheadline": "Una agencia de marketing digital joven, ambiciosa y obsesionada con los resultados. Nos importan tus números, no los nuestros.",
+    "mission": {
+      "label": "Nuestra misión",
+      "text": "Democratizar el marketing digital de calidad para las pymes españolas."
+    },
+    "values": {
+      "headline": "Lo que nos define",
+      "items": [
+        {
+          "title": "Resultados primero",
+          "description": "Cada decisión que tomamos está guiada por datos y orientada a resultados medibles."
+        },
+        {
+          "title": "Transparencia total",
+          "description": "Sin letra pequeña. Sin sorpresas. Reportes claros cada semana."
+        },
+        {
+          "title": "Agilidad real",
+          "description": "No somos una gran agencia con procesos lentos. Respondemos y actuamos rápido."
+        },
+        {
+          "title": "Obsesión por el cliente",
+          "description": "Tu éxito es nuestro éxito. Eso no es un eslogan — es cómo medimos nuestro trabajo."
+        }
+      ]
+    },
+    "team": {
+      "headline": "El equipo"
+    }
+  },
+  "blog": {
+    "label": "Blog",
+    "headline": "Estrategias que funcionan",
+    "subheadline": "Insights de marketing digital, casos reales y tendencias del sector.",
+    "searchPlaceholder": "Buscar artículos...",
+    "allCategories": "Todos",
+    "readMore": "Leer artículo",
+    "minRead": "min de lectura",
+    "noResults": "No se encontraron artículos",
+    "recentPosts": "Últimas entradas"
+  },
+  "compare": {
+    "label": "Comparativa",
+    "headline": "¿Por qué elegir Geko?",
+    "subheadline": "Sin rodeos. Así es como nos comparamos con las alternativas.",
+    "features": [
+      "Estrategia personalizada",
+      "Gestión diaria de contenido",
+      "Social Ads optimizados",
+      "Diseño visual profesional",
+      "Informes mensuales",
+      "Soporte directo (WhatsApp)",
+      "Gestor dedicado",
+      "Sin permanencia",
+      "Resultados en 60 días"
+    ],
+    "columns": {
+      "geko": {
+        "badge": "Nuestra propuesta",
+        "price": "desde 399€",
+        "priceNote": "/ mes · sin permanencia"
+      },
+      "agencia": {
+        "name": "Agencia grande",
+        "price": "desde 2.000€",
+        "priceNote": "/ mes · contrato anual"
+      },
+      "freelance": {
+        "name": "Freelancer",
+        "price": "Variable",
+        "priceNote": "según proyecto"
+      },
+      "solo": {
+        "name": "Tú solo",
+        "price": "Solo tu tiempo",
+        "priceNote": "~20h / semana"
+      }
+    },
+    "cta": "Empezar ahora",
+    "footnote": "~ = Depende del profesional. Basado en condiciones habituales del mercado."
+  },
+  "servicesHero": {
+    "label": "Marketing digital desde Tres Cantos, Madrid",
+    "headlineTop": "Todo lo que necesita",
+    "headlineAccent": "tu marca para crecer",
+    "description": "Desde la estrategia de redes sociales hasta tu nueva web. Un equipo completo trabajando para hacer crecer tu marca — con resultados medibles en los primeros 60 días.",
+    "ctaAudit": "Pedir auditoría gratis",
+    "ctaServices": "Ver servicios",
+    "stats": [
+      {
+        "value": "50+",
+        "label": "Marcas creciendo"
+      },
+      {
+        "value": "3 años",
+        "label": "En el mercado"
+      },
+      {
+        "value": "98%",
+        "label": "Clientes satisfechos"
+      }
+    ]
+  },
+  "roi": {
+    "label": "ROI Calculator",
+    "headline": "¿Cuánto puede crecer",
+    "headlineAccent": "tu marca con Geko?",
+    "subheadline": "Ajusta los sliders y mira tu potencial real en 6 meses. Estimación conservadora basada en resultados reales.",
+    "currentSituation": "Tu situación actual",
+    "projection": "Tu proyección en 6 meses",
+    "followersLabel": "Seguidores actuales",
+    "sectorLabel": "Sector",
+    "packageLabel": "Plan Geko",
+    "projectedFollowers": "Seguidores proyectados",
+    "newFollowersSuffix": "nuevos",
+    "engagement": "Engagement",
+    "reachPerPost": "Alcance / post",
+    "leadsPerMonth": "Leads / mes",
+    "estimatedRoi": "ROI estimado",
+    "disclaimer": "*Proyección basada en resultados reales de clientes actuales. Los resultados varían según sector, contenido y competencia.",
+    "cta": "Quiero estos resultados",
+    "sectors": [
+      "Hostelería / Restauración",
+      "Comercio local",
+      "Servicios profesionales",
+      "E-commerce",
+      "Salud y bienestar",
+      "Inmobiliaria"
+    ]
+  },
+  "servicesExplore": {
+    "label": "Qué hacemos",
+    "headline": "Servicios diseñados para",
+    "headlineAccent": "generar resultados reales",
+    "ourServices": "Nuestros servicios",
+    "freeAudit": "Auditoría gratis",
+    "includes": "¿Qué incluye?",
+    "platforms": "Plataformas",
+    "realResult": "Resultado real",
+    "keyMetrics": "Cifras que importan",
+    "viewAll": "Ver todo sobre",
+    "requestBudget": "Pedir presupuesto",
+    "realCase": "Caso real"
+  }
+}

@@ -2,13 +2,14 @@
 
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
-import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion"
+import { motion, useInView, AnimatePresence, useReducedMotion } from "motion/react"
 import { ArrowRight, Check } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { SERVICES, type ServiceData } from "@/constants/services"
 import { Icon } from "@/lib/icons"
 import { EASE } from "@/lib/animations"
-const HEADER_OFFSET = "calc(56px + var(--ann-h, 40px) + 32px)"
+import { useT, type Messages } from "@/hooks/use-translations"
+const HEADER_OFFSET = "calc(var(--nav-h) + var(--ann-h, 40px) + 32px)"
 
 // ── Deliverable row with animated check ─────────────────────
 function Deliverable({ text, delay, color }: { text: string; delay: number; color: string }) {
@@ -39,7 +40,7 @@ function Deliverable({ text, delay, color }: { text: string; delay: number; colo
       </motion.div>
       <span style={{
         fontFamily: "var(--font-body)", fontSize: "0.9375rem",
-        color: "rgba(255,255,255,0.72)", lineHeight: 1.55,
+        color: "var(--fg-secondary)", lineHeight: 1.55,
       }}>
         {text}
       </span>
@@ -48,11 +49,16 @@ function Deliverable({ text, delay, color }: { text: string; delay: number; colo
 }
 
 // ── Case study card ──────────────────────────────────────────
-function CaseStudyCard({ service }: { service: ServiceData }) {
+function CaseStudyCard({ service, t }: { service: ServiceData; t: Messages }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-40px" })
   const prefersReduced = useReducedMotion()
   const cs = service.caseStudy
+  const tService = t.services.items[service.slug as keyof typeof t.services.items]
+
+  const metricLabel = tService?.caseStudy.metricLabel ?? cs.metricLabel
+  const detail = tService?.caseStudy.detail ?? cs.detail
+  const client = tService?.caseStudy.client ?? cs.client
 
   return (
     <motion.div
@@ -83,19 +89,19 @@ function CaseStudyCard({ service }: { service: ServiceData }) {
         }}>{cs.metric}</span>
         <span style={{
           fontFamily: "var(--font-ui)", fontSize: "0.75rem",
-          color: "rgba(255,255,255,0.45)", lineHeight: 1.4,
-        }}>{cs.metricLabel}</span>
+          color: "var(--fg-secondary)", lineHeight: 1.4,
+        }}>{metricLabel}</span>
       </div>
       <div style={{ flex: 1, minWidth: 160 }}>
         <p style={{
           fontFamily: "var(--font-ui)", fontSize: "0.875rem",
-          fontWeight: 600, color: "rgba(255,255,255,0.85)",
+          fontWeight: 600, color: "var(--fg)",
           marginBottom: 3,
-        }}>{cs.detail}</p>
+        }}>{detail}</p>
         <p style={{
           fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-          color: "rgba(255,255,255,0.38)",
-        }}>{cs.client}</p>
+          color: "var(--fg-muted)",
+        }}>{client}</p>
       </div>
       <div style={{
         display: "flex", alignItems: "center", gap: 6,
@@ -112,17 +118,18 @@ function CaseStudyCard({ service }: { service: ServiceData }) {
           fontFamily: "var(--font-ui)", fontSize: "0.72rem",
           fontWeight: 600, color: cs.color,
           letterSpacing: "0.04em",
-        }}>Caso real</span>
+        }}>{t.servicesExplore.realCase}</span>
       </div>
     </motion.div>
   )
 }
 
 // ── Metrics strip ────────────────────────────────────────────
-function MetricsStrip({ service }: { service: ServiceData }) {
+function MetricsStrip({ service, t }: { service: ServiceData; t: Messages }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: "-30px" })
   const prefersReduced = useReducedMotion()
+  const tService = t.services.items[service.slug as keyof typeof t.services.items]
 
   return (
     <div
@@ -142,8 +149,8 @@ function MetricsStrip({ service }: { service: ServiceData }) {
           style={{
             padding: "16px",
             borderRadius: 12,
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.07)",
+            background: "var(--surface)",
+            border: "1px solid var(--border-subtle)",
             textAlign: "center",
           }}
         >
@@ -154,8 +161,8 @@ function MetricsStrip({ service }: { service: ServiceData }) {
           }}>{m.value}</p>
           <p style={{
             fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-            color: "rgba(255,255,255,0.40)", lineHeight: 1.4,
-          }}>{m.label}</p>
+            color: "var(--fg-muted)", lineHeight: 1.4,
+          }}>{tService?.metrics[i]?.label ?? m.label}</p>
         </motion.div>
       ))}
     </div>
@@ -164,11 +171,19 @@ function MetricsStrip({ service }: { service: ServiceData }) {
 
 // ── Single service content (right panel) ────────────────────
 function ServiceContent({ service }: { service: ServiceData }) {
+  const t = useT()
+  const tService = t.services.items[service.slug as keyof typeof t.services.items]
+
+  const name = tService?.name ?? service.name
+  const tagline = tService?.tagline ?? service.tagline
+  const description = tService?.description ?? service.description
+  const deliverables = tService?.deliverables ?? service.deliverables
+
   return (
     <div
       id={service.id}
       data-service={service.id}
-      style={{ paddingBottom: 96, paddingTop: 16 }}
+      style={{ paddingBottom: "var(--section-padding-v)", paddingTop: 16 }}
     >
       {/* Header */}
       <div style={{
@@ -195,23 +210,23 @@ function ServiceContent({ service }: { service: ServiceData }) {
             fontSize: "clamp(1.5rem, 3vw, 2rem)",
             fontWeight: 800, lineHeight: 1.15,
             letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             marginBottom: 8,
-          }}>{service.name}</h2>
+          }}>{name}</h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: "0.9375rem",
-            color: "rgba(255,255,255,0.50)", lineHeight: 1.6,
-          }}>{service.tagline}</p>
+            color: "var(--fg-secondary)", lineHeight: 1.6,
+          }}>{tagline}</p>
         </div>
       </div>
 
       {/* Description */}
       <p style={{
         fontFamily: "var(--font-body)", fontSize: "1rem",
-        color: "rgba(255,255,255,0.60)", lineHeight: 1.8,
+        color: "var(--fg-secondary)", lineHeight: 1.8,
         marginBottom: 36, maxWidth: 600,
       }}>
-        {service.description}
+        {description}
       </p>
 
       {/* Deliverables */}
@@ -220,21 +235,21 @@ function ServiceContent({ service }: { service: ServiceData }) {
           fontFamily: "var(--font-ui)", fontSize: "0.72rem",
           fontWeight: 600, letterSpacing: "0.10em",
           textTransform: "uppercase",
-          color: "rgba(255,255,255,0.30)",
+          color: "var(--fg-muted)",
           marginBottom: 16,
         }}>
-          ¿Qué incluye?
+          {t.servicesExplore.includes}
         </h3>
         <div style={{
           borderRadius: 14,
-          background: "rgba(255,255,255,0.025)",
-          border: "1px solid rgba(255,255,255,0.07)",
+          background: "var(--surface)",
+          border: "1px solid var(--border-subtle)",
           padding: "8px 20px",
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
           columnGap: 32,
         }}>
-          {service.deliverables.map((d, i) => (
+          {deliverables.map((d, i) => (
             <Deliverable key={d} text={d} delay={i * 0.07} color={service.color} />
           ))}
         </div>
@@ -246,10 +261,10 @@ function ServiceContent({ service }: { service: ServiceData }) {
           fontFamily: "var(--font-ui)", fontSize: "0.72rem",
           fontWeight: 600, letterSpacing: "0.10em",
           textTransform: "uppercase",
-          color: "rgba(255,255,255,0.30)",
+          color: "var(--fg-muted)",
           marginBottom: 14,
         }}>
-          Plataformas
+          {t.servicesExplore.platforms}
         </h3>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {service.platforms.map((p) => (
@@ -258,14 +273,14 @@ function ServiceContent({ service }: { service: ServiceData }) {
               style={{
                 display: "flex", alignItems: "center", gap: 7,
                 padding: "8px 14px", borderRadius: 10,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
               }}
             >
-              <Icon name={p.icon} size={14} style={{ color: "rgba(255,255,255,0.55)", flexShrink: 0 }} />
+              <Icon name={p.icon} size={14} style={{ color: "var(--fg-secondary)", flexShrink: 0 }} />
               <span style={{
                 fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-                fontWeight: 500, color: "rgba(255,255,255,0.65)",
+                fontWeight: 500, color: "var(--fg-secondary)",
               }}>{p.name}</span>
             </div>
           ))}
@@ -278,12 +293,12 @@ function ServiceContent({ service }: { service: ServiceData }) {
           fontFamily: "var(--font-ui)", fontSize: "0.72rem",
           fontWeight: 600, letterSpacing: "0.10em",
           textTransform: "uppercase",
-          color: "rgba(255,255,255,0.30)",
+          color: "var(--fg-muted)",
           marginBottom: 14,
         }}>
-          Resultado real
+          {t.servicesExplore.realResult}
         </h3>
-        <CaseStudyCard service={service} />
+        <CaseStudyCard service={service} t={t} />
       </div>
 
       {/* Metrics */}
@@ -292,12 +307,12 @@ function ServiceContent({ service }: { service: ServiceData }) {
           fontFamily: "var(--font-ui)", fontSize: "0.72rem",
           fontWeight: 600, letterSpacing: "0.10em",
           textTransform: "uppercase",
-          color: "rgba(255,255,255,0.30)",
+          color: "var(--fg-muted)",
           marginBottom: 14,
         }}>
-          Cifras que importan
+          {t.servicesExplore.keyMetrics}
         </h3>
-        <MetricsStrip service={service} />
+        <MetricsStrip service={service} t={t} />
       </div>
 
       {/* CTA row */}
@@ -315,7 +330,7 @@ function ServiceContent({ service }: { service: ServiceData }) {
             transition: "background 0.2s",
           }}
         >
-          Ver todo sobre {service.name.toLowerCase()}
+          {t.servicesExplore.viewAll} {name.toLowerCase()}
           <ArrowRight size={15} />
         </Link>
         <Link
@@ -323,14 +338,14 @@ function ServiceContent({ service }: { service: ServiceData }) {
           style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             padding: "12px 24px", borderRadius: 10,
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.10)",
-            color: "rgba(255,255,255,0.60)",
+            background: "var(--surface)",
+            border: "1px solid var(--border-strong)",
+            color: "var(--fg-secondary)",
             fontFamily: "var(--font-ui)", fontSize: "0.875rem", fontWeight: 500,
             textDecoration: "none",
           }}
         >
-          Pedir presupuesto
+          {t.servicesExplore.requestBudget}
         </Link>
       </div>
     </div>
@@ -339,6 +354,8 @@ function ServiceContent({ service }: { service: ServiceData }) {
 
 // ── Left sticky navigator ────────────────────────────────────
 function StickyNav({ activeId }: { activeId: string }) {
+  const t = useT()
+
   return (
     <div style={{
       position: "sticky",
@@ -352,15 +369,19 @@ function StickyNav({ activeId }: { activeId: string }) {
         fontFamily: "var(--font-ui)", fontSize: "0.68rem",
         fontWeight: 600, letterSpacing: "0.12em",
         textTransform: "uppercase",
-        color: "rgba(255,255,255,0.22)",
+        color: "var(--fg-subtle)",
         marginBottom: 20,
         paddingLeft: 20,
       }}>
-        Nuestros servicios
+        {t.servicesExplore.ourServices}
       </p>
 
       {SERVICES.map((s, i) => {
         const isActive = activeId === s.id
+        const tService = t.services.items[s.slug as keyof typeof t.services.items]
+        const name = tService?.name ?? s.name
+        const tagline = tService?.tagline ?? s.tagline
+
         return (
           <a
             key={s.id}
@@ -375,7 +396,7 @@ function StickyNav({ activeId }: { activeId: string }) {
               gap: 16,
               padding: "16px 20px",
               borderRadius: 12,
-              borderLeft: `2px solid ${isActive ? s.color : "rgba(255,255,255,0.06)"}`,
+              borderLeft: `2px solid ${isActive ? s.color : "var(--border-subtle)"}`,
               background: isActive ? `${s.color}0A` : "transparent",
               textDecoration: "none",
               transition: "all 0.3s ease",
@@ -384,7 +405,7 @@ function StickyNav({ activeId }: { activeId: string }) {
             {/* Number */}
             <span style={{
               fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-              fontWeight: 600, color: isActive ? s.color : "rgba(255,255,255,0.20)",
+              fontWeight: 600, color: isActive ? s.color : "var(--fg-subtle)",
               marginTop: 3, minWidth: 20, transition: "color 0.3s",
             }}>
               0{i + 1}
@@ -395,11 +416,11 @@ function StickyNav({ activeId }: { activeId: string }) {
               <p style={{
                 fontFamily: "var(--font-ui)", fontSize: "0.9375rem",
                 fontWeight: 600,
-                color: isActive ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.40)",
+                color: isActive ? "var(--fg)" : "var(--fg-muted)",
                 marginBottom: 4, lineHeight: 1.3,
                 transition: "color 0.3s",
               }}>
-                {s.name}
+                {name}
               </p>
               <AnimatePresence>
                 {isActive && (
@@ -410,11 +431,11 @@ function StickyNav({ activeId }: { activeId: string }) {
                     transition={{ duration: 0.25 }}
                     style={{
                       fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-                      color: "rgba(255,255,255,0.38)",
+                      color: "var(--fg-muted)",
                       lineHeight: 1.5, overflow: "hidden",
                     }}
                   >
-                    {s.tagline}
+                    {tagline}
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -426,7 +447,7 @@ function StickyNav({ activeId }: { activeId: string }) {
       {/* Divider + CTA */}
       <div style={{
         marginTop: 24, paddingTop: 24,
-        borderTop: "1px solid rgba(255,255,255,0.07)",
+        borderTop: "1px solid var(--border-subtle)",
         paddingLeft: 20,
       }}>
         <Link
@@ -434,13 +455,13 @@ function StickyNav({ activeId }: { activeId: string }) {
           style={{
             display: "inline-flex", alignItems: "center", gap: 7,
             padding: "10px 18px", borderRadius: 10,
-            background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+            background: "var(--gradient-brand)",
             color: "#fff", textDecoration: "none",
             fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 600,
-            boxShadow: "0 4px 20px rgba(107,45,124,0.35)",
+            boxShadow: "0 4px 20px var(--color-geko-purple-a35)",
           }}
         >
-          Auditoría gratis
+          {t.servicesExplore.freeAudit}
           <ArrowRight size={13} />
         </Link>
       </div>
@@ -450,9 +471,13 @@ function StickyNav({ activeId }: { activeId: string }) {
 
 // ── Main export ──────────────────────────────────────────────
 export function ServiciosExplore() {
+  const t = useT()
   const [activeId, setActiveId] = useState(SERVICES[0].id)
   const isDesktop = useMediaQuery("(min-width: 1024px)")
   const containerRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const prefersReduced = useReducedMotion()
+  const headerInView = useInView(headerRef, { once: true, margin: "-60px" })
 
   // IntersectionObserver to sync left nav with scroll position
   useEffect(() => {
@@ -483,44 +508,44 @@ export function ServiciosExplore() {
     <section
       id="servicios-detalle"
       style={{
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--border-subtle)",
       }}
     >
       {/* Section header */}
       <div className="section-container" style={{ paddingTop: 80, paddingBottom: 0 }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          ref={headerRef}
+          initial={prefersReduced ? false : { opacity: 0, y: 20 }}
+          animate={headerInView || prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.55, ease: EASE }}
           style={{ marginBottom: 64 }}
         >
           <span style={{
             display: "inline-block",
             padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)",
-            background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)",
+            background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 16,
           }}>
-            Qué hacemos
+            {t.servicesExplore.label}
           </span>
           <h2 style={{
             fontFamily: "var(--font-heading)",
             fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)",
             fontWeight: 800, lineHeight: 1.15,
             letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             maxWidth: 560,
           }}>
-            Servicios diseñados para{" "}
+            {t.servicesExplore.headline}{" "}
             <span style={{
-              background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+              background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}>
-              generar resultados reales
+              {t.servicesExplore.headlineAccent}
             </span>
           </h2>
         </motion.div>
@@ -547,28 +572,31 @@ export function ServiciosExplore() {
               paddingBottom: 24,
               scrollbarWidth: "none",
             }}>
-              {SERVICES.map((s) => (
-                <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })
-                  }}
-                  style={{
-                    display: "flex", alignItems: "center", gap: 7,
-                    padding: "8px 14px", borderRadius: 9999, flexShrink: 0,
-                    border: `1px solid ${activeId === s.id ? s.color : "rgba(255,255,255,0.08)"}`,
-                    background: activeId === s.id ? `${s.color}15` : "rgba(255,255,255,0.03)",
-                    fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 500,
-                    color: activeId === s.id ? "rgba(255,255,255,0.90)" : "rgba(255,255,255,0.45)",
-                    textDecoration: "none", transition: "all 0.2s",
-                  }}
-                >
-                  <Icon name={s.icon} size={14} style={{ flexShrink: 0, color: "inherit", opacity: 0.7 }} />
-                  {s.name}
-                </a>
-              ))}
+              {SERVICES.map((s) => {
+                const tService = t.services.items[s.slug as keyof typeof t.services.items]
+                return (
+                  <a
+                    key={s.id}
+                    href={`#${s.id}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })
+                    }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 7,
+                      padding: "8px 14px", borderRadius: 9999, flexShrink: 0,
+                      border: `1px solid ${activeId === s.id ? s.color : "var(--border)"}`,
+                      background: activeId === s.id ? `${s.color}15` : "var(--surface)",
+                      fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 500,
+                      color: activeId === s.id ? "var(--fg)" : "var(--fg-secondary)",
+                      textDecoration: "none", transition: "all 0.2s",
+                    }}
+                  >
+                    <Icon name={s.icon} size={14} style={{ flexShrink: 0, color: "inherit", opacity: 0.7 }} />
+                    {tService?.name ?? s.name}
+                  </a>
+                )
+              })}
             </div>
           )}
 

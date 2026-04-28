@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Icon } from "@/lib/icons"
 import { CATEGORY_META } from "@/lib/blog-constants"
 import type { Category } from "@/lib/blog-constants"
@@ -31,7 +31,7 @@ export function TagFilter({ activeCategory, onSelect, counts }: TagFilterProps) 
         label="Todos"
         count={Object.values(counts).reduce((a, b) => (a ?? 0) + (b ?? 0), 0) ?? 0}
         active={activeCategory === null}
-        color="#9B4DBC"
+        color="var(--color-geko-purple-accent)"
         icon="LayoutGrid"
         onClick={() => onSelect(null)}
       />
@@ -72,12 +72,12 @@ function FilterPill({ label, count, active, color, icon, onClick }: FilterPillPr
         gap: 6,
         padding: "7px 14px",
         borderRadius: 9999,
-        background: active ? `${color}18` : "rgba(255,255,255,0.04)",
-        border: `1px solid ${active ? color + "45" : "rgba(255,255,255,0.09)"}`,
+        background: active ? `${color}18` : "var(--surface)",
+        border: `1px solid ${active ? color + "45" : "var(--border)"}`,
         fontFamily: "var(--font-ui)",
         fontSize: "0.8rem",
         fontWeight: active ? 600 : 400,
-        color: active ? color : "rgba(255,255,255,0.50)",
+        color: active ? color : "var(--fg-secondary)",
         cursor: "pointer",
         transition: "background 0.2s, border-color 0.2s, color 0.2s",
         whiteSpace: "nowrap",
@@ -86,7 +86,7 @@ function FilterPill({ label, count, active, color, icon, onClick }: FilterPillPr
       <Icon
         name={icon as import("@/lib/icons").IconName}
         size={12}
-        color={active ? color : "rgba(255,255,255,0.30)"}
+        color={active ? color : "var(--fg-muted)"}
         style={{ transition: "color 0.2s" }}
       />
       {label}
@@ -95,10 +95,10 @@ function FilterPill({ label, count, active, color, icon, onClick }: FilterPillPr
           style={{
             padding: "1px 6px",
             borderRadius: 9999,
-            background: active ? `${color}25` : "rgba(255,255,255,0.08)",
+            background: active ? `${color}25` : "var(--border)",
             fontSize: "0.65rem",
             fontWeight: 700,
-            color: active ? color : "rgba(255,255,255,0.35)",
+            color: active ? color : "var(--fg-muted)",
           }}
         >
           {count}

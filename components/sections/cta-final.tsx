@@ -1,11 +1,13 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
 import Link from "next/link"
+import { Section } from "@/components/ui/section"
 import { ArrowRight, Phone } from "lucide-react"
 import { Magnetic } from "@/components/ui/magnetic"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import { EASE } from "@/lib/animations"
 
 export function CtaFinal() {
@@ -13,23 +15,21 @@ export function CtaFinal() {
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
+  const t = useT()
 
   return (
-    <section
-      ref={ref}
-      className="section-container"
-      style={{ paddingTop: 80, paddingBottom: 100 }}
-    >
+    <Section spacing="tight">
+      <div ref={ref} className="section-container">
       <motion.div
         initial={prefersReduced ? false : { opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
         transition={prefersReduced ? { duration: 0 } : { duration: 0.7, ease: EASE }}
         style={{
           position: "relative",
           padding: isDesktop ? "72px 64px" : "48px 28px",
           borderRadius: 28,
-          background: "linear-gradient(135deg, rgba(107,45,124,0.15) 0%, rgba(29,78,216,0.12) 100%)",
-          border: "1px solid rgba(107,45,124,0.25)",
+          background: "linear-gradient(135deg, var(--color-geko-purple-a15) 0%, var(--color-geko-blue-a12) 100%)",
+          border: "1px solid var(--color-geko-purple-a25)",
           textAlign: "center",
           overflow: "hidden",
         }}
@@ -42,7 +42,7 @@ export function CtaFinal() {
             inset: -1,
             borderRadius: 29,
             padding: 1,
-            background: "linear-gradient(var(--shimmer-angle, 0deg), rgba(107,45,124,0.0) 0%, rgba(107,45,124,0.8) 40%, rgba(59,130,246,0.8) 60%, rgba(59,130,246,0.0) 100%)",
+            background: "linear-gradient(var(--shimmer-angle, 0deg), transparent 0%, var(--color-geko-purple-a80) 40%, rgba(59,130,246,0.80) 60%, transparent 100%)",
             WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
             WebkitMaskComposite: "xor",
             maskComposite: "exclude",
@@ -61,7 +61,7 @@ export function CtaFinal() {
             width: "50%",
             height: "120%",
             borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(107,45,124,0.20) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, var(--color-geko-purple-a20) 0%, transparent 70%)",
             filter: "blur(50px)",
             pointerEvents: "none",
           }}
@@ -75,7 +75,7 @@ export function CtaFinal() {
             width: "50%",
             height: "120%",
             borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(29,78,216,0.18) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse, var(--color-geko-blue-a18) 0%, transparent 70%)",
             filter: "blur(50px)",
             pointerEvents: "none",
           }}
@@ -96,9 +96,9 @@ export function CtaFinal() {
 
         <div style={{ position: "relative", zIndex: 1 }}>
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            initial={prefersReduced ? false : { opacity: 0, scale: 0.9 }}
+            animate={prefersReduced || inView ? { opacity: 1, scale: 1 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 0.1 }}
             style={{ marginBottom: 20 }}
           >
             <span
@@ -108,11 +108,11 @@ export function CtaFinal() {
                 gap: 8,
                 padding: "6px 16px",
                 borderRadius: 9999,
-                background: "rgba(107,45,124,0.15)",
-                border: "1px solid rgba(107,45,124,0.35)",
+                background: "var(--color-geko-purple-a15)",
+                border: "1px solid var(--color-geko-purple-a35)",
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.8125rem",
-                color: "#9B4DBC",
+                color: "var(--color-geko-purple-accent)",
                 fontWeight: 500,
               }}
             >
@@ -121,63 +121,61 @@ export function CtaFinal() {
                   width: 8,
                   height: 8,
                   borderRadius: "50%",
-                  background: "#9B4DBC",
+                  background: "var(--color-geko-purple-accent)",
                   animation: "pulse-glow 2s ease-in-out infinite",
                   flexShrink: 0,
                 }}
               />
-              Aceptamos nuevos clientes
+              {t.ctaFinal.badge}
             </span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 16 }}
+            animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.6, delay: 0.15 }}
             style={{
               fontFamily: "var(--font-heading)",
               fontSize: isDesktop ? "clamp(2.25rem, 4vw, 3.5rem)" : "clamp(1.875rem, 8vw, 2.75rem)",
               fontWeight: 800,
               lineHeight: 1.1,
               letterSpacing: "-0.03em",
-              color: "rgba(255,255,255,0.96)",
+              color: "var(--fg)",
               marginBottom: 20,
             }}
           >
-            ¿Listo para hacer crecer
-            <br />
             <span
               style={{
-                background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+                background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}
             >
-              tu negocio?
+              {t.ctaFinal.headline}
             </span>
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 12 }}
+            animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 0.2 }}
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "1.0625rem",
-              color: "rgba(255,255,255,0.48)",
+              color: "var(--fg-secondary)",
               lineHeight: 1.7,
               maxWidth: 520,
               margin: "0 auto 36px",
             }}
           >
-            Empieza con una consulta gratuita. Te contamos exactamente qué haríamos con tu marca y qué resultados puedes esperar.
+            {t.ctaFinal.subheadline}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.25 }}
+            initial={prefersReduced ? false : { opacity: 0, y: 12 }}
+            animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.5, delay: 0.25 }}
             style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center" }}
           >
             <Magnetic>
@@ -195,8 +193,8 @@ export function CtaFinal() {
                   fontWeight: 600,
                   color: "#fff",
                   textDecoration: "none",
-                  background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
-                  boxShadow: "0 4px 32px rgba(107,45,124,0.5)",
+                  background: "var(--gradient-brand)",
+                  boxShadow: "0 4px 32px var(--color-geko-purple-a50)",
                   whiteSpace: "nowrap",
                   animation: "cta-breathe 3s ease-in-out infinite",
                   overflow: "hidden",
@@ -214,7 +212,7 @@ export function CtaFinal() {
                     pointerEvents: "none",
                   }}
                 />
-                Consulta gratuita
+                {t.ctaFinal.cta}
                 <ArrowRight size={17} />
               </Link>
             </Magnetic>
@@ -231,10 +229,10 @@ export function CtaFinal() {
                   fontFamily: "var(--font-ui)",
                   fontSize: "1rem",
                   fontWeight: 500,
-                  color: "rgba(255,255,255,0.80)",
+                  color: "var(--fg)",
                   textDecoration: "none",
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid var(--border-strong)",
+                  background: "var(--surface)",
                   backdropFilter: "blur(12px)",
                   whiteSpace: "nowrap",
                 }}
@@ -246,17 +244,17 @@ export function CtaFinal() {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.4, delay: 0.35 }}
+            initial={prefersReduced ? false : { opacity: 0 }}
+            animate={prefersReduced || inView ? { opacity: 1 } : {}}
+            transition={prefersReduced ? { duration: 0 } : { duration: 0.4, delay: 0.35 }}
             style={{
               marginTop: 24,
               fontFamily: "var(--font-ui)",
               fontSize: "0.82rem",
-              color: "rgba(255,255,255,0.25)",
+              color: "var(--fg-subtle)",
             }}
           >
-            Sin compromiso · Sin permanencia · Respuesta en &lt;24h
+            {t.ctaFinal.disclaimer}
           </motion.p>
         </div>
       </motion.div>
@@ -272,8 +270,8 @@ export function CtaFinal() {
           initial-value: 0deg;
         }
         @keyframes cta-breathe {
-          0%, 100% { box-shadow: 0 4px 32px rgba(107,45,124,0.5); }
-          50%       { box-shadow: 0 4px 48px rgba(107,45,124,0.75), 0 0 0 6px rgba(107,45,124,0.12); }
+          0%, 100% { box-shadow: 0 4px 32px var(--color-geko-purple-a50); }
+          50%       { box-shadow: 0 4px 48px var(--color-geko-purple-a75), 0 0 0 6px var(--color-geko-purple-a12); }
         }
         @keyframes btn-shimmer {
           0%   { transform: translateX(-100%); }
@@ -281,6 +279,7 @@ export function CtaFinal() {
           100% { transform: translateX(100%); }
         }
       `}</style>
-    </section>
+    </div>
+    </Section>
   )
 }

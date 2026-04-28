@@ -2,25 +2,28 @@
 
 import { useRef } from "react"
 import Link from "next/link"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
 import { ArrowRight, ChevronRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { SERVICES } from "@/constants/services"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
 import { EASE } from "@/lib/animations"
+import { useT } from "@/hooks/use-translations"
 
-const STAT_CARDS: { value: string; label: string; icon: IconName }[] = [
-  { value: "50+", label: "Marcas creciendo", icon: "TrendingUp" },
-  { value: "3 años", label: "En el mercado", icon: "Calendar" },
-  { value: "98%", label: "Clientes satisfechos", icon: "Star" },
-]
+const STAT_ICONS: IconName[] = ["TrendingUp", "Calendar", "Star"]
 
 export function ServiciosHero() {
+  const t = useT()
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
+
+  const STAT_CARDS = t.servicesHero.stats.map((s, i) => ({
+    ...s,
+    icon: STAT_ICONS[i],
+  }))
 
   const anim = (delay: number) => ({
     initial: prefersReduced ? false : { opacity: 0, y: 24 },
@@ -33,10 +36,10 @@ export function ServiciosHero() {
       ref={ref}
       style={{
         position: "relative",
-        paddingTop: isDesktop ? 72 : 48,
-        paddingBottom: isDesktop ? 80 : 56,
+        paddingTop: "var(--section-padding-v)",
+        paddingBottom: "var(--section-padding-v)",
         overflow: "hidden",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--border-subtle)",
       }}
     >
       {/* Background orbs */}
@@ -44,13 +47,13 @@ export function ServiciosHero() {
         <div style={{
           position: "absolute", top: "-20%", right: "0%",
           width: "50%", height: "80%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(29,78,216,0.18) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-blue-a18) 0%, transparent 70%)",
           filter: "blur(60px)",
         }} />
         <div style={{
           position: "absolute", bottom: "-10%", left: "-5%",
           width: "40%", height: "60%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(107,45,124,0.15) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-purple-a15) 0%, transparent 70%)",
           filter: "blur(70px)",
         }} />
       </div>
@@ -61,14 +64,14 @@ export function ServiciosHero() {
         <motion.div {...anim(0)} style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 28 }}>
           <Link href="/" style={{
             fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-            color: "rgba(255,255,255,0.35)", textDecoration: "none",
+            color: "var(--fg-muted)", textDecoration: "none",
             transition: "color 0.2s",
           }}>
-            Inicio
+            {t.nav.home}
           </Link>
-          <ChevronRight size={13} style={{ color: "rgba(255,255,255,0.20)" }} />
-          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.55)" }}>
-            Servicios
+          <ChevronRight size={13} style={{ color: "var(--fg-subtle)" }} />
+          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "var(--fg-secondary)" }}>
+            {t.nav.services}
           </span>
         </motion.div>
 
@@ -85,18 +88,18 @@ export function ServiciosHero() {
               <span style={{
                 display: "inline-flex", alignItems: "center", gap: 7,
                 padding: "5px 14px 5px 8px", borderRadius: 9999,
-                border: "1px solid rgba(107,45,124,0.35)",
-                background: "rgba(107,45,124,0.10)",
+                border: "1px solid var(--color-geko-purple-a35)",
+                background: "var(--color-geko-purple-a10)",
                 fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-                color: "rgba(255,255,255,0.80)",
+                color: "var(--fg)",
               }}>
                 <span style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   width: 20, height: 20, borderRadius: "50%",
-                  background: "linear-gradient(135deg, #6B2D7C, #1D4ED8)",
+                  background: "linear-gradient(135deg, var(--color-geko-purple), var(--color-geko-blue))",
                   fontSize: "0.75rem",
                 }}>🦎</span>
-                Marketing digital desde Tres Cantos, Madrid
+                {t.servicesHero.label}
               </span>
             </motion.div>
 
@@ -109,20 +112,20 @@ export function ServiciosHero() {
                 fontWeight: 800,
                 lineHeight: 1.1,
                 letterSpacing: "-0.03em",
-                color: "rgba(255,255,255,0.96)",
+                color: "var(--fg)",
                 marginBottom: 20,
                 maxWidth: 620,
               }}
             >
-              Todo lo que necesita
+              {t.servicesHero.headlineTop}
               <br />
               <span style={{
-                background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+                background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}>
-                tu marca para crecer
+                {t.servicesHero.headlineAccent}
               </span>
             </motion.h1>
 
@@ -132,14 +135,13 @@ export function ServiciosHero() {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: isDesktop ? "1.0625rem" : "1rem",
-                color: "rgba(255,255,255,0.50)",
+                color: "var(--fg-secondary)",
                 lineHeight: 1.75,
                 maxWidth: 520,
                 marginBottom: 32,
               }}
             >
-              Desde la estrategia de redes sociales hasta tu nueva web. Un equipo completo trabajando
-              para hacer crecer tu marca — con resultados medibles en los primeros 60 días.
+              {t.servicesHero.description}
             </motion.p>
 
             {/* Service chips */}
@@ -157,13 +159,13 @@ export function ServiciosHero() {
                     border: `1px solid ${s.color}35`,
                     background: `${s.color}10`,
                     fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 500,
-                    color: "rgba(255,255,255,0.72)",
+                    color: "var(--fg-secondary)",
                     textDecoration: "none",
                     transition: "background 0.2s, border-color 0.2s",
                   }}
                 >
                   <Icon name={s.icon} size={14} style={{ color: s.color, flexShrink: 0 }} />
-                  {s.name}
+                  {(t.services.items[s.slug as keyof typeof t.services.items]?.name) ?? s.name}
                 </a>
               ))}
             </motion.div>
@@ -175,14 +177,14 @@ export function ServiciosHero() {
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "14px 28px", borderRadius: 12,
-                  background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+                  background: "var(--gradient-brand)",
                   color: "#fff", textDecoration: "none",
                   fontFamily: "var(--font-ui)", fontSize: "0.9375rem", fontWeight: 600,
-                  boxShadow: "0 4px 24px rgba(107,45,124,0.40)",
+                  boxShadow: "0 4px 24px var(--color-geko-purple-a40)",
                   whiteSpace: "nowrap",
                 }}
               >
-                Pedir auditoría gratis
+                {t.servicesHero.ctaAudit}
                 <ArrowRight size={16} />
               </Link>
               <Link
@@ -190,14 +192,14 @@ export function ServiciosHero() {
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "14px 24px", borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  background: "rgba(255,255,255,0.04)",
-                  color: "rgba(255,255,255,0.65)", textDecoration: "none",
+                  border: "1px solid var(--border-strong)",
+                  background: "var(--surface)",
+                  color: "var(--fg-secondary)", textDecoration: "none",
                   fontFamily: "var(--font-ui)", fontSize: "0.9375rem", fontWeight: 500,
                   whiteSpace: "nowrap",
                 }}
               >
-                Ver servicios
+                {t.servicesHero.ctaServices}
                 <ChevronRight size={15} />
               </Link>
             </motion.div>
@@ -220,18 +222,18 @@ export function ServiciosHero() {
                   style={{
                     display: "flex", alignItems: "center", gap: 14,
                     padding: "16px 20px", borderRadius: 14,
-                    background: "rgba(255,255,255,0.035)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "var(--surface)",
+                    border: "1px solid var(--border)",
                     backdropFilter: "blur(12px)",
                     minWidth: 220,
                   }}
                 >
                   <div style={{
                     width: 40, height: 40, borderRadius: 11, flexShrink: 0,
-                    background: "linear-gradient(135deg, rgba(107,45,124,0.25), rgba(29,78,216,0.20))",
-                    border: "1px solid rgba(107,45,124,0.20)",
+                    background: "linear-gradient(135deg, var(--color-geko-purple-a25), var(--color-geko-blue-a20))",
+                    border: "1px solid var(--color-geko-purple-a20)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "rgba(255,255,255,0.70)",
+                    color: "var(--fg-secondary)",
                   }}>
                     <Icon name={card.icon} size={20} />
                   </div>
@@ -242,7 +244,7 @@ export function ServiciosHero() {
                     }}>{card.value}</p>
                     <p style={{
                       fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-                      color: "rgba(255,255,255,0.40)", marginTop: 2,
+                      color: "var(--fg-muted)", marginTop: 2,
                     }}>{card.label}</p>
                   </div>
                 </motion.div>

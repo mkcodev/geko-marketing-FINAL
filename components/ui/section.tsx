@@ -35,8 +35,8 @@ export function Section({
   id,
 }: SectionProps) {
   const paddingMap = {
-    normal: "var(--section-padding-v, clamp(64px, 10vw, 96px))",
-    tight:  "var(--section-padding-tight, clamp(40px, 6vw, 64px))",
+    normal: "var(--section-padding-v)",
+    tight:  "var(--section-padding-tight)",
     none:   "0",
   }
 
@@ -50,8 +50,8 @@ export function Section({
         paddingTop: padding,
         paddingBottom: padding,
         background,
-        borderTop:    borderTop    ? "1px solid rgba(255,255,255,0.06)" : undefined,
-        borderBottom: borderBottom ? "1px solid rgba(255,255,255,0.06)" : undefined,
+        borderTop:    borderTop    ? "1px solid var(--border-subtle)" : undefined,
+        borderBottom: borderBottom ? "1px solid var(--border-subtle)" : undefined,
         position: "relative",
         ...style,
       }}

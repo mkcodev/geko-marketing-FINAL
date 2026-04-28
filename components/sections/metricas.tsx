@@ -1,16 +1,14 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import { EASE } from "@/lib/animations"
+import { Section } from "@/components/ui/section"
 
-const STATS = [
-  { value: 247, suffix: "%", label: "Aumento de engagement medio", sublabel: "en los primeros 90 días", color: "#9B4DBC", decimals: 0 },
-  { value: 4.2, suffix: "×", label: "ROAS medio en campañas", sublabel: "Meta Ads + Google Ads", color: "#3B82F6", decimals: 1 },
-  { value: 98, suffix: "%", label: "Tasa de retención", sublabel: "clientes que renuevan contrato", color: "#10B981", decimals: 0 },
-  { value: 2.1, suffix: "M€", label: "En ventas generadas", sublabel: "para clientes en 2024", color: "#F59E0B", decimals: 1 },
-]
+const STAT_COLORS = ["var(--color-geko-purple-accent)", "var(--color-geko-blue-light)", "#10B981", "#F59E0B"]
+const STAT_DECIMALS = [0, 1, 0, 1]
 
 function useCounter(target: number, decimals: number, active: boolean) {
   const [val, setVal] = useState(0)
@@ -29,7 +27,8 @@ function useCounter(target: number, decimals: number, active: boolean) {
   return val
 }
 
-function StatCard({ stat, index, inView }: { stat: typeof STATS[0]; index: number; inView: boolean }) {
+interface StatItem { value: number; suffix: string; label: string; sublabel: string; color: string; decimals: number }
+function StatCard({ stat, index, inView }: { stat: StatItem; index: number; inView: boolean }) {
   const prefersReduced = useReducedMotion()
   const val = useCounter(stat.value, stat.decimals, inView)
 
@@ -41,8 +40,8 @@ function StatCard({ stat, index, inView }: { stat: typeof STATS[0]; index: numbe
       style={{
         padding: "32px 28px",
         borderRadius: 20,
-        background: "rgba(255,255,255,0.025)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: "var(--surface)",
+        border: "1px solid var(--border-subtle)",
         position: "relative",
         overflow: "hidden",
         textAlign: "center",
@@ -74,13 +73,13 @@ function StatCard({ stat, index, inView }: { stat: typeof STATS[0]; index: numbe
       {/* Label */}
       <p style={{
         fontFamily: "var(--font-ui)", fontSize: "0.9rem", fontWeight: 600,
-        color: "rgba(255,255,255,0.80)", lineHeight: 1.3, marginBottom: 6, position: "relative",
+        color: "var(--fg)", lineHeight: 1.3, marginBottom: 6, position: "relative",
       }}>
         {stat.label}
       </p>
       <p style={{
         fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-        color: "rgba(255,255,255,0.30)", lineHeight: 1.4, position: "relative",
+        color: "var(--fg-muted)", lineHeight: 1.4, position: "relative",
       }}>
         {stat.sublabel}
       </p>
@@ -100,10 +99,11 @@ export function Metricas() {
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
+  const t = useT()
 
   return (
-    <section ref={ref} style={{ paddingTop: 96, paddingBottom: 96 }}>
-      <div className="section-container">
+    <Section>
+      <div ref={ref} className="section-container">
         {/* Header */}
         <motion.div
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
@@ -123,13 +123,13 @@ export function Metricas() {
             fontFamily: "var(--font-heading)",
             fontSize: isDesktop ? "clamp(2rem, 3.5vw, 3rem)" : "clamp(1.75rem, 7vw, 2.5rem)",
             fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05,
-            color: "rgba(255,255,255,0.96)", marginBottom: 14,
+            color: "var(--fg)", marginBottom: 14,
           }}>
-            Números que hablan por sí solos
+            {t.metrics.headline}
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: "1.0625rem",
-            color: "rgba(255,255,255,0.42)", maxWidth: 480, margin: "0 auto", lineHeight: 1.7,
+            color: "var(--fg-secondary)", maxWidth: 480, margin: "0 auto", lineHeight: 1.7,
           }}>
             Datos reales de clientes actuales. Sin humo, sin inventar.
           </p>
@@ -141,8 +141,13 @@ export function Metricas() {
           gridTemplateColumns: isDesktop ? "repeat(4, 1fr)" : "repeat(2, 1fr)",
           gap: 16,
         }}>
-          {STATS.map((stat, i) => (
-            <StatCard key={stat.label} stat={stat} index={i} inView={inView} />
+          {t.metrics.items.map((item, i) => (
+            <StatCard
+              key={item.label}
+              stat={{ ...item, color: STAT_COLORS[i], decimals: STAT_DECIMALS[i] }}
+              index={i}
+              inView={inView}
+            />
           ))}
         </div>
 
@@ -154,12 +159,12 @@ export function Metricas() {
           style={{
             textAlign: "center", marginTop: 28,
             fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-            color: "rgba(255,255,255,0.22)",
+            color: "var(--fg-subtle)",
           }}
         >
           * Datos medios de clientes activos 2023–2024. Resultados individuales pueden variar.
         </motion.p>
       </div>
-    </section>
+    </Section>
   )
 }

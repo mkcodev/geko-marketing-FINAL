@@ -1,6 +1,11 @@
+import dynamic from "next/dynamic"
 import { ServiciosHero } from "@/components/sections/servicios-hero"
 import { ServiciosExplore } from "@/components/sections/servicios-explore"
-import { RoiCalculator } from "@/components/sections/roi-calculator"
+
+const RoiCalculator = dynamic(
+  () => import("@/components/sections/roi-calculator").then((m) => ({ default: m.RoiCalculator })),
+  { ssr: false }
+)
 import { ComparativaTabla } from "@/components/sections/comparativa-tabla"
 import { Proceso } from "@/components/sections/proceso"
 import { Paquetes } from "@/components/sections/paquetes"

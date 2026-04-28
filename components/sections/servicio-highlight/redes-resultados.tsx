@@ -1,11 +1,10 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import { motion, useInView } from "framer-motion"
+import { motion, useInView } from "motion/react"
 import type { PortfolioItem } from "@/constants/services-detalle"
 import { Icon } from "@/lib/icons"
-
-const EASE: [number,number,number,number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 // ── Animated counter ──────────────────────────────────────────
 function useCounter(target: number, decimals: number, duration: number, triggered: boolean) {
@@ -106,7 +105,7 @@ function CaseCard({ item, index, triggered }: { item: PortfolioItem; index: numb
       style={{
         borderRadius: 22,
         overflow: "hidden",
-        background: "rgba(255,255,255,0.025)",
+        background: "var(--surface)",
         border: `1px solid ${item.color}25`,
         position: "relative",
         display: "flex",
@@ -148,9 +147,9 @@ function CaseCard({ item, index, triggered }: { item: PortfolioItem; index: numb
           position: "absolute", top: 12, left: 12,
           padding: "3px 10px", borderRadius: 6,
           background: "rgba(8,8,16,0.80)",
-          border: "1px solid rgba(255,255,255,0.09)",
+          border: "1px solid var(--border)",
           fontFamily: "var(--font-ui)", fontSize: "0.65rem",
-          color: "rgba(255,255,255,0.35)",
+          color: "var(--fg-muted)",
           letterSpacing: "0.03em",
         }}>Caso confidencial</span>
       </div>
@@ -181,7 +180,7 @@ function CaseCard({ item, index, triggered }: { item: PortfolioItem; index: numb
 
         <p style={{
           fontFamily: "var(--font-ui)", fontSize: "0.875rem",
-          color: "rgba(255,255,255,0.45)", marginBottom: 20,
+          color: "var(--fg-secondary)", marginBottom: 20,
           lineHeight: 1.4,
         }}>{item.metricNote}</p>
 
@@ -195,7 +194,7 @@ function CaseCard({ item, index, triggered }: { item: PortfolioItem; index: numb
           marginTop: "auto",
           display: "flex", alignItems: "center", gap: 8,
           paddingTop: 16,
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: "1px solid var(--border-subtle)",
         }}>
           <div style={{
             width: 6, height: 6, borderRadius: "50%",
@@ -204,7 +203,7 @@ function CaseCard({ item, index, triggered }: { item: PortfolioItem; index: numb
           }} />
           <span style={{
             fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-            color: "rgba(255,255,255,0.30)",
+            color: "var(--fg-muted)",
           }}>{item.label}</span>
         </div>
       </div>
@@ -218,7 +217,7 @@ export function RedesResultados({ portfolio }: { portfolio: PortfolioItem[] }) {
   const inView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -229,22 +228,22 @@ export function RedesResultados({ portfolio }: { portfolio: PortfolioItem[] }) {
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)", background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)", background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 14,
           }}>Resultados reales</span>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             marginBottom: 10,
           }}>
             Clientes que ya lo están notando
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: "1rem",
-            color: "rgba(255,255,255,0.40)", lineHeight: 1.6, maxWidth: 540,
+            color: "var(--fg-muted)", lineHeight: 1.6, maxWidth: 540,
           }}>
             Datos reales de clientes actuales. Por confidencialidad no mostramos nombres ni cuentas.
           </p>
@@ -274,7 +273,7 @@ export function RedesResultados({ portfolio }: { portfolio: PortfolioItem[] }) {
           }}
         >
           <div style={{ display: "flex", gap: -4 }}>
-            {["#E1306C","#9B4DBC","#10B981"].map((c, i) => (
+            {["#E1306C","var(--color-geko-purple-accent)","#10B981"].map((c, i) => (
               <div key={c} style={{
                 width: 24, height: 24, borderRadius: "50%",
                 background: `${c}30`, border: `2px solid rgba(8,8,16,1)`,
@@ -284,7 +283,7 @@ export function RedesResultados({ portfolio }: { portfolio: PortfolioItem[] }) {
           </div>
           <span style={{
             fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-            color: "rgba(255,255,255,0.28)",
+            color: "var(--fg-subtle)",
           }}>Negocios reales en Madrid · Resultados verificables</span>
         </motion.div>
       </div>

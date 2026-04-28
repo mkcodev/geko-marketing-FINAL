@@ -1,10 +1,11 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import {
   SpotlightCard,
   CardTag,
@@ -23,9 +24,10 @@ export function Servicios() {
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
+  const t = useT()
 
   return (
-    <section ref={ref} className="section-container" style={{ paddingTop: 96, paddingBottom: 96 }}>
+    <section ref={ref} className="section-container" style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)" }}>
       {/* Header */}
       <motion.div
         initial={prefersReduced ? false : { opacity: 0, y: 20 }}
@@ -35,24 +37,17 @@ export function Servicios() {
       >
         <p style={{
           fontFamily: "var(--font-ui)", fontSize: "0.75rem", fontWeight: 500,
-          letterSpacing: "0.12em", textTransform: "uppercase", color: "#9B4DBC", marginBottom: 14,
+          letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-geko-purple-accent)", marginBottom: 14,
         }}>
-          Servicios
+          {t.services.label}
         </p>
         <h2 style={{
           fontFamily: "var(--font-heading)",
           fontSize: isDesktop ? "clamp(2.25rem, 4vw, 3.25rem)" : "clamp(1.875rem, 7vw, 2.5rem)",
           fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05,
-          color: "rgba(255,255,255,0.96)", maxWidth: 560,
+          color: "var(--fg)", maxWidth: 560,
         }}>
-          Todo lo que tu marca necesita
-          <br />
-          <span style={{
-            background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
-          }}>
-            para dominar online
-          </span>
+          {t.services.headline}
         </h2>
       </motion.div>
 
@@ -69,9 +64,9 @@ export function Servicios() {
           transition={{ duration: 0.55, delay: 0, ease: EASE }}
           style={{ gridColumn: isDesktop ? "1 / 3" : "span 1", gridRow: isDesktop ? "1 / 3" : undefined }}
         >
-          <SpotlightCard color="#6B2D7C" glow="rgba(107,45,124,0.25)">
+          <SpotlightCard color="var(--color-geko-purple)" glow="var(--color-geko-purple-a25)">
             <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: isDesktop ? 420 : 320 }}>
-              <CardTag color="#9B4DBC" label="Instagram · TikTok · LinkedIn" />
+              <CardTag color="var(--color-geko-purple-accent)" label="Instagram · TikTok · LinkedIn" />
               <h3 style={cardTitle}>Gestión de Redes Sociales</h3>
               <p style={cardDesc}>
                 Estrategia, contenido y comunidad en las plataformas que importan. Cada publicación con un propósito claro.
@@ -90,9 +85,9 @@ export function Servicios() {
           transition={{ duration: 0.5, delay: 0.08, ease: EASE }}
           style={{ gridColumn: isDesktop ? "3 / 4" : "span 1", gridRow: isDesktop ? "1 / 2" : undefined }}
         >
-          <SpotlightCard color="#3B82F6" glow="rgba(59,130,246,0.22)">
+          <SpotlightCard color="var(--color-geko-blue-light)" glow="var(--color-geko-blue-light-a22)">
             <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 200 }}>
-              <CardTag color="#3B82F6" label="Meta Ads · Google Ads" />
+              <CardTag color="var(--color-geko-blue-light)" label="Meta Ads · Google Ads" />
               <h3 style={cardTitle}>Publicidad Digital</h3>
               <p style={cardDesc}>Campañas con ROAS real. Cada euro medido y optimizado.</p>
               <div style={{ marginTop: "auto", paddingTop: 20 }}>
@@ -173,11 +168,11 @@ export function Servicios() {
             display: "inline-flex", alignItems: "center", gap: 8,
             padding: "12px 26px", borderRadius: 12,
             fontFamily: "var(--font-ui)", fontSize: "0.9rem", fontWeight: 500,
-            color: "rgba(255,255,255,0.70)", textDecoration: "none",
-            border: "1px solid rgba(255,255,255,0.09)", background: "rgba(255,255,255,0.03)",
+            color: "var(--fg-secondary)", textDecoration: "none",
+            border: "1px solid var(--border)", background: "var(--surface)",
           }}
         >
-          Ver todos los servicios
+          {t.services.cta}
           <ArrowUpRight size={14} />
         </Link>
       </motion.div>

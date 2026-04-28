@@ -1,11 +1,10 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import Link from "next/link"
 import { ArrowLeft, Home, Search } from "lucide-react"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const LINKS = [
   { href: "/", label: "Inicio", icon: <Home size={15} /> },
@@ -90,14 +89,14 @@ export default function NotFound() {
       <div aria-hidden="true" style={{
         position: "absolute", top: "10%", left: "15%",
         width: 400, height: 400, borderRadius: "50%",
-        background: "radial-gradient(ellipse, rgba(107,45,124,0.18) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, var(--color-geko-purple-a18) 0%, transparent 70%)",
         filter: "blur(80px)", pointerEvents: "none",
         animation: "blob-drift 8s ease-in-out infinite",
       }} />
       <div aria-hidden="true" style={{
         position: "absolute", bottom: "10%", right: "15%",
         width: 350, height: 350, borderRadius: "50%",
-        background: "radial-gradient(ellipse, rgba(29,78,216,0.15) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, var(--color-geko-blue-a15) 0%, transparent 70%)",
         filter: "blur(80px)", pointerEvents: "none",
         animation: "blob-drift 10s ease-in-out infinite reverse",
       }} />
@@ -117,7 +116,7 @@ export default function NotFound() {
             fontWeight: 900,
             letterSpacing: "-0.05em",
             lineHeight: 1,
-            background: "linear-gradient(135deg, rgba(107,45,124,0.25) 0%, rgba(59,130,246,0.20) 100%)",
+            background: "linear-gradient(135deg, var(--color-geko-purple-a25) 0%, rgba(59,130,246,0.20) 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -135,7 +134,7 @@ export default function NotFound() {
             fontWeight: 900,
             letterSpacing: "-0.05em",
             lineHeight: 1,
-            background: "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
+            background: "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -157,7 +156,7 @@ export default function NotFound() {
             fontSize: "clamp(1.5rem, 4vw, 2.25rem)",
             fontWeight: 800,
             letterSpacing: "-0.03em",
-            color: "rgba(255,255,255,0.92)",
+            color: "var(--fg)",
             marginBottom: 14,
           }}
         >
@@ -171,7 +170,7 @@ export default function NotFound() {
           style={{
             fontFamily: "var(--font-body)",
             fontSize: "1.0625rem",
-            color: "rgba(255,255,255,0.42)",
+            color: "var(--fg-muted)",
             lineHeight: 1.7,
             marginBottom: 40,
           }}
@@ -199,24 +198,24 @@ export default function NotFound() {
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.9rem",
                 fontWeight: 500,
-                color: "rgba(255,255,255,0.70)",
+                color: "var(--fg-secondary)",
                 textDecoration: "none",
-                border: "1px solid rgba(255,255,255,0.10)",
-                background: "rgba(255,255,255,0.04)",
+                border: "1px solid var(--border-strong)",
+                background: "var(--surface)",
                 backdropFilter: "blur(8px)",
                 transition: "all 0.2s",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement
-                el.style.background = "rgba(107,45,124,0.15)"
-                el.style.borderColor = "rgba(107,45,124,0.35)"
-                el.style.color = "rgba(255,255,255,0.92)"
+                el.style.background = "var(--color-geko-purple-a15)"
+                el.style.borderColor = "var(--color-geko-purple-a35)"
+                el.style.color = "var(--fg)"
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement
-                el.style.background = "rgba(255,255,255,0.04)"
-                el.style.borderColor = "rgba(255,255,255,0.10)"
-                el.style.color = "rgba(255,255,255,0.70)"
+                el.style.background = "var(--surface)"
+                el.style.borderColor = "var(--border-strong)"
+                el.style.color = "var(--fg-secondary)"
               }}
             >
               {link.icon}
@@ -244,8 +243,8 @@ export default function NotFound() {
               fontWeight: 600,
               color: "#fff",
               textDecoration: "none",
-              background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
-              boxShadow: "0 4px 24px rgba(107,45,124,0.45)",
+              background: "var(--gradient-brand)",
+              boxShadow: "0 4px 24px var(--color-geko-purple-a45)",
             }}
           >
             <ArrowLeft size={16} />
@@ -266,14 +265,14 @@ export default function NotFound() {
             gap: 6,
             fontFamily: "var(--font-ui)",
             fontSize: "0.82rem",
-            color: "rgba(255,255,255,0.22)",
+            color: "var(--fg-subtle)",
           }}
         >
           <Search size={12} />
           ¿Buscas algo concreto?{" "}
           <Link
             href="/contacto"
-            style={{ color: "rgba(155,77,188,0.75)", textDecoration: "none" }}
+            style={{ color: "var(--color-geko-purple-accent-a75)", textDecoration: "none" }}
           >
             Contáctanos
           </Link>

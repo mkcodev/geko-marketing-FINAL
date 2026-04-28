@@ -1,15 +1,14 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { useRef, useState } from "react"
+import { motion, useInView, AnimatePresence } from "motion/react"
 import { Search, CalendarDays, Wand2, Send, TrendingUp } from "lucide-react"
 import type { ProcesoStep } from "@/constants/services-detalle"
-
-const EASE: [number,number,number,number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 const STEP_META = [
-  { Icon: Search,      color: "#9B4DBC", label: "Diagnóstico" },
-  { Icon: CalendarDays, color: "#3B82F6", label: "Planificación" },
+  { Icon: Search,      color: "var(--color-geko-purple-accent)", label: "Diagnóstico" },
+  { Icon: CalendarDays, color: "var(--color-geko-blue-light)", label: "Planificación" },
   { Icon: Wand2,       color: "#E1306C", label: "Creación" },
   { Icon: Send,        color: "#10B981", label: "Publicación" },
   { Icon: TrendingUp,  color: "#F59E0B", label: "Optimización" },
@@ -26,11 +25,11 @@ function AuditVisual() {
       ].map((row) => (
         <div key={row.label}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-            <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.7rem", color: "rgba(255,255,255,0.38)" }}>{row.label}</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.7rem", fontWeight: 700, color: "rgba(255,255,255,0.60)" }}>{row.val}</span>
+            <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.7rem", color: "var(--fg-muted)" }}>{row.label}</span>
+            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.7rem", fontWeight: 700, color: "var(--fg-secondary)" }}>{row.val}</span>
           </div>
-          <div style={{ height: 4, borderRadius: 2, background: "rgba(255,255,255,0.07)" }}>
-            <div style={{ height: "100%", width: `${row.pct}%`, borderRadius: 2, background: "rgba(155,77,188,0.55)" }} />
+          <div style={{ height: 4, borderRadius: 2, background: "var(--border-subtle)" }}>
+            <div style={{ height: "100%", width: `${row.pct}%`, borderRadius: 2, background: "var(--color-geko-purple-accent-a55)" }} />
           </div>
         </div>
       ))}
@@ -40,17 +39,17 @@ function AuditVisual() {
 
 function CalendarVisual() {
   const days = ["L","M","X","J","V","S","D"]
-  const posts: Record<number, string> = { 0: "#E1306C", 2: "#9B4DBC", 4: "#3B82F6", 6: "#F59E0B" }
+  const posts: Record<number, string> = { 0: "#E1306C", 2: "var(--color-geko-purple-accent)", 4: "var(--color-geko-blue-light)", 6: "#F59E0B" }
   return (
     <div style={{ width: "100%" }}>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4 }}>
         {days.map((d, i) => (
           <div key={d} style={{ textAlign: "center" }}>
-            <div style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "rgba(255,255,255,0.28)", marginBottom: 4 }}>{d}</div>
+            <div style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "var(--fg-subtle)", marginBottom: 4 }}>{d}</div>
             <div style={{
               height: 22, borderRadius: 5,
-              background: posts[i] ? `${posts[i]}22` : "rgba(255,255,255,0.04)",
-              border: posts[i] ? `1px solid ${posts[i]}44` : "1px solid rgba(255,255,255,0.06)",
+              background: posts[i] ? `${posts[i]}22` : "var(--surface)",
+              border: posts[i] ? `1px solid ${posts[i]}44` : "1px solid var(--border-subtle)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
               {posts[i] && <div style={{ width: 6, height: 6, borderRadius: "50%", background: posts[i] }} />}
@@ -59,10 +58,10 @@ function CalendarVisual() {
         ))}
       </div>
       <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
-        {[["#E1306C","Reel"], ["#9B4DBC","Post"], ["#3B82F6","Story"], ["#F59E0B","Carrusel"]].map(([c,l]) => (
+        {[["#E1306C","Reel"], ["var(--color-geko-purple-accent)","Post"], ["var(--color-geko-blue-light)","Story"], ["#F59E0B","Carrusel"]].map(([c,l]) => (
           <div key={l} style={{ display: "flex", alignItems: "center", gap: 4 }}>
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: c as string }} />
-            <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "rgba(255,255,255,0.30)" }}>{l}</span>
+            <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "var(--fg-muted)" }}>{l}</span>
           </div>
         ))}
       </div>
@@ -73,18 +72,18 @@ function CalendarVisual() {
 function ContentVisual() {
   return (
     <div style={{ display: "flex", gap: 8, width: "100%" }}>
-      {[["#E1306C","#9B4DBC"], ["#3B82F6","#10B981"], ["#F59E0B","#E1306C"]].map(([a,b], i) => (
+      {[["#E1306C","var(--color-geko-purple-accent)"], ["var(--color-geko-blue-light)","#10B981"], ["#F59E0B","#E1306C"]].map(([a,b], i) => (
         <div key={i} style={{
           flex: 1, borderRadius: 8, overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.08)",
+          border: "1px solid var(--border)",
         }}>
           <div style={{
             height: 48,
             background: `linear-gradient(135deg, ${a}44, ${b}22)`,
           }} />
           <div style={{ padding: "6px 6px 4px", background: "rgba(8,8,16,0.7)" }}>
-            <div style={{ height: 4, borderRadius: 2, background: "rgba(255,255,255,0.06)", marginBottom: 3 }} />
-            <div style={{ height: 3, borderRadius: 2, background: "rgba(255,255,255,0.04)", width: "70%" }} />
+            <div style={{ height: 4, borderRadius: 2, background: "var(--border-subtle)", marginBottom: 3 }} />
+            <div style={{ height: 3, borderRadius: 2, background: "var(--surface)", width: "70%" }} />
           </div>
         </div>
       ))}
@@ -109,14 +108,14 @@ function PublishVisual() {
           style={{
             display: "flex", alignItems: "center", justifyContent: "space-between",
             padding: "6px 10px", borderRadius: 8,
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.07)",
+            background: "var(--surface)",
+            border: "1px solid var(--border-subtle)",
           }}
         >
-          <span style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--font-ui)", fontSize: "0.7rem", color: "rgba(255,255,255,0.55)" }}>
+          <span style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: "var(--font-ui)", fontSize: "0.7rem", color: "var(--fg-secondary)" }}>
             <span>{n.emoji}</span>{n.text}
           </span>
-          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.62rem", color: "rgba(255,255,255,0.25)" }}>{n.time}</span>
+          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.62rem", color: "var(--fg-subtle)" }}>{n.time}</span>
         </motion.div>
       ))}
     </div>
@@ -137,17 +136,17 @@ function AnalyticsVisual() {
             style={{
               flex: 1, borderRadius: "3px 3px 0 0",
               background: i >= 6
-                ? "linear-gradient(180deg, #9B4DBC, #3B82F6)"
-                : "rgba(255,255,255,0.08)",
+                ? "linear-gradient(180deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))"
+                : "var(--border)",
             }}
           />
         ))}
       </div>
-      <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginTop: 1 }} />
+      <div style={{ height: 1, background: "var(--border)", marginTop: 1 }} />
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
-        <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "rgba(255,255,255,0.22)" }}>Ene</span>
-        <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "rgba(255,255,255,0.22)" }}>Mar</span>
-        <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "#9B4DBC" }}>Hoy ↑</span>
+        <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "var(--fg-subtle)" }}>Ene</span>
+        <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "var(--fg-subtle)" }}>Mar</span>
+        <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.6rem", color: "var(--color-geko-purple-accent)" }}>Hoy ↑</span>
       </div>
     </div>
   )
@@ -162,7 +161,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
   const [active, setActive] = useState(0)
 
   return (
-    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -173,15 +172,15 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)", background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)", background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 14,
           }}>Cómo trabajamos</span>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
           }}>
             El proceso, paso a paso
           </h2>
@@ -201,7 +200,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
               position: "absolute",
               top: 28, bottom: 28, left: "50%", transform: "translateX(-50%)",
               width: 2,
-              background: "rgba(255,255,255,0.06)",
+              background: "var(--border-subtle)",
             }} />
             {/* Animated fill */}
             <motion.div
@@ -212,7 +211,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                 position: "absolute",
                 top: 28, left: "50%", transform: "translateX(-50%)",
                 width: 2,
-                background: "linear-gradient(180deg, #6B2D7C, #3B82F6)",
+                background: "linear-gradient(180deg, var(--color-geko-purple), var(--color-geko-blue-light))",
                 transformOrigin: "top",
                 zIndex: 1,
               }}
@@ -237,15 +236,15 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                     marginBottom: i < proceso.length - 1 ? 40 : 0,
                     cursor: "pointer",
                     background: isActive
-                      ? `linear-gradient(135deg, ${meta.color}, #1D4ED8)`
+                      ? `linear-gradient(135deg, ${meta.color}, var(--color-geko-blue))`
                       : isPast
-                      ? "rgba(107,45,124,0.15)"
-                      : "rgba(255,255,255,0.04)",
+                      ? "var(--color-geko-purple-a15)"
+                      : "var(--surface)",
                     border: isActive
                       ? `2px solid ${meta.color}80`
                       : isPast
-                      ? "2px solid rgba(107,45,124,0.30)"
-                      : "1px solid rgba(255,255,255,0.10)",
+                      ? "2px solid var(--color-geko-purple-a30)"
+                      : "1px solid var(--border-strong)",
                     boxShadow: isActive ? `0 0 24px ${meta.color}50, 0 0 8px ${meta.color}30` : "none",
                     transition: "all 0.35s cubic-bezier(0.25,0.46,0.45,0.94)",
                     outline: "none",
@@ -259,7 +258,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                     <span style={{
                       fontFamily: "var(--font-heading)", fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: isActive ? "#fff" : "rgba(255,255,255,0.35)",
+                      color: isActive ? "#fff" : "var(--fg-muted)",
                     }}>{step.num}</span>
                   )}
                 </motion.button>
@@ -278,7 +277,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                 transition={{ duration: 0.35, ease: EASE }}
                 style={{
                   borderRadius: 20,
-                  background: "rgba(255,255,255,0.025)",
+                  background: "var(--surface)",
                   border: `1px solid ${STEP_META[active].color}30`,
                   overflow: "hidden",
                   boxShadow: `0 0 40px ${STEP_META[active].color}0A`,
@@ -287,7 +286,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                 {/* Card top bar */}
                 <div style={{
                   height: 3,
-                  background: `linear-gradient(90deg, ${STEP_META[active].color}, #1D4ED8)`,
+                  background: `linear-gradient(90deg, ${STEP_META[active].color}, var(--color-geko-blue))`,
                 }} />
 
                 <div style={{ padding: "28px 32px 32px" }}>
@@ -320,14 +319,14 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                       <h3 style={{
                         fontFamily: "var(--font-heading)", fontSize: "clamp(1.2rem, 2vw, 1.6rem)",
                         fontWeight: 800, lineHeight: 1.2, letterSpacing: "-0.02em",
-                        color: "rgba(255,255,255,0.95)",
+                        color: "var(--fg)",
                       }}>{proceso[active].title}</h3>
                     </div>
                   </div>
 
                   <p style={{
                     fontFamily: "var(--font-body)", fontSize: "1rem",
-                    color: "rgba(255,255,255,0.55)", lineHeight: 1.75,
+                    color: "var(--fg-secondary)", lineHeight: 1.75,
                     marginBottom: 28,
                     maxWidth: 520,
                   }}>{proceso[active].description}</p>
@@ -335,12 +334,12 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                   {/* Visual */}
                   <div style={{
                     borderRadius: 14, padding: "20px",
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "var(--surface)",
+                    border: "1px solid var(--border-subtle)",
                   }}>
                     <div style={{
                       fontFamily: "var(--font-ui)", fontSize: "0.7rem",
-                      color: "rgba(255,255,255,0.28)", marginBottom: 14,
+                      color: "var(--fg-subtle)", marginBottom: 14,
                       letterSpacing: "0.05em", textTransform: "uppercase",
                     }}>Vista previa</div>
                     {(() => { const V = VISUALS[active]; return <V /> })()}
@@ -357,7 +356,7 @@ export function RedesProceso({ proceso }: { proceso: ProcesoStep[] }) {
                   onClick={() => setActive(i)}
                   style={{
                     width: i === active ? 24 : 8, height: 8, borderRadius: 4,
-                    background: i === active ? STEP_META[active].color : "rgba(255,255,255,0.12)",
+                    background: i === active ? STEP_META[active].color : "var(--border-strong)",
                     border: "none", cursor: "pointer", padding: 0,
                     transition: "all 0.3s ease",
                   }}

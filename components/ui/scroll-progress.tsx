@@ -1,6 +1,6 @@
 "use client"
 
-import { useScroll, useSpring, motion } from "framer-motion"
+import { useScroll, useSpring, motion } from "motion/react"
 
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll()
@@ -30,7 +30,7 @@ export function ScrollProgress() {
           transformOrigin: "0%",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(90deg, #6B2D7C 0%, #8B3D9C 30%, #3B82F6 70%, #1D4ED8 100%)",
+          background: "linear-gradient(90deg, var(--color-geko-purple) 0%, var(--color-geko-purple-light) 30%, var(--color-geko-blue-light) 70%, var(--color-geko-blue) 100%)",
         }}
       />
     </div>

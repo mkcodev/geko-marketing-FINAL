@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/keystatic/"],
+        disallow: ["/api/", "/keystatic/", "/playground-geko/"],
       },
     ],
     sitemap: "https://geko-marketing.com/sitemap.xml",

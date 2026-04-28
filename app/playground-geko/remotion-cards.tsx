@@ -1,7 +1,18 @@
 "use client"
+/* eslint-disable react-hooks/set-state-in-effect */
 
 import { useState, useEffect } from "react"
-import { Player } from "@remotion/player"
+import dynamic from "next/dynamic"
+
+const Player = dynamic(
+  () => import("@remotion/player").then((m) => ({ default: m.Player })),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ aspectRatio: "16/9", background: "rgba(255,255,255,0.04)", borderRadius: 12, animation: "pulse 2s ease-in-out infinite" }} />
+    ),
+  }
+)
 import {
   AbsoluteFill,
   interpolate,
@@ -196,7 +207,7 @@ const METRICS = [
 
 function CampaignMetricsComposition() {
   const frame = useCurrentFrame()
-  const { fps } = useVideoConfig()
+  useVideoConfig()
 
   const headerY = interpolate(frame, [0, 24], [14, 0], { extrapolateRight: "clamp" })
   const headerOpacity = interpolate(frame, [0, 24], [0, 1], { extrapolateRight: "clamp" })
@@ -360,7 +371,6 @@ const FUNNEL_STAGES = [
 
 function FunnelComposition() {
   const frame = useCurrentFrame()
-  const { fps } = useVideoConfig()
 
   const headerOpacity = interpolate(frame, [0, 18], [0, 1], { extrapolateRight: "clamp" })
   const footerOpacity = interpolate(frame, [120, 142], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })
@@ -536,7 +546,6 @@ const POSTS: Array<{ day: number; platform: PlatformKey; time: string; done: boo
 
 function ContentCalendarComposition() {
   const frame = useCurrentFrame()
-  const { fps } = useVideoConfig()
 
   const headerOpacity = interpolate(frame, [0, 18], [0, 1], { extrapolateRight: "clamp" })
   const footerOpacity = interpolate(frame, [130, 150], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })

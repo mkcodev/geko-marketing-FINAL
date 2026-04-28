@@ -1,0 +1,6 @@
+export const CONTACT_EMAIL = "info@geko-marketing.com"
+export const CONTACT_PHONE = "633 197 798"
+export const CONTACT_PHONE_HREF = "tel:+34633197798"
+export const CONTACT_LOCATION = "Tres Cantos, Madrid"
+export const CONTACT_HOURS = "Lun–Vie 9:00–18:00"
+export const CALENDLY_URL = "https://calendly.com/info-gekomarketing/30min"

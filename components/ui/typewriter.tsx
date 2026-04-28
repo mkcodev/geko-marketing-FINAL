@@ -39,6 +39,7 @@ export function Typewriter({
     }
 
     if (deleting && display === "") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDeleting(false)
       setWordIdx((i) => (i + 1) % words.length)
       return
@@ -63,7 +64,7 @@ export function Typewriter({
           display: "inline-block",
           width: "3px",
           height: "0.85em",
-          background: "linear-gradient(180deg, #9B4DBC, #3B82F6)",
+          background: "linear-gradient(180deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
           borderRadius: 2,
           marginLeft: 3,
           verticalAlign: "text-bottom",

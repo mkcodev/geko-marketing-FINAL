@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 
 const STORAGE_KEY = "geko-cookie-consent"
@@ -45,11 +45,11 @@ export function CookieBanner() {
             background: "rgba(8,8,16,0.92)",
             backdropFilter: "blur(20px) saturate(180%)",
             WebkitBackdropFilter: "blur(20px) saturate(180%)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            border: "1px solid var(--border)",
             // esquina superior derecha más redondeada
             borderRadius: "12px 28px 12px 12px",
             padding: "20px 22px",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.03) inset",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px var(--surface) inset",
           }}
           role="dialog"
           aria-label="Aviso de cookies"
@@ -58,8 +58,8 @@ export function CookieBanner() {
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
             <div style={{
               width: 28, height: 28, borderRadius: 8, flexShrink: 0,
-              background: "linear-gradient(135deg, rgba(107,45,124,0.25), rgba(29,78,216,0.20))",
-              border: "1px solid rgba(107,45,124,0.30)",
+              background: "linear-gradient(135deg, var(--color-geko-purple-a25), var(--color-geko-blue-a20))",
+              border: "1px solid var(--color-geko-purple-a30)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: "0.85rem",
             }}>
@@ -69,7 +69,7 @@ export function CookieBanner() {
               fontFamily: "var(--font-ui)",
               fontSize: "0.875rem",
               fontWeight: 600,
-              color: "rgba(255,255,255,0.90)",
+              color: "var(--fg)",
             }}>
               Cookies
             </span>
@@ -79,7 +79,7 @@ export function CookieBanner() {
           <p style={{
             fontFamily: "var(--font-body)",
             fontSize: "0.8125rem",
-            color: "rgba(255,255,255,0.50)",
+            color: "var(--fg-secondary)",
             lineHeight: 1.6,
             marginBottom: 18,
           }}>
@@ -87,9 +87,9 @@ export function CookieBanner() {
             <Link
               href="/privacidad"
               style={{
-                color: "rgba(155,77,188,0.85)",
+                color: "var(--color-geko-purple-accent-a85)",
                 textDecoration: "none",
-                borderBottom: "1px solid rgba(155,77,188,0.30)",
+                borderBottom: "1px solid var(--color-geko-purple-accent-a30)",
               }}
             >
               Política de privacidad
@@ -106,13 +106,13 @@ export function CookieBanner() {
                 padding: "9px 0",
                 borderRadius: 9,
                 border: "none",
-                background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+                background: "var(--gradient-brand)",
                 color: "#fff",
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.8125rem",
                 fontWeight: 600,
                 cursor: "inherit",
-                boxShadow: "0 2px 12px rgba(107,45,124,0.35)",
+                boxShadow: "0 2px 12px var(--color-geko-purple-a35)",
               }}
             >
               Aceptar
@@ -123,9 +123,9 @@ export function CookieBanner() {
                 flex: 1,
                 padding: "9px 0",
                 borderRadius: 9,
-                border: "1px solid rgba(255,255,255,0.10)",
-                background: "rgba(255,255,255,0.04)",
-                color: "rgba(255,255,255,0.50)",
+                border: "1px solid var(--border-strong)",
+                background: "var(--surface)",
+                color: "var(--fg-secondary)",
                 fontFamily: "var(--font-ui)",
                 fontSize: "0.8125rem",
                 fontWeight: 500,

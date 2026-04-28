@@ -1,66 +1,15 @@
 "use client"
 
 import { useRef, useState, useEffect, useCallback } from "react"
-import { motion, useInView, AnimatePresence, useReducedMotion } from "framer-motion"
+import { motion, useInView, AnimatePresence, useReducedMotion } from "motion/react"
 import { Star, ChevronLeft, ChevronRight } from "lucide-react"
+import { Section } from "@/components/ui/section"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { useT } from "@/hooks/use-translations"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
 import { EASE } from "@/lib/animations"
 const AUTOPLAY_INTERVAL = 4500
-
-const REVIEWS = [
-  {
-    name: "Laura Martínez",
-    role: "CEO · Clínica Estética Lumina",
-    avatar: "LM",
-    color: "#9B4DBC",
-    stars: 5,
-    text: "En 3 meses duplicamos las reservas online desde Instagram. Geko no solo gestiona las redes — entienden el negocio y crean contenido que convierte. El equipo es increíblemente rápido y profesional.",
-    platform: "Google",
-    result: "+112% reservas online",
-  },
-  {
-    name: "Carlos Ruiz",
-    role: "Fundador · TechFix Soluciones",
-    avatar: "CR",
-    color: "#3B82F6",
-    stars: 5,
-    text: "Llevábamos años sin presencia digital real. En 60 días teníamos una estrategia sólida, contenido diario y nuestras primeras campañas de Meta con un ROAS de ×3.8. Ahora no podemos imaginar el negocio sin Geko.",
-    platform: "Google",
-    result: "ROAS ×3.8 desde el mes 2",
-  },
-  {
-    name: "Sofía Delgado",
-    role: "Directora · Academia Idiomas Berlin",
-    avatar: "SD",
-    color: "#10B981",
-    stars: 5,
-    text: "Lo que más me sorprendió fue la rapidez. El primer mes ya notamos el cambio en las consultas. Ahora tenemos lista de espera para septiembre — algo que nunca habíamos conseguido con otras agencias.",
-    platform: "Google",
-    result: "Lista de espera en 90 días",
-  },
-  {
-    name: "Marcos Jiménez",
-    role: "Propietario · Restaurante La Brasa",
-    avatar: "MJ",
-    color: "#F59E0B",
-    stars: 5,
-    text: "Con Geko pasamos de 400 a 8.200 seguidores en Instagram en 4 meses. Las reservas por redes sociales aumentaron un 340%. Su estrategia de contenido es diferente — cada publicación tiene un propósito.",
-    platform: "Google",
-    result: "+8K seguidores · +340% reservas",
-  },
-  {
-    name: "Ana Vega",
-    role: "Directora Mkt · Grupo Inmobiliario Solaris",
-    avatar: "AV",
-    color: "#EC4899",
-    stars: 5,
-    text: "Gestionamos con Geko tres marcas a la vez y el nivel de organización es impresionante. Reportes semanales claros, respuesta en menos de 2 horas siempre y resultados que presentamos sin vergüenza a dirección.",
-    platform: "Google",
-    result: "3 marcas · Reportes semanales",
-  },
-]
 
 function Stars({ n }: { n: number }) {
   return (
@@ -77,12 +26,14 @@ export function Testimoniales() {
   const inView = useInView(ref, { once: true, margin: "-80px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const prefersReduced = useReducedMotion()
+  const t = useT()
+  const REVIEWS = t.testimonials.items
   const [idx, setIdx] = useState(0)
   const [dir, setDir] = useState(1)
   const [hovered, setHovered] = useState(false)
 
-  const prev = useCallback(() => { setDir(-1); setIdx(i => (i - 1 + REVIEWS.length) % REVIEWS.length) }, [])
-  const next = useCallback(() => { setDir(1); setIdx(i => (i + 1) % REVIEWS.length) }, [])
+  const prev = useCallback(() => { setDir(-1); setIdx(i => (i - 1 + REVIEWS.length) % REVIEWS.length) }, [REVIEWS.length])
+  const next = useCallback(() => { setDir(1); setIdx(i => (i + 1) % REVIEWS.length) }, [REVIEWS.length])
 
   // Autoplay
   useEffect(() => {
@@ -94,16 +45,8 @@ export function Testimoniales() {
   const review = REVIEWS[idx]
 
   return (
-    <section
-      ref={ref}
-      style={{
-        paddingTop: 96, paddingBottom: 96,
-        background: "rgba(255,255,255,0.008)",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
-      }}
-    >
-      <div className="section-container">
+    <Section background="var(--section-alt)" borderTop borderBottom>
+      <div ref={ref} className="section-container">
         {/* Header */}
         <motion.div
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
@@ -123,13 +66,13 @@ export function Testimoniales() {
             fontFamily: "var(--font-heading)",
             fontSize: isDesktop ? "clamp(2rem, 3.5vw, 3rem)" : "clamp(1.75rem, 7vw, 2.5rem)",
             fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05,
-            color: "rgba(255,255,255,0.96)", marginBottom: 14,
+            color: "var(--fg)", marginBottom: 14,
           }}>
-            Lo que dicen nuestros clientes
+            {t.testimonials.headline}
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: "1.0625rem",
-            color: "rgba(255,255,255,0.42)", maxWidth: 440, margin: "0 auto", lineHeight: 1.7,
+            color: "var(--fg-secondary)", maxWidth: 440, margin: "0 auto", lineHeight: 1.7,
           }}>
             Reseñas verificadas en Google Business. Sin filtros.
           </p>
@@ -148,8 +91,8 @@ export function Testimoniales() {
             position: "relative",
             padding: isDesktop ? "48px 52px" : "32px 24px",
             borderRadius: 24,
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
             overflow: "hidden",
             minHeight: 280,
           }}>
@@ -166,7 +109,7 @@ export function Testimoniales() {
             <div aria-hidden style={{
               position: "absolute", top: 24, right: 32,
               fontFamily: "Georgia, serif", fontSize: "6rem", lineHeight: 1,
-              color: "rgba(255,255,255,0.04)", fontWeight: 900,
+              color: "var(--border-subtle)", fontWeight: 900,
               pointerEvents: "none", userSelect: "none",
             }}>
               &ldquo;
@@ -186,7 +129,7 @@ export function Testimoniales() {
                   <Stars n={review.stars} />
                   <span style={{
                     fontFamily: "var(--font-ui)", fontSize: "0.72rem", fontWeight: 600,
-                    color: "rgba(255,255,255,0.30)", letterSpacing: "0.05em",
+                    color: "var(--fg-muted)", letterSpacing: "0.05em",
                   }}>
                     via {review.platform}
                   </span>
@@ -206,7 +149,7 @@ export function Testimoniales() {
                   fontFamily: "var(--font-body)",
                   fontSize: isDesktop ? "1.125rem" : "1rem",
                   lineHeight: 1.75,
-                  color: "rgba(255,255,255,0.78)",
+                  color: "var(--fg)",
                   fontStyle: "italic",
                   margin: "0 0 28px",
                   position: "relative",
@@ -227,10 +170,10 @@ export function Testimoniales() {
                     {review.avatar}
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.9rem", fontWeight: 600, color: "rgba(255,255,255,0.88)", margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.9rem", fontWeight: 600, color: "var(--fg)", margin: 0 }}>
                       {review.name}
                     </p>
-                    <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "rgba(255,255,255,0.35)", margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--fg-muted)", margin: 0 }}>
                       {review.role}
                     </p>
                   </div>
@@ -240,14 +183,14 @@ export function Testimoniales() {
           </div>
 
           {/* Autoplay progress bar */}
-          <div style={{ height: 2, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginTop: 16, overflow: "hidden" }}>
+          <div style={{ height: 2, background: "var(--border-subtle)", borderRadius: 2, marginTop: 16, overflow: "hidden" }}>
             {!hovered && (
               <motion.div
                 key={`progress-${idx}`}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: AUTOPLAY_INTERVAL / 1000, ease: "linear" }}
-                style={{ height: "100%", background: "linear-gradient(90deg, #6B2D7C, #3B82F6)", borderRadius: 2 }}
+                style={{ height: "100%", background: "var(--gradient-brand-90)", borderRadius: 2 }}
               />
             )}
           </div>
@@ -258,8 +201,8 @@ export function Testimoniales() {
               onClick={prev}
               aria-label="Anterior"
               style={{
-                width: 38, height: 38, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.10)",
-                background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.60)",
+                width: 38, height: 38, borderRadius: "50%", border: "1px solid var(--border-strong)",
+                background: "var(--surface)", color: "var(--fg-secondary)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 cursor: "pointer", transition: "border-color 0.2s",
               }}
@@ -276,7 +219,7 @@ export function Testimoniales() {
                   aria-label={`Reseña ${i + 1}`}
                   style={{
                     width: i === idx ? 20 : 6, height: 6, borderRadius: 999, border: "none",
-                    background: i === idx ? "linear-gradient(90deg,#6B2D7C,#3B82F6)" : "rgba(255,255,255,0.18)",
+                    background: i === idx ? "linear-gradient(90deg,var(--color-geko-purple),var(--color-geko-blue-light))" : "var(--border-strong)",
                     cursor: "pointer", padding: 0, transition: "all 0.3s",
                   }}
                 />
@@ -287,8 +230,8 @@ export function Testimoniales() {
               onClick={next}
               aria-label="Siguiente"
               style={{
-                width: 38, height: 38, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.10)",
-                background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.60)",
+                width: 38, height: 38, borderRadius: "50%", border: "1px solid var(--border-strong)",
+                background: "var(--surface)", color: "var(--fg-secondary)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 cursor: "pointer", transition: "border-color 0.2s",
               }}
@@ -311,14 +254,14 @@ export function Testimoniales() {
             { label: "+15 reseñas verificadas", icon: "CheckSquare" as IconName },
           ]).map(item => (
             <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <Icon name={item.icon} size={15} style={{ color: "rgba(255,255,255,0.45)", flexShrink: 0 }} />
-              <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.85rem", color: "rgba(255,255,255,0.40)", fontWeight: 500 }}>
+              <Icon name={item.icon} size={15} style={{ color: "var(--fg-secondary)", flexShrink: 0 }} />
+              <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.85rem", color: "var(--fg-secondary)", fontWeight: 500 }}>
                 {item.label}
               </span>
             </div>
           ))}
         </motion.div>
       </div>
-    </section>
+    </Section>
   )
 }

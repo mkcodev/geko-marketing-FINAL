@@ -21,7 +21,7 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
           fontSize: "1.375rem",
           fontWeight: 700,
           letterSpacing: "-0.02em",
-          color: "rgba(255,255,255,0.90)",
+          color: "var(--fg)",
           marginBottom: 20,
         }}
       >
@@ -48,8 +48,8 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
                 style={{
                   padding: "18px 20px",
                   borderRadius: 14,
-                  background: "rgba(255,255,255,0.025)",
-                  border: "1px solid rgba(255,255,255,0.07)",
+                  background: "var(--surface)",
+                  border: "1px solid var(--border-subtle)",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
@@ -61,7 +61,7 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
                   e.currentTarget.style.transform = "translateY(-2px)"
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"
+                  e.currentTarget.style.borderColor = "var(--border-subtle)"
                   e.currentTarget.style.transform = "translateY(0)"
                 }}
               >
@@ -100,7 +100,7 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
                     fontWeight: 700,
                     lineHeight: 1.35,
                     letterSpacing: "-0.01em",
-                    color: "rgba(255,255,255,0.88)",
+                    color: "var(--fg)",
                     flex: 1,
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
@@ -117,7 +117,7 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     paddingTop: 10,
-                    borderTop: "1px solid rgba(255,255,255,0.06)",
+                    borderTop: "1px solid var(--border-subtle)",
                   }}
                 >
                   <div style={{ display: "flex", gap: 10 }}>
@@ -128,7 +128,7 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
                         gap: 4,
                         fontFamily: "var(--font-ui)",
                         fontSize: "0.72rem",
-                        color: "rgba(255,255,255,0.28)",
+                        color: "var(--fg-subtle)",
                       }}
                     >
                       <Calendar size={10} />
@@ -141,7 +141,7 @@ export function RelatedArticles({ posts }: RelatedArticlesProps) {
                         gap: 4,
                         fontFamily: "var(--font-ui)",
                         fontSize: "0.72rem",
-                        color: "rgba(255,255,255,0.28)",
+                        color: "var(--fg-subtle)",
                       }}
                     >
                       <Clock size={10} />

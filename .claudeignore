@@ -1,0 +1,11 @@
+# Directorios que Claude no debe escanear en búsquedas
+.next/
+node_modules/
+.git/
+public/equipo/
+public/logos/
+content/
+out/
+.husky/
+.github/
+pnpm-lock.yaml

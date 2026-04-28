@@ -1,0 +1,140 @@
+title: "SEO local en Madrid: cómo aparecer primero cuando tus clientes te buscan"
+excerpt: >-
+  Si tienes un negocio en Madrid y no apareces en Google cuando alguien busca tu servicio cerca, estás perdiendo clientes cada día. Guía práctica de SEO local para pymes en 2025.
+publishDate: '2025-06-18'
+category: seo
+tags:
+  - SEO local
+  - Google My Business
+  - posicionamiento web
+  - Madrid
+  - pymes
+  - búsqueda local
+author: guillermo
+featured: false
+content:
+  - type: paragraph
+    children:
+      - text: "El 46% de todas las búsquedas en Google tienen intención local. Cuando alguien busca \"fisioterapeuta en Tres Cantos\" o \"agencia de marketing Madrid\", Google muestra primero el Local Pack — ese mapa con 3 negocios destacados. Si no estás ahí, estás invisible para los clientes que ya te están buscando."
+  - type: heading
+    level: 2
+    children:
+      - text: "Qué es el SEO local y en qué se diferencia del SEO tradicional"
+  - type: paragraph
+    children:
+      - text: "El SEO tradicional busca posicionar páginas web en búsquedas generales. El SEO local va un paso más allá: posiciona tu negocio físico o de área de servicio para búsquedas con intención geográfica. Incluye tanto el ranking en Google Maps como en los resultados orgánicos de búsquedas con localización."
+  - type: paragraph
+    children:
+      - text: "Para una pyme en Madrid, el SEO local tiene un ROI potencialmente mucho mayor que el SEO genérico porque captura usuarios con "
+      - bold: true
+        text: "intención de compra alta y proximidad geográfica."
+      - text: " Alguien que busca «dentista en Hortaleza» está listo para pedir cita. Solo necesita encontrarte."
+  - type: heading
+    level: 2
+    children:
+      - text: "Google Business Profile: tu base de operaciones"
+  - type: paragraph
+    children:
+      - text: "Google Business Profile (antes Google My Business) es el activo más importante del SEO local. Es gratuito, y optimizarlo bien puede ponerte en el Local Pack en semanas. Estos son los factores que Google valora:"
+  - type: unordered-list
+    children:
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Nombre, dirección y teléfono (NAP) coherentes:"
+              - text: " Deben ser exactamente iguales en tu perfil de Google, tu web y todos los directorios donde apareces."
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Categorías correctas:"
+              - text: " Elige la categoría principal más específica posible. Las categorías secundarias amplían tu visibilidad para búsquedas relacionadas."
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Reseñas y respuestas:"
+              - text: " Cantidad, puntuación media y velocidad de respuesta del negocio. Las reseñas son el factor de confianza más poderoso — y Google lo sabe."
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Fotos actualizadas:"
+              - text: " Los perfiles con más de 10 fotos reciben un 35% más de clics. Actualiza las fotos al menos una vez al mes."
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Publicaciones regulares:"
+              - text: " Igual que en redes sociales, Google valora los perfiles activos. Publica novedades, ofertas o contenido relevante al menos 2 veces por semana."
+  - type: heading
+    level: 2
+    children:
+      - text: "Optimización on-page para búsquedas locales"
+  - type: paragraph
+    children:
+      - text: "Tu web también necesita señales locales claras para Google. Las más importantes son:"
+  - type: heading
+    level: 3
+    children:
+      - text: "Páginas de localización"
+  - type: paragraph
+    children:
+      - text: "Si atiendes varias zonas de Madrid, crea una página específica para cada una. Una página «Marketing digital en Alcobendas» diferente a «Marketing digital en Tres Cantos». Cada página debe tener contenido único y relevante para esa zona — no copies y pegues cambiando solo el nombre del barrio."
+  - type: heading
+    level: 3
+    children:
+      - text: "Schema markup LocalBusiness"
+  - type: paragraph
+    children:
+      - text: "El schema markup es código estructurado que ayuda a Google a entender qué es tu negocio, dónde está y qué hace. Implementar LocalBusiness schema en tu web puede mejorar significativamente tu visibilidad local en búsquedas de voz y featured snippets."
+  - type: heading
+    level: 3
+    children:
+      - text: "Menciones de ciudad y zona en el contenido"
+  - type: paragraph
+    children:
+      - text: "Incluye naturalmente menciones de tu ciudad, barrio o zona de servicio en los títulos de página, meta descripciones, encabezados H2 y en el cuerpo del texto. No de forma forzada — escribe para personas, no para robots. Pero sí de forma consciente y estratégica."
+  - type: heading
+    level: 2
+    children:
+      - text: "Cómo conseguir más reseñas de Google (sin comprarlas)"
+  - type: paragraph
+    children:
+      - text: "Las reseñas son el factor más difícil de manipular y por eso Google las valora tanto. La estrategia más efectiva es también la más simple: pedir activamente a clientes satisfechos que dejen una reseña en el momento de máxima satisfacción."
+  - type: paragraph
+    children:
+      - text: "Crea un enlace directo a tu formulario de reseñas de Google y envíalo por WhatsApp o email justo después de una venta o proyecto completado. Un simple mensaje de «Nos ayudaría mucho si pudieras dejarnos tu opinión — te dejo el enlace directo» consigue tasas de respuesta del 20-30%."
+  - type: heading
+    level: 2
+    children:
+      - text: "Cuánto tiempo tarda en funcionar el SEO local"
+  - type: paragraph
+    children:
+      - text: "El SEO local es más rápido que el SEO genérico. Con una estrategia bien ejecutada, los primeros resultados visibles aparecen entre "
+      - bold: true
+        text: "4 y 8 semanas:"
+      - text: " mejora en el Local Pack para búsquedas de baja competencia, más clics desde Google Maps, aumento en llamadas directas desde el perfil."
+  - type: paragraph
+    children:
+      - text: "Los resultados orgánicos en posiciones de primera página para búsquedas más competidas requieren entre 3 y 6 meses de trabajo constante en contenido, autoridad y optimización técnica."
+  - type: blockquote
+    children:
+      - type: paragraph
+        children:
+          - text: "\"En 6 semanas pasamos del puesto 14 al puesto 2 en Google para 'clínica podología Tres Cantos'. Las llamadas de nuevos pacientes se triplicaron.\""
+      - type: paragraph
+        children:
+          - text: "— Marta Iglesias, Directora · Clínica Podológica PodoActiva"
+  - type: divider
+  - type: paragraph
+    children:
+      - text: "¿Quieres saber exactamente en qué posición apareces para las búsquedas más importantes de tu sector en Madrid? "
+      - bold: true
+        text: "Pídenos una auditoría SEO gratuita y te entregamos un informe completo de tu visibilidad local en 48 horas."

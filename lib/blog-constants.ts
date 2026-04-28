@@ -21,7 +21,7 @@ export interface BlogPost {
   content: Parameters<typeof import("@keystatic/core/renderer").DocumentRenderer>[0]["document"]
 }
 
-export interface BlogPostMeta extends Omit<BlogPost, "content"> {}
+export type BlogPostMeta = Omit<BlogPost, "content">
 
 export const CATEGORY_META: Record<
   Category,

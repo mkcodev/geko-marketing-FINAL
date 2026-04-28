@@ -9,11 +9,11 @@ interface LabelProps {
 }
 
 const COLOR_MAP = {
-  purple:  { text: "#9B4DBC", bg: "rgba(107,45,124,0.10)", border: "rgba(107,45,124,0.20)" },
-  blue:    { text: "#3B82F6", bg: "rgba(29,78,216,0.10)",  border: "rgba(29,78,216,0.20)"  },
+  purple:  { text: "var(--color-geko-purple-accent)", bg: "var(--color-geko-purple-a10)", border: "var(--color-geko-purple-a20)" },
+  blue:    { text: "var(--color-geko-blue-light)", bg: "var(--color-geko-blue-a10)",  border: "var(--color-geko-blue-a20)"  },
   emerald: { text: "#10B981", bg: "rgba(16,185,129,0.10)", border: "rgba(16,185,129,0.20)" },
   amber:   { text: "#F59E0B", bg: "rgba(245,158,11,0.10)", border: "rgba(245,158,11,0.20)" },
-  muted:   { text: "rgba(255,255,255,0.40)", bg: "rgba(255,255,255,0.04)", border: "rgba(255,255,255,0.08)" },
+  muted:   { text: "var(--fg-muted)", bg: "var(--surface)", border: "var(--border)" },
 } as const
 
 /**

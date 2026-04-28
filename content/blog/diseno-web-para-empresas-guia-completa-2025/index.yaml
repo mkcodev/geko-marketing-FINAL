@@ -1,0 +1,139 @@
+title: "Diseño web para empresas en 2025: lo que de verdad importa (y lo que no)"
+excerpt: >-
+  No todas las webs convierten igual. Descubre qué hace que una web empresarial genere clientes y cuáles son los errores más frecuentes que hacen perder ventas a diario. Guía actualizada para 2025.
+publishDate: '2025-06-03'
+category: diseno-web
+tags:
+  - diseño web
+  - web empresarial
+  - conversión
+  - UX
+  - velocidad web
+  - Next.js
+  - marketing digital
+author: guillermo
+featured: false
+content:
+  - type: paragraph
+    children:
+      - text: "Tu web es tu vendedor más barato — trabaja 24 horas al día, 365 días al año, sin vacaciones ni comisiones. El problema: la mayoría de las webs empresariales en España son malos vendedores. Están bien diseñadas visualmente pero no están optimizadas para convertir visitantes en clientes."
+  - type: heading
+    level: 2
+    children:
+      - text: "La métrica que de verdad importa: la tasa de conversión"
+  - type: paragraph
+    children:
+      - text: "Muchos dueños de negocio nos preguntan si su web \"se ve bien\". La pregunta correcta es: ¿cuántos visitantes terminan contactando, comprando o pidiendo presupuesto? Esa es la tasa de conversión — y es la métrica que define si tu web trabaja para ti o solo existe."
+  - type: paragraph
+    children:
+      - text: "La tasa de conversión media de una web empresarial en España es del 1-2%. Una web bien optimizada puede llegar al 5-8% con el mismo tráfico. Para una empresa que recibe 500 visitas al mes, eso significa pasar de 5-10 leads a 25-40. "
+      - bold: true
+        text: "Sin gastar un euro más en publicidad."
+  - type: heading
+    level: 2
+    children:
+      - text: "Los 6 elementos que determinan si tu web convierte"
+  - type: heading
+    level: 3
+    children:
+      - text: "1. Velocidad de carga"
+  - type: paragraph
+    children:
+      - text: "El 53% de los usuarios abandona una web si tarda más de 3 segundos en cargar. Google penaliza en su ranking a las webs lentas. Y lo más importante: cada segundo adicional de carga reduce la conversión entre un 7% y un 10%."
+  - type: paragraph
+    children:
+      - text: "Las webs que construimos en Geko alcanzan de media "
+      - bold: true
+        text: "98/100 en PageSpeed Insights"
+      - text: " usando tecnologías modernas como Next.js con renderizado estático. No es un capricho técnico — es una ventaja competitiva directa."
+  - type: heading
+    level: 3
+    children:
+      - text: "2. Propuesta de valor clara en los primeros 5 segundos"
+  - type: paragraph
+    children:
+      - text: "Cuando alguien llega a tu web, tiene una pregunta en mente: ¿esto es para mí? Si en 5 segundos no entiende qué haces, para quién y por qué eres diferente, se va. Tu headline principal no puede ser el nombre de tu empresa — debe ser una promesa de valor clara y específica."
+  - type: heading
+    level: 3
+    children:
+      - text: "3. Prueba social visible"
+  - type: paragraph
+    children:
+      - text: "Las reseñas de Google, los logos de clientes, los casos de éxito y los testimoniales son los elementos que más aumentan la conversión en webs B2B y de servicios. El 92% de los consumidores lee reseñas antes de contratar un servicio. Si tu web no muestra prueba social, estás dejando dinero sobre la mesa."
+  - type: heading
+    level: 3
+    children:
+      - text: "4. CTAs claros y específicos"
+  - type: paragraph
+    children:
+      - text: "Evita los CTAs genéricos como \"Contáctanos\" o \"Más información\". Los mejores CTAs dicen exactamente qué va a pasar: \"Pide tu auditoría gratuita\", \"Habla con un especialista hoy\", \"Descarga la guía ahora\". La especificidad reduce la fricción y aumenta los clics."
+  - type: heading
+    level: 3
+    children:
+      - text: "5. Diseño mobile-first"
+  - type: paragraph
+    children:
+      - text: "En 2025, más del 65% del tráfico web en España llega desde dispositivos móviles. Si tu web no está optimizada para móvil — no solo que \"se vea\", sino que sea fácil de usar, con formularios que funcionen, botones accesibles y texto legible — estás perdiendo dos tercios de tus potenciales clientes."
+  - type: heading
+    level: 3
+    children:
+      - text: "6. SEO técnico desde el diseño"
+  - type: paragraph
+    children:
+      - text: "El diseño web y el SEO no son dos cosas separadas. Una web bien construida tiene estructura semántica correcta, URLs limpias, metadatos optimizados, imágenes comprimidas con alt text descriptivo y schema markup. Construir SEO desde el principio cuesta lo mismo que hacerlo mal — y los resultados son radicalmente diferentes."
+  - type: heading
+    level: 2
+    children:
+      - text: "¿WordPress, Wix o tecnología a medida?"
+  - type: paragraph
+    children:
+      - text: "Para la mayoría de pymes, esta es la pregunta del millón. La respuesta depende de tus objetivos:"
+  - type: unordered-list
+    children:
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "WordPress:"
+              - text: " Flexible, con gran ecosistema de plugins. Pero puede volverse lento y difícil de mantener. Requiere actualizaciones constantes y es el CMS más atacado del mundo."
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Wix / Squarespace:"
+              - text: " Fáciles de usar, pero con limitaciones importantes de velocidad, SEO y escalabilidad. Bien para proyectos muy pequeños."
+      - type: list-item
+        children:
+          - type: list-item-content
+            children:
+              - bold: true
+                text: "Next.js / tecnología moderna:"
+              - text: " Mayor inversión inicial, pero resultados superiores en velocidad, SEO y conversión. Recomendado para empresas que quieren una ventaja competitiva real."
+  - type: heading
+    level: 2
+    children:
+      - text: "¿Cuánto cuesta un buen diseño web en 2025?"
+  - type: paragraph
+    children:
+      - text: "El rango es enorme: desde 500€ (plantillas básicas) hasta 50.000€ (proyectos a medida complejos). Para una pyme que necesita una web profesional con 5-10 páginas, optimizada para conversión y SEO, el rango realista en Madrid está entre "
+      - bold: true
+        text: "2.500€ y 8.000€."
+  - type: paragraph
+    children:
+      - text: "La pregunta no es cuánto cuesta la web — es cuánto cuesta no tenerla bien hecha. Una web que convierte el 4% en lugar del 1% de sus 500 visitas mensuales genera 15 leads extra cada mes. A un ticket medio de 300€, eso son 4.500€/mes adicionales. Una web de 4.000€ se paga en menos de un mes."
+  - type: blockquote
+    children:
+      - type: paragraph
+        children:
+          - text: "\"La nueva web que nos hizo Geko triplicó las solicitudes de presupuesto online en el primer trimestre. Antes teníamos visitas pero nadie contactaba — ahora el formulario suena todos los días.\""
+      - type: paragraph
+        children:
+          - text: "— Ana Soria, Propietaria · Centro de Fisioterapia Equilibrio"
+  - type: divider
+  - type: paragraph
+    children:
+      - text: "Si quieres que analicemos tu web actual y te digamos exactamente qué está frenando tu conversión, "
+      - bold: true
+        text: "pídenos una auditoría gratuita. Te la entregamos en 48 horas con un informe detallado."

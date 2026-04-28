@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { ArrowUp } from "lucide-react"
 
 export function BackToTop() {
@@ -40,16 +40,16 @@ export function BackToTop() {
             width: 44,
             height: 44,
             borderRadius: "50%",
-            border: "1px solid rgba(155,77,188,0.45)",
+            border: "1px solid var(--color-geko-purple-accent-a45)",
             background: "rgba(12,12,24,0.80)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
-            color: "rgba(255,255,255,0.85)",
+            color: "var(--fg)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.35), 0 0 20px rgba(155,77,188,0.18)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.35), 0 0 20px var(--color-geko-purple-accent-a18)",
           }}
         >
           <ArrowUp size={18} strokeWidth={2.2} />

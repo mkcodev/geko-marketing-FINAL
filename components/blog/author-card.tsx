@@ -6,7 +6,7 @@ const AUTHORS = {
     role: "CEO & Fundador · Geko Marketing",
     bio: "Especialista en estrategia de marketing digital con más de 8 años de experiencia ayudando a pymes a crecer en el entorno digital. Fundador de Geko Marketing en Tres Cantos, Madrid.",
     initials: "G",
-    color: "#9B4DBC",
+    color: "var(--color-geko-purple-accent)",
     linkedin: "https://www.linkedin.com/in/guillermo-garcia-gekomarketing",
     instagram: "https://www.instagram.com/guilleco",
   },
@@ -46,8 +46,8 @@ export function AuthorCard({ author }: AuthorCardProps) {
         gap: 20,
         padding: "24px 28px",
         borderRadius: 18,
-        background: "rgba(255,255,255,0.025)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: "var(--surface)",
+        border: "1px solid var(--border-subtle)",
         alignItems: "flex-start",
       }}
     >
@@ -81,7 +81,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
             fontWeight: 600,
             letterSpacing: "0.10em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.28)",
+            color: "var(--fg-subtle)",
             marginBottom: 4,
           }}
         >
@@ -92,7 +92,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
             fontFamily: "var(--font-heading)",
             fontSize: "1.0625rem",
             fontWeight: 700,
-            color: "rgba(255,255,255,0.92)",
+            color: "var(--fg)",
             marginBottom: 2,
           }}
         >
@@ -113,7 +113,7 @@ export function AuthorCard({ author }: AuthorCardProps) {
             fontFamily: "var(--font-body)",
             fontSize: "0.875rem",
             lineHeight: 1.6,
-            color: "rgba(255,255,255,0.42)",
+            color: "var(--fg-muted)",
             marginBottom: 14,
           }}
         >

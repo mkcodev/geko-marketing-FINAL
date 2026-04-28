@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import Link from "next/link"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence } from "motion/react"
 import { ArrowRight, ChevronRight, Check } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import type { ServiceData } from "@/constants/services"
@@ -36,7 +36,7 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
         paddingTop: isDesktop ? 72 : 48,
         paddingBottom: isDesktop ? 80 : 56,
         overflow: "hidden",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--border-subtle)",
       }}
     >
       {/* BG orbs */}
@@ -50,7 +50,7 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
         <div style={{
           position: "absolute", bottom: "0%", left: "-5%",
           width: "35%", height: "55%", borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(29,78,216,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-blue-a12) 0%, transparent 70%)",
           filter: "blur(70px)",
         }} />
       </div>
@@ -58,11 +58,11 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
       <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
         {/* Breadcrumb */}
         <motion.div {...anim(0)} style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 28, flexWrap: "wrap" }}>
-          <Link href="/" style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.30)", textDecoration: "none" }}>Inicio</Link>
-          <ChevronRight size={13} style={{ color: "rgba(255,255,255,0.18)" }} />
-          <Link href="/servicios" style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.40)", textDecoration: "none" }}>Servicios</Link>
-          <ChevronRight size={13} style={{ color: "rgba(255,255,255,0.18)" }} />
-          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.60)" }}>{service.name}</span>
+          <Link href="/" style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "var(--fg-muted)", textDecoration: "none" }}>Inicio</Link>
+          <ChevronRight size={13} style={{ color: "var(--fg-faint)" }} />
+          <Link href="/servicios" style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "var(--fg-muted)", textDecoration: "none" }}>Servicios</Link>
+          <ChevronRight size={13} style={{ color: "var(--fg-faint)" }} />
+          <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "var(--fg-secondary)" }}>{service.name}</span>
         </motion.div>
 
         <div style={{
@@ -79,7 +79,7 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
                 padding: "5px 14px 5px 8px", borderRadius: 9999,
                 border: `1px solid ${service.color}40`,
                 background: `${service.color}10`,
-                fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "rgba(255,255,255,0.80)",
+                fontFamily: "var(--font-ui)", fontSize: "0.8125rem", color: "var(--fg)",
               }}>
                 <Icon name={service.icon} size={16} style={{ color: service.color, flexShrink: 0 }} />
                 {service.name}
@@ -94,14 +94,14 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
                 fontSize: isDesktop ? "clamp(2.5rem, 4vw, 3.75rem)" : "clamp(2rem, 7vw, 2.75rem)",
                 fontWeight: 800, lineHeight: 1.1,
                 letterSpacing: "-0.03em",
-                color: "rgba(255,255,255,0.96)",
+                color: "var(--fg)",
                 marginBottom: 20,
               }}
             >
               {detalle.heroHeadline}
               <br />
               <span style={{
-                background: `linear-gradient(135deg, ${service.color} 0%, #3B82F6 100%)`,
+                background: `linear-gradient(135deg, ${service.color} 0%, var(--color-geko-blue-light) 100%)`,
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}>
@@ -114,7 +114,7 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
               {...anim(0.18)}
               style={{
                 fontFamily: "var(--font-body)", fontSize: isDesktop ? "1.0625rem" : "1rem",
-                color: "rgba(255,255,255,0.50)", lineHeight: 1.75,
+                color: "var(--fg-secondary)", lineHeight: 1.75,
                 marginBottom: 32,
               }}
             >
@@ -128,10 +128,10 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "14px 28px", borderRadius: 12,
-                  background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+                  background: "var(--gradient-brand)",
                   color: "#fff", textDecoration: "none",
                   fontFamily: "var(--font-ui)", fontSize: "0.9375rem", fontWeight: 600,
-                  boxShadow: "0 4px 24px rgba(107,45,124,0.40)",
+                  boxShadow: "0 4px 24px var(--color-geko-purple-a40)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -143,9 +143,9 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   padding: "14px 24px", borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  background: "rgba(255,255,255,0.04)",
-                  color: "rgba(255,255,255,0.60)", textDecoration: "none",
+                  border: "1px solid var(--border-strong)",
+                  background: "var(--surface)",
+                  color: "var(--fg-secondary)", textDecoration: "none",
                   fontFamily: "var(--font-ui)", fontSize: "0.9375rem", fontWeight: 500,
                   whiteSpace: "nowrap",
                 }}
@@ -172,7 +172,7 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
               <p style={{
                 fontFamily: "var(--font-ui)", fontSize: "0.72rem",
                 fontWeight: 600, letterSpacing: "0.10em",
-                textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+                textTransform: "uppercase", color: "var(--fg-subtle)",
                 marginBottom: 20,
               }}>Resultados medios</p>
               {service.metrics.map((m) => (
@@ -183,7 +183,7 @@ function ServicioHero({ service, detalle }: { service: ServiceData; detalle: Ser
                   }}>{m.value}</p>
                   <p style={{
                     fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-                    color: "rgba(255,255,255,0.38)", marginTop: 3,
+                    color: "var(--fg-muted)", marginTop: 3,
                   }}>{m.label}</p>
                 </div>
               ))}
@@ -201,7 +201,7 @@ function ServicioIncluye({ service }: { service: ServiceData }) {
   const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
-    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <section ref={ref} style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)", borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -211,15 +211,15 @@ function ServicioIncluye({ service }: { service: ServiceData }) {
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)", background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)", background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 14,
           }}>Qué incluye</span>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
           }}>
             Todo lo que está incluido
           </h2>
@@ -239,8 +239,8 @@ function ServicioIncluye({ service }: { service: ServiceData }) {
               style={{
                 display: "flex", alignItems: "flex-start", gap: 14,
                 padding: "18px 20px", borderRadius: 14,
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: "var(--surface)",
+                border: "1px solid var(--border-subtle)",
               }}
             >
               <div style={{
@@ -253,7 +253,7 @@ function ServicioIncluye({ service }: { service: ServiceData }) {
               </div>
               <span style={{
                 fontFamily: "var(--font-body)", fontSize: "0.9375rem",
-                color: "rgba(255,255,255,0.72)", lineHeight: 1.5,
+                color: "var(--fg-secondary)", lineHeight: 1.5,
               }}>{d}</span>
             </motion.div>
           ))}
@@ -265,16 +265,16 @@ function ServicioIncluye({ service }: { service: ServiceData }) {
 
 // ── Proceso ───────────────────────────────────────────────────
 function ServicioProceso({ service, detalle }: { service: ServiceData; detalle: ServicioDetalle }) {
-  if (service.slug === "gestion-redes") return <RedesProceso proceso={detalle.proceso} />
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const isWide = useMediaQuery("(min-width: 1100px)")
+  if (service.slug === "gestion-redes") return <RedesProceso proceso={detalle.proceso} />
 
   const cols = !isDesktop ? "1fr" : isWide ? "repeat(5, 1fr)" : "repeat(auto-fit, minmax(180px, 1fr))"
 
   return (
-    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <section ref={ref} style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)", borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -284,15 +284,15 @@ function ServicioProceso({ service, detalle }: { service: ServiceData; detalle: 
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)", background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)", background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 14,
           }}>Cómo trabajamos</span>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
           }}>
             El proceso, paso a paso
           </h2>
@@ -329,35 +329,35 @@ function ServicioProceso({ service, detalle }: { service: ServiceData; detalle: 
                 textAlign: isDesktop ? "center" : "left",
                 padding: isDesktop ? "0 12px" : "16px 20px",
                 borderRadius: isDesktop ? 0 : 14,
-                background: isDesktop ? "transparent" : "rgba(255,255,255,0.025)",
-                border: isDesktop ? "none" : "1px solid rgba(255,255,255,0.07)",
+                background: isDesktop ? "transparent" : "var(--surface)",
+                border: isDesktop ? "none" : "1px solid var(--border-subtle)",
                 position: "relative", zIndex: 1,
               }}
             >
               {/* Number circle */}
               <div style={{
                 width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
-                background: i === 0 ? `linear-gradient(135deg, ${service.color}, #1D4ED8)` : "rgba(255,255,255,0.04)",
-                border: `1px solid ${i === 0 ? service.color + "60" : "rgba(255,255,255,0.10)"}`,
+                background: i === 0 ? `linear-gradient(135deg, ${service.color}, var(--color-geko-blue))` : "var(--surface)",
+                border: `1px solid ${i === 0 ? service.color + "60" : "var(--border-strong)"}`,
                 display: "flex", alignItems: "center", justifyContent: "center",
                 boxShadow: i === 0 ? `0 0 24px ${service.color}40` : "none",
               }}>
                 <span style={{
                   fontFamily: "var(--font-heading)", fontSize: "0.875rem",
                   fontWeight: 700,
-                  color: i === 0 ? "#fff" : "rgba(255,255,255,0.45)",
+                  color: i === 0 ? "#fff" : "var(--fg-secondary)",
                 }}>{step.num}</span>
               </div>
 
               <div>
                 <p style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.9375rem",
-                  fontWeight: 600, color: "rgba(255,255,255,0.88)",
+                  fontWeight: 600, color: "var(--fg)",
                   marginBottom: 6,
                 }}>{step.title}</p>
                 <p style={{
                   fontFamily: "var(--font-body)", fontSize: "0.8125rem",
-                  color: "rgba(255,255,255,0.42)", lineHeight: 1.6,
+                  color: "var(--fg-muted)", lineHeight: 1.6,
                   maxWidth: isDesktop ? 160 : "none",
                 }}>{step.description}</p>
               </div>
@@ -371,12 +371,12 @@ function ServicioProceso({ service, detalle }: { service: ServiceData; detalle: 
 
 // ── Portfolio ─────────────────────────────────────────────────
 function ServicioPortfolio({ service, detalle }: { service: ServiceData; detalle: ServicioDetalle }) {
-  if (service.slug === "gestion-redes") return <RedesResultados portfolio={detalle.portfolio} />
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  if (service.slug === "gestion-redes") return <RedesResultados portfolio={detalle.portfolio} />
 
   return (
-    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <section ref={ref} style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)", borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -386,15 +386,15 @@ function ServicioPortfolio({ service, detalle }: { service: ServiceData; detalle
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)", background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)", background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 14,
           }}>Resultados reales</span>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
           }}>
             Clientes que ya lo están notando
           </h2>
@@ -431,9 +431,9 @@ function ServicioPortfolio({ service, detalle }: { service: ServiceData; detalle
                   position: "absolute", top: 12, right: 12,
                   padding: "3px 10px", borderRadius: 6,
                   background: "rgba(8,8,16,0.85)",
-                  border: "1px solid rgba(255,255,255,0.10)",
+                  border: "1px solid var(--border-strong)",
                   fontFamily: "var(--font-ui)", fontSize: "0.68rem",
-                  color: "rgba(255,255,255,0.40)",
+                  color: "var(--fg-muted)",
                 }}>
                   Caso confidencial
                 </span>
@@ -447,19 +447,19 @@ function ServicioPortfolio({ service, detalle }: { service: ServiceData; detalle
                 }}>{item.metric}</p>
                 <p style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-                  color: "rgba(255,255,255,0.50)", marginBottom: 12,
+                  color: "var(--fg-secondary)", marginBottom: 12,
                 }}>{item.metricNote}</p>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                   <span style={{
                     padding: "3px 10px", borderRadius: 6,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "var(--border-subtle)",
+                    border: "1px solid var(--border)",
                     fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-                    color: "rgba(255,255,255,0.38)",
+                    color: "var(--fg-muted)",
                   }}>{item.sector}</span>
                   <span style={{
                     fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-                    color: "rgba(255,255,255,0.25)",
+                    color: "var(--fg-subtle)",
                   }}>{item.label}</span>
                 </div>
               </div>
@@ -478,7 +478,7 @@ function ServicioFaq({ detalle }: { detalle: ServicioDetalle }) {
   const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
-    <section ref={ref} style={{ paddingTop: 80, paddingBottom: 80, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <section ref={ref} style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)", borderBottom: "1px solid var(--border-subtle)" }}>
       <div className="section-container" style={{ maxWidth: 720 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -488,15 +488,15 @@ function ServicioFaq({ detalle }: { detalle: ServicioDetalle }) {
         >
           <span style={{
             display: "inline-block", padding: "4px 14px", borderRadius: 9999,
-            border: "1px solid rgba(107,45,124,0.35)", background: "rgba(107,45,124,0.10)",
+            border: "1px solid var(--color-geko-purple-a35)", background: "var(--color-geko-purple-a10)",
             fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#9B4DBC", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "var(--color-geko-purple-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
             marginBottom: 14,
           }}>FAQ</span>
           <h2 style={{
             fontFamily: "var(--font-heading)", fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
             fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.025em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
           }}>
             Preguntas frecuentes
           </h2>
@@ -511,8 +511,8 @@ function ServicioFaq({ detalle }: { detalle: ServicioDetalle }) {
               transition={{ duration: 0.4, delay: i * 0.06, ease: EASE }}
               style={{
                 borderRadius: 14,
-                background: openIdx === i ? "rgba(107,45,124,0.07)" : "rgba(255,255,255,0.025)",
-                border: openIdx === i ? "1px solid rgba(107,45,124,0.25)" : "1px solid rgba(255,255,255,0.07)",
+                background: openIdx === i ? "var(--color-geko-purple-a07)" : "var(--surface)",
+                border: openIdx === i ? "1px solid var(--color-geko-purple-a25)" : "1px solid var(--border-subtle)",
                 overflow: "hidden",
                 transition: "background 0.3s, border-color 0.3s",
               }}
@@ -529,14 +529,14 @@ function ServicioFaq({ detalle }: { detalle: ServicioDetalle }) {
               >
                 <span style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.9375rem",
-                  fontWeight: 600, color: "rgba(255,255,255,0.85)", lineHeight: 1.4,
+                  fontWeight: 600, color: "var(--fg)", lineHeight: 1.4,
                 }}>{item.question}</span>
                 <motion.span
                   animate={{ rotate: openIdx === i ? 45 : 0 }}
                   transition={{ duration: 0.25 }}
                   style={{
                     flexShrink: 0, fontSize: "1.2rem",
-                    color: openIdx === i ? "#9B4DBC" : "rgba(255,255,255,0.30)",
+                    color: openIdx === i ? "var(--color-geko-purple-accent)" : "var(--fg-muted)",
                     lineHeight: 1,
                   }}
                 >
@@ -555,7 +555,7 @@ function ServicioFaq({ detalle }: { detalle: ServicioDetalle }) {
                     <p style={{
                       padding: "0 22px 20px",
                       fontFamily: "var(--font-body)", fontSize: "0.9375rem",
-                      color: "rgba(255,255,255,0.50)", lineHeight: 1.75,
+                      color: "var(--fg-secondary)", lineHeight: 1.75,
                     }}>{item.answer}</p>
                   </motion.div>
                 )}

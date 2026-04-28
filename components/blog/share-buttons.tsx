@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import { X as XIcon, Link2, MessageCircle, Check } from "lucide-react"
 
 interface ShareButtonsProps {
@@ -65,7 +65,7 @@ export function ShareButtons({ title, slug }: ShareButtonsProps) {
         style={{
           fontFamily: "var(--font-ui)",
           fontSize: "0.78rem",
-          color: "rgba(255,255,255,0.35)",
+          color: "var(--fg-muted)",
           marginRight: 4,
         }}
       >
@@ -116,9 +116,9 @@ export function ShareButtons({ title, slug }: ShareButtonsProps) {
           padding: "0 12px",
           height: 36,
           borderRadius: 9,
-          background: copied ? "rgba(16,185,129,0.12)" : "rgba(255,255,255,0.05)",
-          border: `1px solid ${copied ? "rgba(16,185,129,0.30)" : "rgba(255,255,255,0.10)"}`,
-          color: copied ? "#10B981" : "rgba(255,255,255,0.50)",
+          background: copied ? "rgba(16,185,129,0.12)" : "var(--border-subtle)",
+          border: `1px solid ${copied ? "rgba(16,185,129,0.30)" : "var(--border-strong)"}`,
+          color: copied ? "#10B981" : "var(--fg-secondary)",
           fontFamily: "var(--font-ui)",
           fontSize: "0.78rem",
           fontWeight: 500,

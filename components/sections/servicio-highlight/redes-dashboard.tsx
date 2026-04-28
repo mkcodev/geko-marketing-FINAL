@@ -1,12 +1,11 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import { motion, useInView, AnimatePresence, animate } from "framer-motion"
+import { motion, useInView, AnimatePresence, animate } from "motion/react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Icon } from "@/lib/icons"
 import type { IconName } from "@/lib/icons"
-
-const EASE: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
+import { EASE } from "@/lib/animations"
 
 function AnimatedCounter({ to, from = 0, duration = 1.8, suffix = "", started }: {
   to: number; from?: number; duration?: number; suffix?: string; started: boolean
@@ -70,7 +69,7 @@ function NotificationToast({ notif, visible }: { notif: typeof NOTIFICATIONS[0];
             }}>{notif.platform}</p>
             <p style={{
               fontFamily: "var(--font-body)", fontSize: "0.75rem",
-              color: "rgba(255,255,255,0.65)",
+              color: "var(--fg-secondary)",
             }}>{notif.text}</p>
           </div>
         </motion.div>
@@ -161,7 +160,7 @@ function PlatformCard({ platform, icon, color, followers, growth, engagement, st
         <Icon name={icon} size={16} style={{ color, flexShrink: 0 }} />
         <span style={{
           fontFamily: "var(--font-ui)", fontSize: "0.78rem",
-          fontWeight: 600, color: "rgba(255,255,255,0.55)",
+          fontWeight: 600, color: "var(--fg-secondary)",
         }}>{platform}</span>
         <span style={{
           marginLeft: "auto",
@@ -179,12 +178,12 @@ function PlatformCard({ platform, icon, color, followers, growth, engagement, st
       </p>
       <p style={{
         fontFamily: "var(--font-ui)", fontSize: "0.72rem",
-        color: "rgba(255,255,255,0.30)", marginBottom: 10,
+        color: "var(--fg-muted)", marginBottom: 10,
       }}>seguidores</p>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{
           fontFamily: "var(--font-body)", fontSize: "0.72rem",
-          color: "rgba(255,255,255,0.35)",
+          color: "var(--fg-muted)",
         }}>Engagement</span>
         <span style={{
           fontFamily: "var(--font-heading)", fontSize: "0.875rem",
@@ -240,7 +239,7 @@ export function RedesDashboard() {
       style={{
         paddingTop: isDesktop ? 100 : 72,
         paddingBottom: isDesktop ? 100 : 72,
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--border-subtle)",
         position: "relative", overflow: "hidden",
       }}
     >
@@ -255,7 +254,7 @@ export function RedesDashboard() {
         <div style={{
           position: "absolute", bottom: "0", left: "-5%",
           width: "40%", height: "50%",
-          background: "radial-gradient(ellipse, rgba(107,45,124,0.07) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, var(--color-geko-purple-a07) 0%, transparent 70%)",
           filter: "blur(60px)",
         }} />
       </div>
@@ -280,19 +279,19 @@ export function RedesDashboard() {
             fontSize: "clamp(1.875rem, 4vw, 3rem)",
             fontWeight: 800, lineHeight: 1.1,
             letterSpacing: "-0.03em",
-            color: "rgba(255,255,255,0.96)",
+            color: "var(--fg)",
             marginBottom: 16,
           }}>
             Tu marca activa.{" "}
             <span style={{
-              background: "linear-gradient(135deg, #E1306C 0%, #9B4DBC 100%)",
+              background: "linear-gradient(135deg, #E1306C 0%, var(--color-geko-purple-accent) 100%)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               backgroundClip: "text",
             }}>Cada día.</span>
           </h2>
           <p style={{
             fontFamily: "var(--font-body)", fontSize: isMd ? "1.0625rem" : "0.9375rem",
-            color: "rgba(255,255,255,0.40)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7,
+            color: "var(--fg-muted)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7,
           }}>
             Así se ve el panel de control de nuestros clientes. Métricas reales, contenido publicado a diario y notificaciones que nunca dejan de llegar.
           </p>
@@ -325,8 +324,8 @@ export function RedesDashboard() {
             transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               padding: "24px",
               position: "relative",
             }}
@@ -336,7 +335,7 @@ export function RedesDashboard() {
                 <p style={{
                   fontFamily: "var(--font-ui)", fontSize: "0.72rem",
                   fontWeight: 600, letterSpacing: "0.08em",
-                  textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+                  textTransform: "uppercase", color: "var(--fg-subtle)",
                   marginBottom: 6,
                 }}>Crecimiento de seguidores</p>
                 <p style={{
@@ -345,7 +344,7 @@ export function RedesDashboard() {
                 }}>
                   +<AnimatedCounter to={247} duration={2.2} suffix="%" started={inView} />
                 </p>
-                <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.75rem", color: "rgba(255,255,255,0.30)", marginTop: 2 }}>
+                <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.75rem", color: "var(--fg-muted)", marginTop: 2 }}>
                   en los últimos 90 días
                 </p>
               </div>
@@ -380,7 +379,7 @@ export function RedesDashboard() {
                     height: `${h}%`,
                     borderRadius: "4px 4px 0 0",
                     background: i === 6
-                      ? "linear-gradient(180deg, #E1306C, #9B4DBC)"
+                      ? "linear-gradient(180deg, #E1306C, var(--color-geko-purple-accent))"
                       : "rgba(225,48,108,0.25)",
                     transformOrigin: "bottom",
                     boxShadow: i === 6 ? "0 0 12px rgba(225,48,108,0.4)" : "none",
@@ -396,7 +395,7 @@ export function RedesDashboard() {
                 <span key={d} style={{
                   textAlign: "center",
                   fontFamily: "var(--font-ui)", fontSize: "0.65rem",
-                  color: "rgba(255,255,255,0.20)",
+                  color: "var(--fg-subtle)",
                 }}>{d}</span>
               ))}
             </div>
@@ -409,27 +408,27 @@ export function RedesDashboard() {
             transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
             style={{
               borderRadius: 20,
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               overflow: "hidden",
             }}
           >
             <div style={{
               padding: "16px 20px",
-              borderBottom: "1px solid rgba(255,255,255,0.06)",
+              borderBottom: "1px solid var(--border-subtle)",
               display: "flex", justifyContent: "space-between", alignItems: "center",
             }}>
               <p style={{
                 fontFamily: "var(--font-ui)", fontSize: "0.72rem",
                 fontWeight: 600, letterSpacing: "0.08em",
-                textTransform: "uppercase", color: "rgba(255,255,255,0.28)",
+                textTransform: "uppercase", color: "var(--fg-subtle)",
               }}>Último contenido</p>
               <div style={{ display: "flex", gap: 4 }}>
                 {MOCK_POSTS.map((_, i) => (
                   <div key={i} style={{
                     width: i === postIdx ? 16 : 6, height: 6,
                     borderRadius: 9999,
-                    background: i === postIdx ? "#E1306C" : "rgba(255,255,255,0.15)",
+                    background: i === postIdx ? "#E1306C" : "var(--fg-faint)",
                     transition: "all 0.3s ease",
                   }} />
                 ))}
@@ -455,8 +454,8 @@ export function RedesDashboard() {
                       color: post.color,
                     }}><Icon name={post.icon} size={15} /></div>
                     <div>
-                      <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 600, color: "rgba(255,255,255,0.75)" }}>{post.platform}</p>
-                      <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.68rem", color: "rgba(255,255,255,0.28)" }}>{post.time}</p>
+                      <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.8125rem", fontWeight: 600, color: "var(--fg)" }}>{post.platform}</p>
+                      <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.68rem", color: "var(--fg-subtle)" }}>{post.time}</p>
                     </div>
                   </div>
 
@@ -472,17 +471,17 @@ export function RedesDashboard() {
                   {/* Caption */}
                   <p style={{
                     fontFamily: "var(--font-body)", fontSize: "0.8rem",
-                    color: "rgba(255,255,255,0.55)", lineHeight: 1.55,
+                    color: "var(--fg-secondary)", lineHeight: 1.55,
                     marginBottom: 14,
                   }}>{post.content}</p>
 
                   {/* Stats */}
                   <div style={{ display: "flex", gap: 16 }}>
-                    <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "rgba(255,255,255,0.45)", display: "flex", alignItems: "center", gap: 4 }}>
+                    <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--fg-secondary)", display: "flex", alignItems: "center", gap: 4 }}>
                       <Icon name="Heart" size={12} style={{ color: "#E1306C" }} /> {post.likes.toLocaleString("es-ES")}
                     </span>
-                    <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "rgba(255,255,255,0.45)", display: "flex", alignItems: "center", gap: 4 }}>
-                      <Icon name="MessageCircle" size={12} style={{ color: "rgba(255,255,255,0.35)" }} /> {post.comments}
+                    <span style={{ fontFamily: "var(--font-ui)", fontSize: "0.78rem", color: "var(--fg-secondary)", display: "flex", alignItems: "center", gap: 4 }}>
+                      <Icon name="MessageCircle" size={12} style={{ color: "var(--fg-muted)" }} /> {post.comments}
                     </span>
                   </div>
                 </motion.div>
@@ -508,8 +507,8 @@ export function RedesDashboard() {
         >
           {[
             { val: 29900, suffix: "", label: "Alcance semanal total", color: "#E1306C" },
-            { val: 247, suffix: "%",  label: "Crecimiento engagement", color: "#9B4DBC" },
-            { val: 28,  suffix: "",   label: "Posts publicados/mes",   color: "#3B82F6" },
+            { val: 247, suffix: "%",  label: "Crecimiento engagement", color: "var(--color-geko-purple-accent)" },
+            { val: 28,  suffix: "",   label: "Posts publicados/mes",   color: "var(--color-geko-blue-light)" },
             { val: 4,   suffix: ".2×", label: "ROAS en Social Ads",    color: "#F59E0B" },
           ].map((s) => (
             <div key={s.label} style={{ textAlign: "center" }}>
@@ -520,7 +519,7 @@ export function RedesDashboard() {
               }}>
                 <AnimatedCounter to={s.val} duration={2} started={inView} />{s.suffix}
               </p>
-              <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", color: "rgba(255,255,255,0.32)" }}>{s.label}</p>
+              <p style={{ fontFamily: "var(--font-ui)", fontSize: "0.72rem", color: "var(--fg-muted)" }}>{s.label}</p>
             </div>
           ))}
         </motion.div>

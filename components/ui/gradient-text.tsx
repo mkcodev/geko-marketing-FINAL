@@ -11,9 +11,9 @@ interface GradientTextProps {
 }
 
 const GRADIENT_MAP = {
-  brand:   "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
-  accent:  "linear-gradient(135deg, #9B4DBC 0%, #3B82F6 100%)",
-  reverse: "linear-gradient(135deg, #1D4ED8 0%, #6B2D7C 100%)",
+  brand:   "var(--gradient-brand)",
+  accent:  "linear-gradient(135deg, var(--color-geko-purple-accent) 0%, var(--color-geko-blue-light) 100%)",
+  reverse: "var(--gradient-brand-r)",
 } as const
 
 /**

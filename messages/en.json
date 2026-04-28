@@ -1,0 +1,569 @@
+{
+  "common": {
+    "cta": "Let's Talk",
+    "ctaFree": "Free Consultation",
+    "learnMore": "Learn more",
+    "bookFree": "Book for free",
+    "month": "month",
+    "year": "year",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "save": "Save",
+    "popular": "Most popular",
+    "freeConsult": "Book your free consultation",
+    "noCommitment": "No commitment · Cancel anytime",
+    "responseTime": "Response within 24 business hours",
+    "startToday": "Start today"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog",
+    "cta": "Let's Talk",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "changeLanguage": "Change language",
+    "megaMenu": {
+      "whyGeko": "Why Geko",
+      "headline": "Real results,",
+      "headlineAccent": "tracked from day 1.",
+      "viewAll": "See full comparison",
+      "stats": [
+        { "value": "+247%", "label": "Engagement", "sub": "average in 90 days" },
+        { "value": "×4.2",  "label": "ROAS",       "sub": "on Meta & Google" },
+        { "value": "98/100","label": "PageSpeed",  "sub": "web performance" }
+      ],
+      "tags": ["No lock-in", "Results in 60 days", "Priority support"]
+    }
+  },
+  "announcementBar": {
+    "spots": "3",
+    "month": "May",
+    "text": "Only {spots} spots left for new clients in {month}",
+    "cta": "Book for free →",
+    "close": "Close announcement"
+  },
+  "footer": {
+    "company": "Company",
+    "services": "Services",
+    "legal": "Legal",
+    "followUs": "Follow us",
+    "newsletter": {
+      "title": "Strategies that work,",
+      "titleAccent": "straight to your inbox.",
+      "subtitle": "No spam. Just digital marketing insights every week.",
+      "placeholder": "you@email.com",
+      "cta": "Subscribe",
+      "success": "Subscribed! Thank you.",
+      "error": "Subscription error."
+    },
+    "disclaimer": "Digital marketing agency in Tres Cantos, Madrid. We help SMEs grow with real strategies and measurable results.",
+    "rights": "All rights reserved.",
+    "links": {
+      "home": "Home",
+      "services": "Services",
+      "about": "About",
+      "blog": "Blog",
+      "contact": "Contact",
+      "social": "Social Media",
+      "branding": "Brand Boost",
+      "web": "Web Design",
+      "privacy": "Privacy",
+      "cookies": "Cookies",
+      "legal": "Legal Notice"
+    }
+  },
+  "hero": {
+    "badge": "Digital Marketing Agency · Tres Cantos, Madrid",
+    "headline": "Turn your brand into a machine that generates",
+    "typewriterWords": ["clients", "sales", "results", "impact"],
+    "subheadline": "We manage your social media, build your brand identity and design websites that convert. So you can focus on what you do best.",
+    "cta": "I want real results",
+    "ctaSecondary": "View our services",
+    "stats": [
+      { "value": "50+", "label": "Active clients" },
+      { "value": "3+",  "label": "Years of experience" },
+      { "value": "98%", "label": "Retention rate" }
+    ]
+  },
+  "socialProof": {
+    "label": "Brands that trust us",
+    "stats": [
+      { "value": "50+",    "label": "Active clients" },
+      { "value": "3 years","label": "Of experience" },
+      { "value": "98%",    "label": "Retention rate" },
+      { "value": "€2M+",  "label": "In generated sales" }
+    ]
+  },
+  "painSolution": {
+    "headline": "Do any of these sound familiar?",
+    "subheadline": "If so, you're not alone. And they all have a solution.",
+    "problemsLabel": "The problem",
+    "solutionsLabel": "Our solution",
+    "pains": [
+      "You post without a strategy and see no results",
+      "You don't know if your followers are potential customers",
+      "You waste time creating content that doesn't convert",
+      "Your competitors grow while you stay stuck",
+      "You pay for ads without knowing if they actually work",
+      "You have no clear data to make decisions"
+    ],
+    "gains": [
+      "Clear strategy with goals and KPIs from day 1",
+      "Qualified audience that converts into real customers",
+      "Daily content managed by our team",
+      "Measurable competitive advantage in 60 days",
+      "Optimized campaigns with real, transparent ROAS",
+      "Real-time dashboard with everything that matters"
+    ]
+  },
+  "services": {
+    "label": "Services",
+    "headline": "Everything your brand needs",
+    "subheadline": "Comprehensive digital marketing solutions so your business grows without complications.",
+    "cta": "View all services",
+    "items": {
+      "gestion-redes": {
+        "name": "Social Media Management",
+        "tagline": "Active presence, real community, measurable results",
+        "description": "We handle everything: strategy, content creation, daily publishing and monthly analysis. You focus on your business, we focus on growing your brand and turning your community into customers.",
+        "deliverables": [
+          "Personalized monthly content strategy",
+          "High-quality posts, reels and stories",
+          "Publishing and scheduling across all your networks",
+          "Comments and direct messages management",
+          "Social Ads campaigns optimized for conversion",
+          "Detailed monthly report with metrics and next steps"
+        ],
+        "caseStudy": {
+          "client": "Local restaurant, Tres Cantos",
+          "metricLabel": "engagement increase in 90 days",
+          "detail": "From 800 to 12,400 followers"
+        },
+        "metrics": [
+          { "label": "Average weekly reach" },
+          { "label": "Engagement increase" },
+          { "label": "ROAS on campaigns" }
+        ]
+      },
+      "branding": {
+        "name": "Brand Boost",
+        "tagline": "An identity that inspires trust and attracts your ideal customer",
+        "description": "We build or refresh your brand identity so every customer touchpoint conveys professionalism, consistency and values. Because before they hire you, people already judge by your image.",
+        "deliverables": [
+          "Complete visual identity — logo, colors and typography",
+          "Brand guidelines with clear usage rules",
+          "Pack of 20+ editable templates for social media",
+          "Corporate photography and video",
+          "Brand naming and copywriting aligned to your audience",
+          "Communication strategy and brand voice definition"
+        ],
+        "caseStudy": {
+          "client": "Aesthetic clinic, Madrid",
+          "metricLabel": "brand recognition increase",
+          "detail": "Full rebrand in 6 weeks"
+        },
+        "metrics": [
+          { "label": "Full delivery" },
+          { "label": "Brand recognition" },
+          { "label": "Consistency across channels" }
+        ]
+      },
+      "paginas-web": {
+        "name": "Web Design",
+        "tagline": "Websites that load fast, look perfect and convert visits into customers",
+        "description": "We design and develop your website from scratch focused on three things: speed, stunning appearance on any device, and converting visits into real customers.",
+        "deliverables": [
+          "Custom, fully responsive UI/UX design",
+          "Development in Next.js or WordPress as needed",
+          "Technical on-page SEO implemented from day one",
+          "Integration with your CRM, forms and analytics",
+          "Core Web Vitals optimization — maximum speed",
+          "Post-launch maintenance and technical support"
+        ],
+        "caseStudy": {
+          "client": "Real estate agency, Tres Cantos",
+          "metricLabel": "organic traffic in 4 months",
+          "detail": "4× faster than previous website"
+        },
+        "metrics": [
+          { "label": "Load time" },
+          { "label": "Organic traffic" },
+          { "label": "Google PageSpeed" }
+        ]
+      }
+    }
+  },
+  "plans": {
+    "label": "Pricing",
+    "headline": "Plans designed to grow",
+    "subheadline": "No fine print. No surprises. Start when you want, cancel when you want.",
+    "billingMonthly": "Monthly",
+    "billingQuarterly": "Quarterly",
+    "billingBiannual": "Semi-annual",
+    "billingAnnual": "Annual",
+    "saveBadge": "Save 2 months",
+    "perMonth": "/ month",
+    "savings": "Save {amount}€ over {months} months",
+    "customNote": "Need something custom?",
+    "customCta": "Let's talk →",
+    "popular": "Most popular",
+    "ctaDefault": "Get started",
+    "ctaPlatinum": "Contact us",
+    "items": {
+      "silver": {
+        "name": "Silver",
+        "tagline": "To start with momentum",
+        "features": [
+          "Management of 2 social networks",
+          "12 posts/month",
+          "Content design",
+          "Monthly report",
+          "Email support",
+          "1 Meta Ads campaign/month"
+        ]
+      },
+      "golden": {
+        "name": "Golden",
+        "tagline": "The most popular among our clients",
+        "features": [
+          "Management of 4 social networks",
+          "24 posts/month",
+          "Weekly reels & stories",
+          "Community management",
+          "Weekly reports",
+          "Meta + Google Ads campaigns",
+          "Email marketing (2/month)",
+          "Priority support"
+        ]
+      },
+      "platinum": {
+        "name": "Platinum",
+        "tagline": "For ambitious brands",
+        "features": [
+          "Unlimited social media management",
+          "Daily content",
+          "Monthly video production",
+          "SEO & blog strategy",
+          "Real-time dashboard",
+          "Multi-platform campaigns",
+          "Unlimited email marketing",
+          "Dedicated account manager",
+          "Bi-weekly strategy meeting"
+        ]
+      }
+    }
+  },
+  "process": {
+    "label": "Process",
+    "headline": "From zero to results in 60 days",
+    "subheadline": "A structured process, no improvisation, where every week counts.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Free diagnosis",
+        "description": "We analyze your current digital presence, your competition and your target audience. No commitment. With real data.",
+        "duration": "Week 1"
+      },
+      {
+        "number": "02",
+        "title": "Custom strategy",
+        "description": "We design a personalized action plan with clear goals, measurable KPIs and a roadmap for the first 90 days.",
+        "duration": "Week 2"
+      },
+      {
+        "number": "03",
+        "title": "Execution & content",
+        "description": "Our team creates and publishes content. We manage campaigns. You focus on your business.",
+        "duration": "Month 1-2"
+      },
+      {
+        "number": "04",
+        "title": "Continuous optimization",
+        "description": "We review metrics every week, adjust what doesn't work and scale what does. Measurable results in 60 days.",
+        "duration": "Ongoing"
+      }
+    ]
+  },
+  "metrics": {
+    "label": "Results",
+    "headline": "Numbers that speak for themselves",
+    "items": [
+      { "value": 247, "suffix": "%",  "label": "Average engagement increase",  "sublabel": "in the first 90 days" },
+      { "value": 4.2, "suffix": "×",  "label": "Average ROAS on campaigns",     "sublabel": "Meta Ads + Google Ads" },
+      { "value": 98,  "suffix": "%",  "label": "Retention rate",                "sublabel": "clients who renew their contract" },
+      { "value": 2.1, "suffix": "M€", "label": "In generated sales",            "sublabel": "for clients in 2024" }
+    ]
+  },
+  "testimonials": {
+    "label": "Testimonials",
+    "headline": "What our clients say",
+    "subheadline": "Real results from real businesses.",
+    "items": [
+      {
+        "name": "Laura Martínez",
+        "role": "CEO · Lumina Aesthetic Clinic",
+        "avatar": "LM",
+        "color": "#9B4DBC",
+        "stars": 5,
+        "text": "In 3 months we doubled online bookings from Instagram. Geko doesn't just manage social media — they understand the business and create content that converts. The team is incredibly fast and professional.",
+        "platform": "Google",
+        "result": "+112% online bookings"
+      },
+      {
+        "name": "Carlos Ruiz",
+        "role": "Founder · TechFix Solutions",
+        "avatar": "CR",
+        "color": "#3B82F6",
+        "stars": 5,
+        "text": "We had gone years without a real digital presence. In 60 days we had a solid strategy, daily content and our first Meta campaigns with a ROAS of ×3.8. We can't imagine the business without Geko now.",
+        "platform": "Google",
+        "result": "ROAS ×3.8 from month 2"
+      },
+      {
+        "name": "Sofía Delgado",
+        "role": "Director · Berlin Language Academy",
+        "avatar": "SD",
+        "color": "#10B981",
+        "stars": 5,
+        "text": "What surprised me most was the speed. The first month we already noticed the change in enquiries. Now we have a waiting list for September — something we had never achieved with other agencies.",
+        "platform": "Google",
+        "result": "Waiting list in 90 days"
+      },
+      {
+        "name": "Marcos Jiménez",
+        "role": "Owner · La Brasa Restaurant",
+        "avatar": "MJ",
+        "color": "#F59E0B",
+        "stars": 5,
+        "text": "With Geko we went from 400 to 8,200 Instagram followers in 4 months. Bookings through social media increased by 340%. Their content strategy is different — every post has a purpose.",
+        "platform": "Google",
+        "result": "+8K followers · +340% bookings"
+      },
+      {
+        "name": "Ana Vega",
+        "role": "Marketing Director · Solaris Real Estate Group",
+        "avatar": "AV",
+        "color": "#EC4899",
+        "stars": 5,
+        "text": "We manage three brands with Geko simultaneously and the level of organisation is impressive. Clear weekly reports, response in under 2 hours always, and results we present confidently to management.",
+        "platform": "Google",
+        "result": "3 brands · +89% leads"
+      }
+    ]
+  },
+  "faq": {
+    "label": "FAQ",
+    "headline": "Frequently asked questions",
+    "items": [
+      {
+        "q": "How long does it take to see results?",
+        "a": "The first measurable results usually appear between weeks 4-8. Engagement metrics improve quickly, while the impact on sales consolidates in 60-90 days. We're transparent: if something doesn't work, we adjust it."
+      },
+      {
+        "q": "Do you work with all types of businesses?",
+        "a": "We work with SMEs, freelancers and growing brands in any sector. We specialise in local businesses, e-commerce, professional services and hospitality. If you're unsure whether we're the right fit, tell us in the free consultation."
+      },
+      {
+        "q": "Do I need to sign a long-term contract?",
+        "a": "No. All our plans are monthly with no lock-in. You can cancel whenever you want with 15 days' notice. We rely on results to retain you, not the fine print."
+      },
+      {
+        "q": "What does the free consultation include?",
+        "a": "A 30-45 minute video call where we analyse your current situation, your goals and present a preliminary roadmap. No pressure, no aggressive sales. If we're not the right partner for you, we'll tell you."
+      },
+      {
+        "q": "Who creates the content?",
+        "a": "Our in-house team of copywriters and designers creates all content adapted to your brand voice. You review and approve before publishing. Over time the process becomes smoother and requires less of your time."
+      },
+      {
+        "q": "Can I change my plan later?",
+        "a": "Of course. You can upgrade or downgrade at any time. Many clients start with Silver and scale to Gold when they see results. The change applies in the next billing cycle."
+      }
+    ]
+  },
+  "ctaFinal": {
+    "badge": "Accepting new clients",
+    "headline": "Ready to see real results?",
+    "subheadline": "Book a free 30-minute consultation and we'll tell you exactly what we'd do with your brand.",
+    "cta": "Book free consultation",
+    "ctaSecondary": "View plans",
+    "disclaimer": "No lock-in · Cancel anytime · Results in 60 days"
+  },
+  "contact": {
+    "label": "Contact",
+    "headline": "Let's talk about",
+    "headlineAccent": "your project",
+    "subheadline": "Tell us your situation and within 24 hours we'll contact you with an initial proposal, no commitment required.",
+    "info": {
+      "title": "Contact information",
+      "phone": "Phone",
+      "email": "Email",
+      "location": "Location",
+      "hours": "Hours"
+    },
+    "responseGuarantee": "Guaranteed response",
+    "responseTime": "within 24 business hours.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+34 600 000 000",
+      "business": "Company / Business",
+      "businessPlaceholder": "Your business name",
+      "service": "Which service are you interested in?",
+      "servicePlaceholder": "Select a service",
+      "serviceOptions": {
+        "social": "Social Media Management",
+        "ads": "Digital Advertising",
+        "seo": "SEO & Content",
+        "email": "Email Marketing",
+        "branding": "Branding & Design",
+        "full": "Full package"
+      },
+      "message": "Tell us about your project",
+      "messagePlaceholder": "What is your current situation? What are your goals? What is your approximate budget?",
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "privacy": "Your data is treated confidentially. No spam.",
+      "nameRequired": "Please enter your name",
+      "emailInvalid": "Invalid email",
+      "messageMin": "Tell us more about your project (minimum 15 characters)"
+    },
+    "success": {
+      "title": "Message received!",
+      "message": "We'll contact you within 24 hours to schedule a free consultation and discuss how we can help you."
+    },
+    "error": {
+      "message": "There was a problem sending. Please try again or write to us at"
+    }
+  },
+  "about": {
+    "label": "About",
+    "headline": "We are Geko",
+    "subheadline": "A young, ambitious digital marketing agency obsessed with results. We care about your numbers, not ours.",
+    "mission": {
+      "label": "Our mission",
+      "text": "Democratise quality digital marketing for Spanish SMEs."
+    },
+    "values": {
+      "headline": "What defines us",
+      "items": [
+        {
+          "title": "Results first",
+          "description": "Every decision we make is data-driven and focused on measurable results."
+        },
+        {
+          "title": "Full transparency",
+          "description": "No fine print. No surprises. Clear reports every week."
+        },
+        {
+          "title": "Real agility",
+          "description": "We're not a big agency with slow processes. We respond and act fast."
+        },
+        {
+          "title": "Client obsession",
+          "description": "Your success is our success. That's not a slogan — it's how we measure our work."
+        }
+      ]
+    },
+    "team": {
+      "headline": "The team"
+    }
+  },
+  "blog": {
+    "label": "Blog",
+    "headline": "Strategies that work",
+    "subheadline": "Digital marketing insights, real cases and industry trends.",
+    "searchPlaceholder": "Search articles...",
+    "allCategories": "All",
+    "readMore": "Read article",
+    "minRead": "min read",
+    "noResults": "No articles found",
+    "recentPosts": "Latest posts"
+  },
+  "compare": {
+    "label": "Comparison",
+    "headline": "Why choose Geko?",
+    "subheadline": "No fluff. Here's how we compare to the alternatives.",
+    "features": [
+      "Personalised strategy",
+      "Daily content management",
+      "Optimised Social Ads",
+      "Professional visual design",
+      "Monthly reports",
+      "Direct support (WhatsApp)",
+      "Dedicated manager",
+      "No lock-in",
+      "Results in 60 days"
+    ],
+    "columns": {
+      "geko":      { "badge": "Our offer",      "price": "from €399",     "priceNote": "/ month · no lock-in" },
+      "agencia":   { "name": "Large agency",    "price": "from €2,000",   "priceNote": "/ month · annual contract" },
+      "freelance": { "name": "Freelancer",      "price": "Variable",      "priceNote": "per project" },
+      "solo":      { "name": "By yourself",     "price": "Just your time","priceNote": "~20h / week" }
+    },
+    "cta": "Get started",
+    "footnote": "~ = Depends on the professional. Based on typical market conditions."
+  },
+  "servicesHero": {
+    "label": "Digital marketing from Tres Cantos, Madrid",
+    "headlineTop": "Everything your brand needs",
+    "headlineAccent": "to grow",
+    "description": "From social media strategy to your new website. A complete team working to grow your brand — with measurable results in the first 60 days.",
+    "ctaAudit": "Request free audit",
+    "ctaServices": "View services",
+    "stats": [
+      { "value": "50+",     "label": "Growing brands" },
+      { "value": "3 years", "label": "In the market" },
+      { "value": "98%",     "label": "Satisfied clients" }
+    ]
+  },
+  "roi": {
+    "label": "ROI Calculator",
+    "headline": "How much can your brand grow",
+    "headlineAccent": "with Geko?",
+    "subheadline": "Adjust the sliders and see your real potential in 6 months. Conservative estimate based on real results.",
+    "currentSituation": "Your current situation",
+    "projection": "Your 6-month projection",
+    "followersLabel": "Current followers",
+    "sectorLabel": "Sector",
+    "packageLabel": "Geko Plan",
+    "projectedFollowers": "Projected followers",
+    "newFollowersSuffix": "new",
+    "engagement": "Engagement",
+    "reachPerPost": "Reach / post",
+    "leadsPerMonth": "Leads / month",
+    "estimatedRoi": "Estimated ROI",
+    "disclaimer": "*Projection based on real results from current clients. Results vary by sector, content and competition.",
+    "cta": "I want these results",
+    "sectors": [
+      "Hospitality / F&B",
+      "Local retail",
+      "Professional services",
+      "E-commerce",
+      "Health & wellness",
+      "Real estate"
+    ]
+  },
+  "servicesExplore": {
+    "label": "What we do",
+    "headline": "Services designed to",
+    "headlineAccent": "generate real results",
+    "ourServices": "Our services",
+    "freeAudit": "Free audit",
+    "includes": "What's included?",
+    "platforms": "Platforms",
+    "realResult": "Real result",
+    "keyMetrics": "Key metrics",
+    "viewAll": "See all about",
+    "requestBudget": "Request a quote",
+    "realCase": "Real case"
+  }
+}

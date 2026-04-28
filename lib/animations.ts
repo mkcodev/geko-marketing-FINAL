@@ -1,4 +1,4 @@
-import type { Variants } from "framer-motion"
+import type { Variants } from "motion/react"
 
 // ── Easings ────────────────────────────────────────────────────
 // Importar desde aquí. NUNCA copiar la constante en cada componente.

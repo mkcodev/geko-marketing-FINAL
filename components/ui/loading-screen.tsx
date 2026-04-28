@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 interface LoadingScreenProps {
   onComplete: () => void
@@ -69,14 +69,14 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         position: "absolute",
         top: "30%", left: "50%", transform: "translate(-50%, -50%)",
         width: 600, height: 400, borderRadius: "50%",
-        background: "radial-gradient(ellipse, rgba(107,45,124,0.18) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, var(--color-geko-purple-a18) 0%, transparent 70%)",
         filter: "blur(60px)", pointerEvents: "none",
       }} />
       <div aria-hidden style={{
         position: "absolute",
         top: "45%", left: "50%", transform: "translate(-50%, -50%)",
         width: 350, height: 280, borderRadius: "50%",
-        background: "radial-gradient(ellipse, rgba(29,78,216,0.12) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, var(--color-geko-blue-a12) 0%, transparent 70%)",
         filter: "blur(80px)", pointerEvents: "none",
       }} />
 
@@ -92,10 +92,10 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           style={{
             width: 64, height: 64, borderRadius: 18,
-            background: "linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%)",
+            background: "var(--gradient-brand)",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: "2rem",
-            boxShadow: "0 0 40px rgba(107,45,124,0.5), 0 0 80px rgba(107,45,124,0.2)",
+            boxShadow: "0 0 40px var(--color-geko-purple-a50), 0 0 80px var(--color-geko-purple-a20)",
           }}
         >
           🦎
@@ -106,12 +106,12 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             fontFamily: "var(--font-heading)",
             fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
             fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1,
-            background: "linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.55) 100%)",
+            background: "linear-gradient(135deg, #fff 30%, var(--fg-secondary) 100%)",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             marginBottom: 8,
           }}>
             geko<span style={{
-              background: "linear-gradient(135deg, #9B4DBC, #3B82F6)",
+              background: "linear-gradient(135deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             }}>.</span>
           </h1>
@@ -121,7 +121,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             transition={{ delay: 0.35, duration: 0.5 }}
             style={{
               fontFamily: "var(--font-ui)", fontSize: "0.8125rem",
-              color: "rgba(255,255,255,0.32)", letterSpacing: "0.05em",
+              color: "var(--fg-muted)", letterSpacing: "0.05em",
             }}
           >
             Transformamos seguidores en clientes
@@ -132,14 +132,14 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       {/* Progress bar */}
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0,
-        height: 2, background: "rgba(255,255,255,0.05)",
+        height: 2, background: "var(--border-subtle)",
       }}>
         <div style={{
           height: "100%",
           width: `${progress}%`,
-          background: "linear-gradient(90deg, #6B2D7C, #9B4DBC, #3B82F6)",
+          background: "linear-gradient(90deg, var(--color-geko-purple), var(--color-geko-purple-accent), var(--color-geko-blue-light))",
           borderRadius: "0 2px 2px 0",
-          boxShadow: "0 0 12px rgba(155,77,188,0.6)",
+          boxShadow: "0 0 12px var(--color-geko-purple-accent-a60)",
           transition: "width 0.05s linear",
         }} />
       </div>
@@ -148,7 +148,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       <span style={{
         position: "absolute", bottom: 14, right: 20,
         fontFamily: "var(--font-ui)", fontSize: "0.68rem", fontWeight: 600,
-        color: "rgba(255,255,255,0.18)", letterSpacing: "0.05em",
+        color: "var(--fg-faint)", letterSpacing: "0.05em",
         fontVariantNumeric: "tabular-nums",
       }}>
         {Math.round(progress)}%

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import type { TocHeading } from "@/lib/toc-utils"
 
 export type { TocHeading }
@@ -55,7 +55,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
           fontWeight: 600,
           letterSpacing: "0.10em",
           textTransform: "uppercase",
-          color: "rgba(255,255,255,0.28)",
+          color: "var(--fg-subtle)",
           marginBottom: 14,
           paddingLeft: 12,
         }}
@@ -81,11 +81,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
                 paddingLeft: h.level === 2 ? 12 : 24,
                 paddingTop: 6,
                 paddingBottom: 6,
-                borderLeft: `2px solid ${isActive ? "#9B4DBC" : "rgba(255,255,255,0.08)"}`,
+                borderLeft: `2px solid ${isActive ? "var(--color-geko-purple-accent)" : "var(--border)"}`,
                 fontFamily: "var(--font-ui)",
                 fontSize: h.level === 2 ? "0.82rem" : "0.78rem",
                 fontWeight: isActive ? 600 : 400,
-                color: isActive ? "#C084FC" : "rgba(255,255,255,0.50)",
+                color: isActive ? "#C084FC" : "var(--fg-secondary)",
                 textDecoration: "none",
                 lineHeight: 1.4,
                 transition: "border-color 0.2s, color 0.2s",

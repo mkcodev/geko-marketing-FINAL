@@ -4,7 +4,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is([data-theme="dark"] *));
 
 /* ============================================
    GEKO MARKETING — DESIGN SYSTEM TOKENS
@@ -17,13 +17,85 @@
   --font-ui:      "Geist Variable", system-ui, sans-serif;
   --font-body:    "Geist Variable", system-ui, sans-serif;
 
-  /* ── Colores Geko ── */
-  --color-geko-purple:       #6B2D7C;
-  --color-geko-purple-light: #8B3D9C;
-  --color-geko-purple-dark:  #4A1F57;
-  --color-geko-blue:         #1D4ED8;
-  --color-geko-blue-light:   #3B82F6;
-  --color-geko-blue-dark:    #1E3A8A;
+  /* ── Colores Geko brand ── */
+  --color-geko-purple:        #6B2D7C;
+  --color-geko-purple-accent: #9B4DBC;
+  --color-geko-purple-light:  #8B3D9C;
+  --color-geko-purple-dark:   #4A1F57;
+  --color-geko-blue:          #1D4ED8;
+  --color-geko-blue-light:    #3B82F6;
+  --color-geko-blue-dark:     #1E3A8A;
+
+  /* ── Brand con opacidad — purple ── */
+  --color-geko-purple-a06: rgba(107,45,124,0.06);
+  --color-geko-purple-a07: rgba(107,45,124,0.07);
+  --color-geko-purple-a08: rgba(107,45,124,0.08);
+  --color-geko-purple-a09: rgba(107,45,124,0.09);
+  --color-geko-purple-a10: rgba(107,45,124,0.10);
+  --color-geko-purple-a12: rgba(107,45,124,0.12);
+  --color-geko-purple-a14: rgba(107,45,124,0.14);
+  --color-geko-purple-a15: rgba(107,45,124,0.15);
+  --color-geko-purple-a18: rgba(107,45,124,0.18);
+  --color-geko-purple-a20: rgba(107,45,124,0.20);
+  --color-geko-purple-a22: rgba(107,45,124,0.22);
+  --color-geko-purple-a25: rgba(107,45,124,0.25);
+  --color-geko-purple-a28: rgba(107,45,124,0.28);
+  --color-geko-purple-a30: rgba(107,45,124,0.30);
+  --color-geko-purple-a35: rgba(107,45,124,0.35);
+  --color-geko-purple-a40: rgba(107,45,124,0.40);
+  --color-geko-purple-a45: rgba(107,45,124,0.45);
+  --color-geko-purple-a50: rgba(107,45,124,0.50);
+  --color-geko-purple-a55: rgba(107,45,124,0.55);
+  --color-geko-purple-a60: rgba(107,45,124,0.60);
+  --color-geko-purple-a75: rgba(107,45,124,0.75);
+  --color-geko-purple-a80: rgba(107,45,124,0.80);
+
+  /* ── Brand con opacidad — purple-accent ── */
+  --color-geko-purple-accent-a08: rgba(155,77,188,0.08);
+  --color-geko-purple-accent-a10: rgba(155,77,188,0.10);
+  --color-geko-purple-accent-a12: rgba(155,77,188,0.12);
+  --color-geko-purple-accent-a18: rgba(155,77,188,0.18);
+  --color-geko-purple-accent-a22: rgba(155,77,188,0.22);
+  --color-geko-purple-accent-a30: rgba(155,77,188,0.30);
+  --color-geko-purple-accent-a35: rgba(155,77,188,0.35);
+  --color-geko-purple-accent-a40: rgba(155,77,188,0.40);
+  --color-geko-purple-accent-a45: rgba(155,77,188,0.45);
+  --color-geko-purple-accent-a50: rgba(155,77,188,0.50);
+  --color-geko-purple-accent-a55: rgba(155,77,188,0.55);
+  --color-geko-purple-accent-a60: rgba(155,77,188,0.60);
+  --color-geko-purple-accent-a70: rgba(155,77,188,0.70);
+  --color-geko-purple-accent-a75: rgba(155,77,188,0.75);
+  --color-geko-purple-accent-a80: rgba(155,77,188,0.80);
+  --color-geko-purple-accent-a85: rgba(155,77,188,0.85);
+  --color-geko-purple-accent-a90: rgba(155,77,188,0.90);
+
+  /* ── Brand con opacidad — blue ── */
+  --color-geko-blue-a04: rgba(29,78,216,0.04);
+  --color-geko-blue-a07: rgba(29,78,216,0.07);
+  --color-geko-blue-a08: rgba(29,78,216,0.08);
+  --color-geko-blue-a10: rgba(29,78,216,0.10);
+  --color-geko-blue-a12: rgba(29,78,216,0.12);
+  --color-geko-blue-a15: rgba(29,78,216,0.15);
+  --color-geko-blue-a18: rgba(29,78,216,0.18);
+  --color-geko-blue-a20: rgba(29,78,216,0.20);
+  --color-geko-blue-a30: rgba(29,78,216,0.30);
+
+  /* ── Brand con opacidad — blue-light ── */
+  --color-geko-blue-light-a05: rgba(59,130,246,0.05);
+  --color-geko-blue-light-a06: rgba(59,130,246,0.06);
+  --color-geko-blue-light-a10: rgba(59,130,246,0.10);
+  --color-geko-blue-light-a12: rgba(59,130,246,0.12);
+  --color-geko-blue-light-a22: rgba(59,130,246,0.22);
+
+  /* ── Colores semánticos (estado) ── */
+  --color-success:        #10B981;
+  --color-success-muted:  rgba(16,185,129,0.12);
+  --color-warning:        #F59E0B;
+  --color-warning-muted:  rgba(245,158,11,0.12);
+  --color-error:          #EF4444;
+  --color-error-muted:    rgba(239,68,68,0.12);
+  --color-info:           #3B82F6;
+  --color-info-muted:     rgba(59,130,246,0.12);
 
   /* ── Backgrounds ── */
   --color-bg-dark:   #080810;
@@ -54,9 +126,11 @@
   --color-text-muted-light:    rgba(8,8,16,0.35);
 
   /* ── Gradientes ── */
-  --gradient-brand:   linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%);
-  --gradient-brand-r: linear-gradient(135deg, #1D4ED8 0%, #6B2D7C 100%);
-  --gradient-aurora:  radial-gradient(ellipse 80% 50% at 50% -20%, rgba(107,45,124,0.35) 0%, transparent 60%);
+  --gradient-brand:        linear-gradient(135deg, #6B2D7C 0%, #1D4ED8 100%);
+  --gradient-brand-r:      linear-gradient(135deg, #1D4ED8 0%, #6B2D7C 100%);
+  --gradient-brand-90:     linear-gradient(90deg, #6B2D7C, #3B82F6);
+  --gradient-brand-text:   linear-gradient(90deg, #9B4DBC, #3B82F6);
+  --gradient-aurora:       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(107,45,124,0.35) 0%, transparent 60%);
 
   /* ── Tipografía fluida ── */
   --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
@@ -103,60 +177,129 @@
   --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ── Variables de tema activo ── */
+/* ── Variables de tema activo (dark por defecto) ── */
 :root {
   color-scheme: dark;
-  --bg:            #080810;
-  --fg:            rgba(255,255,255,0.95);
-  --fg-secondary:  rgba(255,255,255,0.55);
-  --fg-muted:      rgba(255,255,255,0.35);
-  --surface:       rgba(255,255,255,0.04);
-  --surface-hover: rgba(255,255,255,0.07);
-  --border: oklch(0.922 0 0);
-  --border-hover:  rgba(255,255,255,0.15);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Geko semantic — usados en componentes custom ── */
+  --bg:              #080810;
+  --bg-raised:       #0d0d1a;
+  --bg-card:         #12121f;
+  --fg:              rgba(255,255,255,0.95);
+  --fg-secondary:    rgba(255,255,255,0.55);
+  --fg-muted:        rgba(255,255,255,0.35);
+  --fg-subtle:       rgba(255,255,255,0.25);
+  --fg-faint:        rgba(255,255,255,0.15);
+  --surface:         rgba(255,255,255,0.04);
+  --surface-hover:   rgba(255,255,255,0.07);
+  --surface-strong:  rgba(255,255,255,0.10);
+  --border:          rgba(255,255,255,0.08);
+  --border-subtle:   rgba(255,255,255,0.05);
+  --border-strong:   rgba(255,255,255,0.12);
+  --border-hover:    rgba(255,255,255,0.15);
+  --glass-bg:        rgba(8,8,16,0.55);
+  --glass-bg-strong: rgba(8,8,16,0.90);
+  --glass-bg-nav:    rgba(8,8,16,0.85);
+  --glass-bg-nav-dim: rgba(8,8,16,0.40);
+  --section-alt:     rgba(255,255,255,0.018);
+  --glow-brand:      rgba(107,45,124,0.35);
+  --glow-brand-sm:   rgba(107,45,124,0.20);
+  --shadow-card:     0 4px 24px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15);
+
+  /* ── shadcn / Radix semantic — mapeados a Geko brand ── */
+  --background:              #080810;
+  --foreground:              rgba(255,255,255,0.95);
+  --card:                    rgba(255,255,255,0.04);
+  --card-foreground:         rgba(255,255,255,0.95);
+  --popover:                 #0d0d1a;
+  --popover-foreground:      rgba(255,255,255,0.95);
+  --primary:                 #6B2D7C;
+  --primary-foreground:      #FFFFFF;
+  --secondary:               rgba(255,255,255,0.06);
+  --secondary-foreground:    rgba(255,255,255,0.85);
+  --muted:                   rgba(255,255,255,0.04);
+  --muted-foreground:        rgba(255,255,255,0.45);
+  --accent:                  rgba(107,45,124,0.15);
+  --accent-foreground:       #9B4DBC;
+  --destructive:             #EF4444;
+  --input:                   rgba(255,255,255,0.08);
+  --ring:                    #6B2D7C;
+  --radius:                  0.625rem;
+
+  /* ── Charts (coherentes con paleta Geko) ── */
+  --chart-1: #6B2D7C;
+  --chart-2: #1D4ED8;
+  --chart-3: #10B981;
+  --chart-4: #F59E0B;
+  --chart-5: #EC4899;
+
+  /* ── Sidebar ── */
+  --sidebar:                    #0d0d1a;
+  --sidebar-foreground:         rgba(255,255,255,0.85);
+  --sidebar-primary:            #6B2D7C;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:             rgba(255,255,255,0.04);
+  --sidebar-accent-foreground:  rgba(255,255,255,0.85);
+  --sidebar-border:             rgba(255,255,255,0.08);
+  --sidebar-ring:               #6B2D7C;
 }
 
 [data-theme="light"] {
   color-scheme: light;
-  --bg:            #FAFAFA;
-  --fg:            rgba(8,8,16,0.95);
-  --fg-secondary:  rgba(8,8,16,0.55);
-  --fg-muted:      rgba(8,8,16,0.35);
-  --surface:       rgba(0,0,0,0.04);
-  --surface-hover: rgba(0,0,0,0.07);
-  --border:        rgba(0,0,0,0.10);
-  --border-hover:  rgba(0,0,0,0.18);
+
+  /* ── Geko semantic ── */
+  --bg:              #FAFAFA;
+  --bg-raised:       #F0F0F5;
+  --bg-card:         #FFFFFF;
+  --fg:              rgba(8,8,16,0.92);
+  --fg-secondary:    rgba(8,8,16,0.55);
+  --fg-muted:        rgba(8,8,16,0.38);
+  --fg-subtle:       rgba(8,8,16,0.28);
+  --fg-faint:        rgba(8,8,16,0.16);
+  --surface:         rgba(0,0,0,0.04);
+  --surface-hover:   rgba(0,0,0,0.07);
+  --surface-strong:  rgba(0,0,0,0.08);
+  --border:          rgba(0,0,0,0.10);
+  --border-subtle:   rgba(0,0,0,0.06);
+  --border-strong:   rgba(0,0,0,0.14);
+  --border-hover:    rgba(0,0,0,0.20);
+  --glass-bg:        rgba(250,250,250,0.75);
+  --glass-bg-strong: rgba(250,250,250,0.95);
+  --glass-bg-nav:    rgba(248,248,252,0.92);
+  --glass-bg-nav-dim: rgba(248,248,252,0.50);
+  --section-alt:     rgba(0,0,0,0.025);
+  --glow-brand:      rgba(107,45,124,0.12);
+  --glow-brand-sm:   rgba(107,45,124,0.08);
+  --shadow-card:     0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+
+  /* ── shadcn / Radix semantic ── */
+  --background:              #FAFAFA;
+  --foreground:              rgba(8,8,16,0.95);
+  --card:                    rgba(0,0,0,0.03);
+  --card-foreground:         rgba(8,8,16,0.95);
+  --popover:                 #F4F4F8;
+  --popover-foreground:      rgba(8,8,16,0.95);
+  --primary:                 #6B2D7C;
+  --primary-foreground:      #FFFFFF;
+  --secondary:               rgba(0,0,0,0.06);
+  --secondary-foreground:    rgba(8,8,16,0.85);
+  --muted:                   rgba(0,0,0,0.04);
+  --muted-foreground:        rgba(8,8,16,0.45);
+  --accent:                  rgba(107,45,124,0.10);
+  --accent-foreground:       #6B2D7C;
+  --destructive:             #DC2626;
+  --input:                   rgba(0,0,0,0.10);
+  --ring:                    #6B2D7C;
+
+  /* ── Sidebar ── */
+  --sidebar:                    #F4F4F8;
+  --sidebar-foreground:         rgba(8,8,16,0.85);
+  --sidebar-primary:            #6B2D7C;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent:             rgba(0,0,0,0.04);
+  --sidebar-accent-foreground:  rgba(8,8,16,0.85);
+  --sidebar-border:             rgba(0,0,0,0.10);
+  --sidebar-ring:               #6B2D7C;
 }
 
 /* ── Base ── */
@@ -283,6 +426,40 @@ a, button, [role="button"], input, textarea, select, label, summary {
 }
 
 /* ── Clases de utilidad premium ── */
+
+/* Section label — píldora de etiqueta de sección */
+.section-label {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.section-label-purple {
+  background: rgba(107,45,124,0.12);
+  border: 1px solid rgba(107,45,124,0.30);
+  color: #9B4DBC;
+}
+.section-label-blue {
+  background: rgba(29,78,216,0.10);
+  border: 1px solid rgba(29,78,216,0.25);
+  color: #3B82F6;
+}
+.section-label-gold {
+  background: rgba(245,158,11,0.10);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: #F59E0B;
+}
+.section-label-green {
+  background: rgba(16,185,129,0.10);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: #10B981;
+}
+
+
 .text-gradient-brand {
   background: linear-gradient(135deg, #6B2D7C, #3B82F6, #1D4ED8);
   background-size: 200% 200%;
@@ -293,15 +470,14 @@ a, button, [role="button"], input, textarea, select, label, summary {
 }
 
 .glass {
-  background: rgba(8, 8, 16, 0.6);
+  background: var(--glass-bg);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
 }
 
 [data-theme="light"] .glass {
-  background: rgba(250, 250, 250, 0.7);
-  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 .glow-purple { box-shadow: var(--shadow-glow-purple); }
@@ -311,9 +487,16 @@ a, button, [role="button"], input, textarea, select, label, summary {
 .font-ui      { font-family: var(--font-ui); }
 .font-body    { font-family: var(--font-body); }
 
-/* ── Announcement bar height variable ── */
+/* ── Announcement bar height variable — 0px por defecto (barra oculta en SSR) ── */
 :root {
-  --ann-h: 40px;
+  --ann-h: 0px;
+  --nav-h: 56px;
+  /* Padding vertical de sección — usado por Section.tsx y secciones custom */
+  --section-padding-v:     clamp(48px, 8vw, 96px);
+  --section-padding-tight: clamp(32px, 5vw, 64px);
+}
+@media (min-width: 768px) {
+  :root { --nav-h: 64px; }
 }
 
 /* ══════════════════════════════════
@@ -328,16 +511,21 @@ a, button, [role="button"], input, textarea, select, label, summary {
   height: 56px;
   padding: 0 16px;
   gap: 8px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
+.nav-logo-wrap  { height: 22px; margin-left: 4px; flex-shrink: 0; overflow: hidden; }
 .nav-desktop-links { display: none; }
-.nav-desktop-right  { display: none; }
-.nav-mobile-btn     { display: flex; }
+.nav-desktop-right { display: none; }
+.nav-mobile-right  { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 
 @media (min-width: 768px) {
-  .nav-inner { height: 64px; padding: 0 24px; }
-  .nav-desktop-links { display: flex; flex: 1; justify-content: center; gap: 4px; }
-  .nav-desktop-right  { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .nav-mobile-btn     { display: none; }
+  .nav-inner         { height: 64px; padding: 0 28px; }
+  .nav-logo-wrap     { height: 26px; margin-left: 8px; }
+  .nav-desktop-links { display: flex; flex: 1; justify-content: center; gap: 2px; }
+  .nav-desktop-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .nav-mobile-right  { display: none; }
 }
 
 /* ── Footer grid ── */
@@ -346,7 +534,7 @@ a, button, [role="button"], input, textarea, select, label, summary {
   grid-template-columns: 1fr;
   gap: 40px;
   padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid var(--border-subtle);
 }
 @media (min-width: 560px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
@@ -396,6 +584,42 @@ a, button, [role="button"], input, textarea, select, label, summary {
 /* ── Social icons row ── */
 .social-row { display: flex; gap: 8px; flex-wrap: wrap; }
 
+/* ── Skeleton shimmer ── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Form inputs — focus/hover states ── */
+.geko-input {
+  transition: border-color 0.2s var(--ease-smooth), box-shadow 0.2s var(--ease-smooth);
+}
+.geko-input:hover {
+  border-color: rgba(107,45,124,0.35) !important;
+}
+.geko-input:focus-visible,
+.geko-input:focus {
+  outline: none;
+  border-color: rgba(107,45,124,0.65) !important;
+  box-shadow: 0 0 0 3px rgba(107,45,124,0.15) !important;
+}
+
+/* ── Hero height — usa --nav-h responsive ── */
+.hero-height {
+  height: calc(100svh - var(--nav-h) - var(--ann-h, 0px));
+  min-height: 480px;
+}
+
+/* ── Marquee logo item — padding responsive ── */
+.marquee-logo-item {
+  padding: 0 clamp(20px, 3.5vw, 48px);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 /* ── Footer mobile: centrar todo ── */
 @media (max-width: 559px) {
   .footer-grid > * {
@@ -414,8 +638,6 @@ a, button, [role="button"], input, textarea, select, label, summary {
 }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -447,57 +669,10 @@ a, button, [role="button"], input, textarea, select, label, summary {
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
   }
 }
