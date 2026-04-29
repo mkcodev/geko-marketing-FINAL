@@ -1,6 +1,8 @@
 import type { NextConfig } from "next"
+import bundleAnalyzer from "@next/bundle-analyzer"
 
 const IS_EXPORT = process.env.BUILDING_FOR_EXPORT === "true"
+const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === "true" })
 
 const securityHeaders = [
   { key: "X-DNS-Prefetch-Control", value: "on" },
@@ -81,4 +83,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

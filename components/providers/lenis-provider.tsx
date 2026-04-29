@@ -3,6 +3,10 @@
 import { useEffect, type ReactNode } from "react"
 import Lenis from "lenis"
 
+declare global {
+  interface Window { __lenis?: Lenis }
+}
+
 export function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
@@ -11,6 +15,8 @@ export function LenisProvider({ children }: { children: ReactNode }) {
       smoothWheel: true,
       syncTouch: false,
     })
+
+    window.__lenis = lenis
 
     let raf: number
 
@@ -24,6 +30,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelAnimationFrame(raf)
       lenis.destroy()
+      window.__lenis = undefined
     }
   }, [])
 

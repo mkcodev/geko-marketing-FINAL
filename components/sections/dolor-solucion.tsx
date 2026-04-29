@@ -23,7 +23,7 @@ export function DolorSolucion() {
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
           animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
           transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 56 }}
+          style={{ textAlign: "center", marginBottom: "var(--section-header-mb)" }}
         >
           <h2 style={{
             fontFamily: "var(--font-heading)",

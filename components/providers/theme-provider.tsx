@@ -1,44 +1,26 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-
-type Theme = "dark" | "light"
-
-interface ThemeContextValue {
-  theme: Theme
-  toggle: () => void
-}
-
-const ThemeContext = createContext<ThemeContextValue>({
-  theme: "dark",
-  toggle: () => {},
-})
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes"
+import type { ReactNode } from "react"
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark")
-
-  useEffect(() => {
-    const stored = localStorage.getItem("geko-theme") as Theme | null
-    if (stored === "light" || stored === "dark") {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTheme(stored)
-    }
-  }, [])
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme)
-    localStorage.setItem("geko-theme", theme)
-  }, [theme])
-
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"))
-
   return (
-    <ThemeContext.Provider value={{ theme, toggle }}>
+    <NextThemesProvider
+      attribute="data-theme"
+      defaultTheme="dark"
+      enableSystem={false}
+      storageKey="geko-theme"
+    >
       {children}
-    </ThemeContext.Provider>
+    </NextThemesProvider>
   )
 }
 
 export function useTheme() {
-  return useContext(ThemeContext)
+  const { resolvedTheme, setTheme } = useNextTheme()
+  const theme = (resolvedTheme ?? "dark") as "dark" | "light"
+  return {
+    theme,
+    toggle: () => setTheme(theme === "dark" ? "light" : "dark"),
+  }
 }

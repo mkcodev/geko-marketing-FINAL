@@ -52,7 +52,7 @@ export function Testimoniales() {
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
-          style={{ textAlign: "center", marginBottom: 56 }}
+          style={{ textAlign: "center", marginBottom: "var(--section-header-mb)" }}
         >
           <span style={{
             display: "inline-block", padding: "4px 12px", borderRadius: 9999,

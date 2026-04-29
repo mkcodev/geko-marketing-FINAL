@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { X } from "lucide-react"
 import { CALENDLY_URL } from "@/constants/contact"
 import { useT } from "@/hooks/use-translations"
+import { useScrollEvents } from "@/hooks/use-scroll-events"
 
 const SESSION_KEY = "geko-ann-dismissed"
 const SCROLL_THRESHOLD = 60
@@ -22,17 +23,13 @@ export function AnnouncementBar() {
     document.documentElement.style.setProperty("--ann-h", wasDismissed ? "0px" : "40px")
   }, [])
 
-  useEffect(() => {
+  const handleScroll = useCallback((y: number) => {
     if (dismissed) return
-    const onScroll = () => {
-      const past = window.scrollY > SCROLL_THRESHOLD
-      setScrolledPast(past)
-      document.documentElement.style.setProperty("--ann-h", past ? "0px" : "40px")
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    const past = y > SCROLL_THRESHOLD
+    setScrolledPast(past)
+    document.documentElement.style.setProperty("--ann-h", past ? "0px" : "40px")
   }, [dismissed])
+  useScrollEvents(handleScroll)
 
   const dismiss = () => {
     setDismissed(true)

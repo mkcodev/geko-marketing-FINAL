@@ -1,19 +1,26 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 
 interface LoadingScreenProps {
   onComplete: () => void
 }
 
-const DURATION = 2000
+const DURATION = 800
 
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0)
   const [done, setDone] = useState(false)
+  const prefersReduced = useReducedMotion()
+
+  // Skip animation entirely for users who prefer reduced motion
+  useEffect(() => {
+    if (prefersReduced) { onComplete(); return }
+  }, [prefersReduced, onComplete])
 
   useEffect(() => {
+    if (prefersReduced) return
     const start = performance.now()
     let raf: number
 

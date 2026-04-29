@@ -11,7 +11,8 @@
     "test": "/bin/bash -c 'FILES=$(find __tests__ -name \"*.test.ts\" -o -name \"*.test.tsx\" | sort | tr \"\\n\" \" \") && pnpm exec vitest run --pool vmThreads $FILES'",
     "test:watch": "pnpm exec vitest",
     "test:ui": "pnpm exec vitest --ui",
-    "test:coverage": "/bin/bash -c 'FILES=$(find __tests__ -name \"*.test.ts\" -o -name \"*.test.tsx\" | sort | tr \"\\n\" \" \") && pnpm exec vitest run --pool vmThreads --coverage $FILES'"
+    "test:coverage": "/bin/bash -c 'FILES=$(find __tests__ -name \"*.test.ts\" -o -name \"*.test.tsx\" | sort | tr \"\\n\" \" \") && pnpm exec vitest run --pool vmThreads --coverage $FILES'",
+    "analyze": "ANALYZE=true pnpm build"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -56,6 +57,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.2.4",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",

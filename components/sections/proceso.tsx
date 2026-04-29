@@ -86,7 +86,7 @@ export function Proceso() {
           initial={prefersReduced ? false : { opacity: 0, y: 20 }}
           animate={headerInView || prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: EASE }}
-          style={{ marginBottom: 64, textAlign: "center" }}
+          style={{ marginBottom: "var(--section-header-mb)", textAlign: "center" }}
         >
           <span
             style={{

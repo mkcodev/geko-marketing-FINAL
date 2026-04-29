@@ -1,19 +1,25 @@
 "use client"
 
+import type Lenis from "lenis"
 import { useRef } from "react"
-import Image from "next/image"
+
+declare global { interface Window { __lenis?: Lenis } }
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
-import { ArrowRight, Star, Users, TrendingUp, ChevronDown } from "lucide-react"
+import { ArrowRight, ChevronDown } from "lucide-react"
 import { Typewriter } from "@/components/ui/typewriter"
 import { Magnetic } from "@/components/ui/magnetic"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useT } from "@/hooks/use-translations"
+import dynamic from "next/dynamic"
 import { HeroBackground } from "./HeroBackground"
-import { SocialCommandCenter } from "./SocialCommandCenter"
 import { EASE } from "@/lib/animations"
 
-const STAT_ICONS = [<Users size={16} key="u" />, <TrendingUp size={16} key="t" />, <Star size={16} key="s" />]
+const GeckoHero = dynamic(
+  () => import("./GeckoHero").then((m) => ({ default: m.GeckoHero })),
+  { ssr: false }
+)
+
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
@@ -30,9 +36,13 @@ export function Hero() {
   const scrollToNext = () => {
     if (!ref.current) return
     const next = ref.current.nextElementSibling as HTMLElement | null
-    if (next) {
-      const top = next.getBoundingClientRect().top + window.scrollY
-      window.scrollTo({ top, behavior: "smooth" })
+    if (!next) return
+    const navHeight = document.querySelector("nav")?.getBoundingClientRect().height ?? 64
+    const target = next.getBoundingClientRect().top + window.scrollY - navHeight
+    if (window.__lenis) {
+      window.__lenis.scrollTo(target, { duration: 1.2 })
+    } else {
+      window.scrollTo({ top: target, behavior: "smooth" })
     }
   }
 
@@ -66,47 +76,9 @@ export function Hero() {
       >
         {/* LEFT: Copy */}
         <div>
-          {/* Badge */}
-          <motion.div {...anim(0)} style={{ marginBottom: 20 }}>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 7,
-                padding: "5px 14px 5px 8px",
-                borderRadius: 9999,
-                border: "1px solid var(--color-geko-purple-a35)",
-                background: "var(--color-geko-purple-a10)",
-                fontFamily: "var(--font-ui)",
-                fontSize: "0.8125rem",
-                color: "var(--fg)",
-              }}
-            >
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 20,
-                  height: 20,
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg, var(--color-geko-purple), var(--color-geko-blue))",
-                }}
-              >
-                <Image
-                  src="/logos/geko/white-minimal-clean.svg"
-                  alt=""
-                  width={13}
-                  height={13}
-                />
-              </span>
-              {t.hero.badge}
-            </span>
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
-            {...anim(0.1)}
+            {...anim(0)}
             style={{
               fontFamily: "var(--font-heading)",
               fontSize: isDesktop ? "clamp(2.5rem, 4.5vw, 4rem)" : "clamp(2rem, 8vw, 3rem)",
@@ -133,7 +105,7 @@ export function Hero() {
 
           {/* Subheadline */}
           <motion.p
-            {...anim(0.2)}
+            {...anim(0.1)}
             style={{
               fontFamily: "var(--font-body)",
               fontSize: isDesktop ? "1.0625rem" : "1rem",
@@ -148,8 +120,8 @@ export function Hero() {
 
           {/* CTAs */}
           <motion.div
-            {...anim(0.3)}
-            style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 32 }}
+            {...anim(0.2)}
+            style={{ display: "flex", flexWrap: "wrap", gap: 12 }}
           >
             <Magnetic>
               <Link
@@ -159,7 +131,7 @@ export function Hero() {
                   alignItems: "center",
                   gap: 8,
                   padding: isDesktop ? "14px 28px" : "13px 22px",
-                  borderRadius: 12,
+                  borderRadius: 9999,
                   fontFamily: "var(--font-ui)",
                   fontSize: "0.9375rem",
                   fontWeight: 600,
@@ -183,7 +155,7 @@ export function Hero() {
                   alignItems: "center",
                   gap: 8,
                   padding: isDesktop ? "14px 28px" : "13px 22px",
-                  borderRadius: 12,
+                  borderRadius: 9999,
                   fontFamily: "var(--font-ui)",
                   fontSize: "0.9375rem",
                   fontWeight: 500,
@@ -199,73 +171,13 @@ export function Hero() {
               </Link>
             </Magnetic>
           </motion.div>
-
-          {/* Stats row */}
-          <motion.div
-            {...anim(0.4)}
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: isDesktop ? "32px" : "20px",
-              paddingTop: 24,
-              borderTop: "1px solid var(--border-subtle)",
-            }}
-          >
-            {t.hero.stats.map((stat, i) => (
-              <div key={stat.label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: 34,
-                    height: 34,
-                    borderRadius: 9,
-                    background: "var(--color-geko-purple-a15)",
-                    color: "var(--color-geko-purple-accent)",
-                    border: "1px solid var(--color-geko-purple-a25)",
-                    flexShrink: 0,
-                  }}
-                >
-                  {STAT_ICONS[i]}
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "1.25rem",
-                      fontWeight: 700,
-                      color: "var(--fg)",
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    {stat.value}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-ui)",
-                      fontSize: "0.78rem",
-                      color: "var(--fg-muted)",
-                    }}
-                  >
-                    {stat.label}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         {/* RIGHT: Visual (desktop only) */}
         {isDesktop && (
-          <motion.div
-            initial={prefersReduced ? false : { opacity: 0, scale: 0.94, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={prefersReduced ? { duration: 0 } : { duration: 0.8, delay: 0.25, ease: EASE }}
-            style={{ position: "relative", height: 520, overflow: "hidden" }}
-          >
-            <SocialCommandCenter />
-          </motion.div>
+          <div style={{ position: "relative", height: 520 }}>
+            <GeckoHero />
+          </div>
         )}
       </div>
 
@@ -281,6 +193,7 @@ export function Hero() {
           bottom: 28,
           left: "50%",
           transform: "translateX(-50%)",
+          zIndex: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

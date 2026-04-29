@@ -135,6 +135,32 @@ export const SHADOWS = {
   glowBlue:   "0 0 40px rgba(29,78,216,0.4), 0 0 80px rgba(29,78,216,0.15)",
 } as const
 
+// ── Z-index scale ─────────────────────────────────────────────
+// USAR SOLO ESTOS VALORES. Nunca hardcodear números sueltos.
+
+export const Z = {
+  base:     0,
+  raised:   10,    // Back-to-top, cards elevadas
+  dropdown: 100,   // Navbar fixed header
+  sticky:   200,   // CTA sticky sidebar
+  overlay:  400,   // Fondos de modal (semitransparentes)
+  modal:    500,   // Modales, banners de cookie
+  toast:    800,   // Notificaciones
+  cursor:   900,   // Custom cursor
+  loading:  9999,  // Loading screen (siempre encima de todo)
+} as const
+
+// ── Spring configs (Framer Motion) ────────────────────────────
+// Reutilizar estos objetos en vez de hardcodear stiffness/damping.
+
+export const SPRING = {
+  gentle:  { stiffness: 120, damping: 14, mass: 1 },    // Parallax suave, hovers
+  snappy:  { stiffness: 300, damping: 28, mass: 1 },    // CTAs, botones, scale
+  bouncy:  { stiffness: 400, damping: 20, mass: 0.8 },  // Back-to-top, notifs
+  slow:    { stiffness: 60,  damping: 20, mass: 1.2 },  // Texto, ilustraciones
+  cursor:  { stiffness: 180, damping: 22, mass: 1 },    // Cursor ring
+} as const
+
 // ── Helpers ───────────────────────────────────────────────────
 
 /** Genera CSS de transición estándar para propiedades de card */

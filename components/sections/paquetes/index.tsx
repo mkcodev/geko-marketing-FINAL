@@ -10,10 +10,11 @@ import { EASE } from "@/lib/animations"
 import { BillingToggle } from "./BillingToggle"
 import { SilverCard, GoldCard, PlatinumCard } from "./PaqueteCards"
 import { useT } from "@/hooks/use-translations"
+import { Section } from "@/components/ui/section"
 
 export function Paquetes() {
   const t = useT()
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
   const footerRef = useRef<HTMLParagraphElement>(null)
@@ -60,18 +61,15 @@ export function Paquetes() {
   ]
 
   return (
-    <section
-      ref={sectionRef}
-      className="section-container"
-      style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)" }}
-    >
+    <Section>
+      <div ref={sectionRef} className="section-container">
       {/* Header */}
       <motion.div
         ref={headerRef}
         initial={prefersReduced ? false : { opacity: 0, y: 20 }}
         animate={headerInView || prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, ease: EASE }}
-        style={{ marginBottom: 48, textAlign: "center" }}
+        style={{ marginBottom: "var(--section-header-mb)", textAlign: "center" }}
       >
         <span
           style={{
@@ -167,6 +165,7 @@ export function Paquetes() {
           {t.plans.customCta}
         </Link>
       </motion.p>
-    </section>
+      </div>
+    </Section>
   )
 }

@@ -10,6 +10,7 @@ import { Section } from '@/components/ui/section'
 import { GradientText } from '@/components/ui/gradient-text'
 import { teamMembers } from '@/constants/team'
 import { EASE } from '@/lib/animations'
+import { GeckoParticles } from '@/components/ui/gecko-particles'
 
 const containerVariants = {
   hidden: {},
@@ -27,7 +28,10 @@ export function Team() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <Section>
+    <Section style={{ overflow: "hidden" }}>
+      {/* Gecko particle field — renders behind all content */}
+      <GeckoParticles />
+
       {/* Aurora */}
       <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
         <div
@@ -39,7 +43,7 @@ export function Team() {
         />
       </div>
 
-      <div className="section-container">
+      <div className="section-container" style={{ position: "relative", zIndex: 1 }}>
         <motion.div
           ref={ref}
           variants={containerVariants}
@@ -48,13 +52,17 @@ export function Team() {
           className="flex flex-col items-center"
         >
           {/* Badge */}
-          <motion.div variants={itemVariants} className="mb-6">
+          <motion.div variants={itemVariants} className="mb-3">
             <Label color="purple">Nuestro equipo</Label>
           </motion.div>
 
           {/* Heading */}
-          <motion.div variants={itemVariants} className="text-center mb-14 max-w-2xl">
-            <h2 className="font-heading font-bold text-balance text-white leading-[1.1] mb-5 text-4xl md:text-5xl lg:text-[3.5rem]">
+          <motion.div
+            variants={itemVariants}
+            className="text-center max-w-2xl"
+            style={{ marginBottom: "var(--section-header-mb)" }}
+          >
+            <h2 className="font-heading font-bold text-balance text-white leading-[1.1] mb-4 text-4xl md:text-5xl lg:text-[3.5rem]">
               Personas reales.{' '}
               <GradientText variant="accent">Resultados reales.</GradientText>
             </h2>
@@ -65,7 +73,7 @@ export function Team() {
           </motion.div>
 
           {/* AnimatedTooltip — círculos con hover */}
-          <motion.div variants={itemVariants} className="flex justify-center items-center mb-14">
+          <motion.div variants={itemVariants} className="flex justify-center items-center mb-8">
             <AnimatedTooltip items={teamMembers} />
           </motion.div>
 

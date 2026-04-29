@@ -1,23 +1,27 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
+import type Lenis from "lenis"
+import { useScrollEvents } from "@/hooks/use-scroll-events"
+
+declare global { interface Window { __lenis?: Lenis } }
 import { motion, AnimatePresence } from "motion/react"
 import { ArrowUp } from "lucide-react"
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false)
 
-  useEffect(() => {
-    const onScroll = () => {
-      // Show after ~2 viewport heights (past second/third section)
-      setVisible(window.scrollY > window.innerHeight * 1.8)
-    }
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+  const handleScroll = useCallback((y: number) => {
+    setVisible(y > window.innerHeight * 1.8)
   }, [])
+  useScrollEvents(handleScroll)
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { duration: 1.2 })
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    }
   }
 
   return (

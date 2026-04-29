@@ -3,6 +3,7 @@
 import { useRef, useState } from "react"
 import { motion, useInView, useReducedMotion } from "motion/react"
 import { useT } from "@/hooks/use-translations"
+import { Section } from "@/components/ui/section"
 import { CLIENT_LOGOS } from "@/constants/social-proof"
 
 const TRACK = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS]
@@ -14,15 +15,8 @@ export function SocialProof() {
   const t = useT()
 
   return (
-    <section
-      ref={ref}
-      style={{
-        paddingTop: "var(--section-padding-tight)",
-        paddingBottom: "var(--section-padding-tight)",
-        borderTop: "1px solid var(--border-subtle)",
-        overflow: "hidden",
-      }}
-    >
+    <Section spacing="tight" borderTop style={{ overflow: "hidden" }}>
+      <div ref={ref}>
       {/* Label */}
       <motion.p
         initial={prefersReduced ? false : { opacity: 0, y: 10 }}
@@ -84,7 +78,8 @@ export function SocialProof() {
           </div>
         ))}
       </motion.div>
-    </section>
+      </div>
+    </Section>
   )
 }
 

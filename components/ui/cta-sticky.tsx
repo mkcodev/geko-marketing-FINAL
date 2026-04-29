@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useCallback } from "react"
+import { useScrollEvents } from "@/hooks/use-scroll-events"
 import { motion, AnimatePresence } from "motion/react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
@@ -9,11 +10,8 @@ export function CtaSticky() {
   const [visible, setVisible] = useState(false)
   const [hovered, setHovered] = useState(false)
 
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 500)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+  const handleScroll = useCallback((y: number) => { setVisible(y > 500) }, [])
+  useScrollEvents(handleScroll)
 
   // Desktop only — via CSS
   return (

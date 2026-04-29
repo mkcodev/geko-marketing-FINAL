@@ -4,12 +4,10 @@ import Script from "next/script"
 import { LanguageProvider } from "@/context/language-context"
 import { LenisProvider } from "@/components/providers/lenis-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { ClientOverlays } from "@/components/providers/client-overlays"
 import { AnnouncementBar } from "@/components/layout/announcement-bar"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
-import { CustomCursor } from "@/components/ui/custom-cursor"
-import { ScrollProgress } from "@/components/ui/scroll-progress"
-import { AnalyticsProvider } from "@/components/providers/analytics-provider"
 import "@fontsource-variable/bricolage-grotesque"
 import "@fontsource-variable/geist"
 import "./globals.css"
@@ -214,10 +212,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeProvider>
           <LenisProvider>
             <LanguageProvider>
-              {/* Global UI overlays */}
-              <CustomCursor />
-              <ScrollProgress />
-              <AnalyticsProvider />
+              {/* Global UI overlays — client-only, loaded after hydration */}
+              <ClientOverlays />
               <a href="#main-content" className="skip-link">
                 Saltar al contenido principal
               </a>

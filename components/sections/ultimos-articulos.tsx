@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react"
 import { ArticleCard } from "@/components/blog/article-card"
 import { GradientText } from "@/components/ui/gradient-text"
 import { EASE } from "@/lib/animations"
+import { Section } from "@/components/ui/section"
 import type { BlogPostMeta } from "@/lib/blog-constants"
 
 interface UltimosArticulosProps {
@@ -14,7 +15,7 @@ interface UltimosArticulosProps {
 }
 
 export function UltimosArticulos({ posts }: UltimosArticulosProps) {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-80px" })
   const prefersReduced = useReducedMotion()
 
@@ -23,14 +24,14 @@ export function UltimosArticulos({ posts }: UltimosArticulosProps) {
   if (posts.length === 0) return null
 
   return (
-    <section ref={ref} style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)" }}>
-      <div className="section-container">
+    <Section>
+      <div ref={ref} className="section-container">
         {/* Header */}
         <motion.div
           initial={prefersReduced ? false : { opacity: 0, y: 24 }}
           animate={visible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE }}
-          style={{ marginBottom: 56, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}
+          style={{ marginBottom: "var(--section-header-mb)", display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}
         >
           <div>
             <p style={{
@@ -88,6 +89,6 @@ export function UltimosArticulos({ posts }: UltimosArticulosProps) {
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

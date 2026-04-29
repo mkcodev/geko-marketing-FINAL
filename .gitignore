@@ -43,3 +43,11 @@ next-env.d.ts
 # editor / local tooling
 .vscode/
 .claude/
+
+# debug / screenshot artifacts
+pw-storage.json
+screenshot-*.png
+screenshot-*.mjs
+ss-*.png
+playwright-report/
+test-results/

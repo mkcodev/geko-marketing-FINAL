@@ -6,6 +6,7 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useT } from "@/hooks/use-translations"
+import { Section } from "@/components/ui/section"
 import {
   SpotlightCard,
   CardTag,
@@ -27,13 +28,14 @@ export function Servicios() {
   const t = useT()
 
   return (
-    <section ref={ref} className="section-container" style={{ paddingTop: "var(--section-padding-v)", paddingBottom: "var(--section-padding-v)" }}>
+    <Section>
+      <div ref={ref} className="section-container">
       {/* Header */}
       <motion.div
         initial={prefersReduced ? false : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
-        style={{ marginBottom: 56 }}
+        style={{ marginBottom: "var(--section-header-mb)" }}
       >
         <p style={{
           fontFamily: "var(--font-ui)", fontSize: "0.75rem", fontWeight: 500,
@@ -176,6 +178,7 @@ export function Servicios() {
           <ArrowUpRight size={14} />
         </Link>
       </motion.div>
-    </section>
+      </div>
+    </Section>
   )
 }

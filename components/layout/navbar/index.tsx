@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
@@ -8,25 +9,20 @@ import { Menu, X, Moon, Sun, ChevronDown } from "lucide-react"
 import { useTheme } from "@/components/providers/theme-provider"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useT } from "@/hooks/use-translations"
+import { useScrolled } from "@/hooks/use-scrolled"
 import { LangSwitcher } from "./LangSwitcher"
 import { MegaMenu } from "./MegaMenu"
 import { MobileMenu } from "./MobileMenu"
 import { NavLink, IconBtn } from "./NavHelpers"
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const scrolled = useScrolled(20)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const { theme, toggle } = useTheme()
   const pathname = usePathname()
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const t = useT()
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMobileOpen(false); setDropdownOpen(false) }, [pathname, isDesktop])
@@ -66,8 +62,14 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", flexShrink: 0, display: "flex", alignItems: "center" }} aria-label="Geko Marketing">
           <div className="nav-logo-wrap">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logoSrc} alt="Geko Marketing" style={{ height: "100%", width: "auto", display: "block" }} />
+            <Image
+              src={logoSrc}
+              alt="Geko Marketing"
+              width={741}
+              height={150}
+              priority
+              style={{ height: "100%", width: "auto", display: "block" }}
+            />
           </div>
         </Link>
 

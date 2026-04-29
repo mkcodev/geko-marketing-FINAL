@@ -487,6 +487,35 @@ a, button, [role="button"], input, textarea, select, label, summary {
 .font-ui      { font-family: var(--font-ui); }
 .font-body    { font-family: var(--font-body); }
 
+/* ── Button variants (usados por components/ui/button.tsx) ── */
+.btn-primary {
+  background: var(--gradient-brand);
+  color: #fff;
+  box-shadow: 0 4px 24px var(--color-geko-purple-a45), 0 1px 4px rgba(0,0,0,0.3);
+}
+.btn-primary:hover:not(:disabled) { opacity: 0.9; }
+.btn-primary:active:not(:disabled) { transform: scale(0.97); }
+
+.btn-secondary {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--fg);
+  backdrop-filter: blur(12px);
+}
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-geko-purple-a45);
+  background: var(--color-geko-purple-a08);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--fg-secondary);
+}
+.btn-ghost:hover:not(:disabled) {
+  color: var(--fg);
+  background: var(--surface);
+}
+
 /* ── Announcement bar height variable — 0px por defecto (barra oculta en SSR) ── */
 :root {
   --ann-h: 0px;
@@ -494,6 +523,8 @@ a, button, [role="button"], input, textarea, select, label, summary {
   /* Padding vertical de sección — usado por Section.tsx y secciones custom */
   --section-padding-v:     clamp(48px, 8vw, 96px);
   --section-padding-tight: clamp(32px, 5vw, 64px);
+  /* Gap entre el header (label+título) y el contenido de la sección */
+  --section-header-mb:     clamp(40px, 5vw, 56px);
 }
 @media (min-width: 768px) {
   :root { --nav-h: 64px; }
@@ -541,6 +572,13 @@ a, button, [role="button"], input, textarea, select, label, summary {
 }
 @media (min-width: 1024px) {
   .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+}
+
+/* ── Content-visibility — skip rendering for off-screen below-fold sections ── */
+.cv-auto {
+  content-visibility: auto;
+  /* Hint: prevents CLS by reserving ~600px before the section renders */
+  contain-intrinsic-size: 0 600px;
 }
 
 /* ── Section containers ── */

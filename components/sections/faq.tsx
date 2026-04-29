@@ -25,7 +25,7 @@ export function Faq() {
         initial={prefersReduced ? false : { opacity: 0, y: 20 }}
         animate={prefersReduced || inView ? { opacity: 1, y: 0 } : {}}
         transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
-        style={{ marginBottom: 48, textAlign: "center" }}
+        style={{ marginBottom: "var(--section-header-mb)", textAlign: "center" }}
       >
         <span
           style={{
