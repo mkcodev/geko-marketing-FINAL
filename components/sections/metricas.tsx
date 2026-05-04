@@ -7,7 +7,8 @@ import { useT } from "@/hooks/use-translations"
 import { EASE } from "@/lib/animations"
 import { Section } from "@/components/ui/section"
 
-const STAT_COLORS = ["var(--color-geko-purple-accent)", "var(--color-geko-blue-light)", "#10B981", "#F59E0B"]
+const STAT_COLORS = ["var(--color-geko-purple-accent)", "var(--color-geko-blue-light)", "var(--color-success)", "var(--color-warning)"]
+const STAT_GLOWS  = ["var(--color-geko-purple-a18)", "var(--color-geko-blue-a12)", "rgba(16,185,129,0.18)", "rgba(245,158,11,0.18)"]
 const STAT_DECIMALS = [0, 1, 0, 1]
 
 function useCounter(target: number, decimals: number, active: boolean) {
@@ -27,7 +28,7 @@ function useCounter(target: number, decimals: number, active: boolean) {
   return val
 }
 
-interface StatItem { value: number; suffix: string; label: string; sublabel: string; color: string; decimals: number }
+interface StatItem { value: number; suffix: string; label: string; sublabel: string; color: string; glow: string; decimals: number }
 function StatCard({ stat, index, inView }: { stat: StatItem; index: number; inView: boolean }) {
   const prefersReduced = useReducedMotion()
   const val = useCounter(stat.value, stat.decimals, inView)
@@ -51,7 +52,7 @@ function StatCard({ stat, index, inView }: { stat: StatItem; index: number; inVi
       <div aria-hidden style={{
         position: "absolute", top: "-30%", left: "50%", transform: "translateX(-50%)",
         width: "80%", height: "60%", borderRadius: "50%",
-        background: `radial-gradient(ellipse, ${stat.color}18 0%, transparent 70%)`,
+        background: `radial-gradient(ellipse, ${stat.glow} 0%, transparent 70%)`,
         filter: "blur(24px)", pointerEvents: "none",
       }} />
 
@@ -111,12 +112,7 @@ export function Metricas() {
           transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
           style={{ textAlign: "center", marginBottom: "var(--section-header-mb)" }}
         >
-          <span style={{
-            display: "inline-block", padding: "4px 12px", borderRadius: 9999,
-            background: "rgba(16,185,129,0.10)", border: "1px solid rgba(16,185,129,0.25)",
-            fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#10B981", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 16,
-          }}>
+          <span className="section-label section-label-green" style={{ marginBottom: 16 }}>
             Resultados reales
           </span>
           <h2 style={{
@@ -144,7 +140,7 @@ export function Metricas() {
           {t.metrics.items.map((item, i) => (
             <StatCard
               key={item.label}
-              stat={{ ...item, color: STAT_COLORS[i], decimals: STAT_DECIMALS[i] }}
+              stat={{ ...item, color: STAT_COLORS[i], glow: STAT_GLOWS[i], decimals: STAT_DECIMALS[i] }}
               index={i}
               inView={inView}
             />

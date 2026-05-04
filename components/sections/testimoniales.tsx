@@ -54,12 +54,7 @@ export function Testimoniales() {
           transition={prefersReduced ? { duration: 0 } : { duration: 0.6, ease: EASE }}
           style={{ textAlign: "center", marginBottom: "var(--section-header-mb)" }}
         >
-          <span style={{
-            display: "inline-block", padding: "4px 12px", borderRadius: 9999,
-            background: "rgba(245,158,11,0.10)", border: "1px solid rgba(245,158,11,0.25)",
-            fontFamily: "var(--font-ui)", fontSize: "0.78rem", fontWeight: 500,
-            color: "#F59E0B", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 16,
-          }}>
+          <span className="section-label section-label-gold" style={{ marginBottom: 16 }}>
             Testimoniales
           </span>
           <h2 style={{
@@ -80,8 +75,8 @@ export function Testimoniales() {
 
         {/* Main review card */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={prefersReduced ? false : { opacity: 0, y: 28 }}
+          animate={inView || prefersReduced ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
           style={{ maxWidth: 780, margin: "0 auto" }}
           onMouseEnter={() => setHovered(true)}
@@ -115,14 +110,19 @@ export function Testimoniales() {
               &ldquo;
             </div>
 
+            <div
+              aria-live="polite"
+              aria-atomic="true"
+              aria-label={`Reseña ${idx + 1} de ${REVIEWS.length}`}
+            >
             <AnimatePresence mode="wait" custom={dir}>
               <motion.div
                 key={idx}
                 custom={dir}
-                initial={{ opacity: 0, x: dir * 40 }}
+                initial={prefersReduced ? false : { opacity: 0, x: dir * 40 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: dir * -40 }}
-                transition={{ duration: 0.32, ease: EASE }}
+                exit={prefersReduced ? {} : { opacity: 0, x: dir * -40 }}
+                transition={prefersReduced ? { duration: 0 } : { duration: 0.32, ease: EASE }}
               >
                 {/* Stars + platform */}
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20, position: "relative" }}>
@@ -180,6 +180,7 @@ export function Testimoniales() {
                 </div>
               </motion.div>
             </AnimatePresence>
+            </div>
           </div>
 
           {/* Autoplay progress bar */}
@@ -217,6 +218,7 @@ export function Testimoniales() {
                   key={i}
                   onClick={() => { setDir(i > idx ? 1 : -1); setIdx(i) }}
                   aria-label={`Reseña ${i + 1}`}
+                  aria-current={i === idx ? "true" : undefined}
                   style={{
                     width: i === idx ? 20 : 6, height: 6, borderRadius: 999, border: "none",
                     background: i === idx ? "linear-gradient(90deg,var(--color-geko-purple),var(--color-geko-blue-light))" : "var(--border-strong)",
@@ -243,8 +245,8 @@ export function Testimoniales() {
 
         {/* Mini trust strip */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={inView || prefersReduced ? { opacity: 1 } : {}}
           transition={{ delay: 0.5, duration: 0.5 }}
           style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 32, marginTop: 48, flexWrap: "wrap" }}
         >

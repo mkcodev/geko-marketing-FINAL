@@ -52,7 +52,7 @@ export function SocialProof() {
           marginTop: 56,
         }}
       >
-        {t.socialProof.stats.map((s) => (
+        {t.socialProof.stats.map((s, i) => (
           <div key={s.label} style={{ textAlign: "center" }}>
             <p style={{
               fontFamily: "var(--font-heading)",
@@ -61,10 +61,14 @@ export function SocialProof() {
               letterSpacing: "-0.03em",
               lineHeight: 1,
               marginBottom: 5,
-              background: "linear-gradient(135deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              ...(i === 0 ? {
+                background: "linear-gradient(135deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              } : {
+                color: "var(--fg)",
+              }),
             }}>
               {s.value}
             </p>
@@ -107,7 +111,7 @@ function MarqueeRow({
           position: "absolute",
           left: 0, top: 0, bottom: 0,
           width: 140,
-          background: "linear-gradient(to right, var(--bg, #080810), transparent)",
+          background: "linear-gradient(to right, var(--bg), transparent)",
           zIndex: 2,
           pointerEvents: "none",
         }}
@@ -119,7 +123,7 @@ function MarqueeRow({
           position: "absolute",
           right: 0, top: 0, bottom: 0,
           width: 140,
-          background: "linear-gradient(to left, var(--bg, #080810), transparent)",
+          background: "linear-gradient(to left, var(--bg), transparent)",
           zIndex: 2,
           pointerEvents: "none",
         }}
@@ -135,7 +139,7 @@ function MarqueeRow({
             animation: `${anim} ${speed}s linear infinite`,
             animationPlayState: paused ? "paused" : "running",
             flexShrink: 0,
-            willChange: "transform",
+            willChange: paused ? "auto" : "transform",
           }}
         >
           {TRACK.map((logo, i) => (

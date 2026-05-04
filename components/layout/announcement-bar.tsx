@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { X } from "lucide-react"
 import { CALENDLY_URL } from "@/constants/contact"
 import { useT } from "@/hooks/use-translations"
@@ -12,6 +12,7 @@ const SCROLL_THRESHOLD = 60
 
 export function AnnouncementBar() {
   const t = useT()
+  const prefersReduced = useReducedMotion()
   // Always start hidden (matches SSR), then read localStorage after hydration
   const [dismissed, setDismissed] = useState(true)
   const [scrolledPast, setScrolledPast] = useState(false)
@@ -43,10 +44,10 @@ export function AnnouncementBar() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 40, opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
+          initial={prefersReduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
+          animate={prefersReduced ? { opacity: 1 } : { height: 40, opacity: 1 }}
+          exit={prefersReduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
+          transition={{ duration: prefersReduced ? 0.15 : 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
           style={{
             overflow: "hidden",
             position: "relative",
@@ -78,7 +79,8 @@ export function AnnouncementBar() {
               className="ann-text"
               style={{ fontFamily: "var(--font-ui)", color: "#fff", textAlign: "center", lineHeight: 1.3 }}
             >
-              <span style={{ marginRight: 5 }}>🦎</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logos/geko/white-minimal-clean.svg" alt="" width={14} height={14} style={{ display: "inline-block", verticalAlign: "middle", marginRight: 5, opacity: 0.9 }} />
               {t.announcementBar.text
                 .replace("{spots}", t.announcementBar.spots)
                 .replace("{month}", t.announcementBar.month)}{" — "}

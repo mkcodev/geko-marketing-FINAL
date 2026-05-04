@@ -1,29 +1,50 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import { ArrowRight } from "lucide-react"
 import { useT } from "@/hooks/use-translations"
 import { SERVICES } from "@/constants/services"
 import { Icon } from "@/lib/icons"
 
-export function MegaMenu({ open, onClose, pathname }: {
-  open: boolean; onClose: () => void; pathname: string
+export function MegaMenu({ open, onClose, pathname, triggerRef }: {
+  open: boolean
+  onClose: () => void
+  pathname: string
+  triggerRef?: React.RefObject<HTMLButtonElement | null>
 }) {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null)
   const t = useT()
+  const prefersReduced = useReducedMotion()
+  const menuRef = useRef<HTMLDivElement>(null)
   const MEGA_STATS = t.nav.megaMenu.stats
   const MEGA_TAGS = t.nav.megaMenu.tags
+
+  useEffect(() => {
+    if (!open) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose()
+        triggerRef?.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", handleKey)
+    return () => document.removeEventListener("keydown", handleKey)
+  }, [open, onClose, triggerRef])
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{ opacity: 0, y: -6 }}
+          ref={menuRef}
+          id="mega-menu"
+          role="navigation"
+          aria-label="Servicios de Geko"
+          initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          exit={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -6 }}
+          transition={{ duration: prefersReduced ? 0.15 : 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           onMouseLeave={onClose}
           style={{
             position: "absolute",
@@ -89,9 +110,9 @@ export function MegaMenu({ open, onClose, pathname }: {
                 {MEGA_STATS.map((stat, i) => (
                   <motion.div
                     key={stat.label}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={prefersReduced ? false : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.07 + 0.06, duration: 0.24, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    transition={{ delay: prefersReduced ? 0 : i * 0.07 + 0.06, duration: prefersReduced ? 0 : 0.24, ease: [0.25, 0.46, 0.45, 0.94] }}
                     style={{
                       flex: 1,
                       padding: "12px 14px",
@@ -157,9 +178,9 @@ export function MegaMenu({ open, onClose, pathname }: {
                 return (
                   <Link key={service.slug} href={service.href} style={{ textDecoration: "none" }}>
                     <motion.div
-                      initial={{ opacity: 0, x: 12 }}
+                      initial={prefersReduced ? false : { opacity: 0, x: 12 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.06 + 0.04, duration: 0.26, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      transition={{ delay: prefersReduced ? 0 : i * 0.06 + 0.04, duration: prefersReduced ? 0 : 0.26, ease: [0.25, 0.46, 0.45, 0.94] }}
                       onMouseEnter={() => setHoveredSlug(service.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
                       style={{

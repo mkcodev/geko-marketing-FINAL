@@ -55,9 +55,10 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
   return (
     <motion.div
+      aria-hidden="true"
       initial={{ opacity: 1 }}
-      animate={done ? { opacity: 0, scale: 1.04 } : { opacity: 1, scale: 1 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      animate={done ? { opacity: 0, scale: prefersReduced ? 1 : 1.04 } : { opacity: 1, scale: 1 }}
+      transition={{ duration: prefersReduced ? 0.2 : 0.55, ease: [0.22, 1, 0.36, 1] }}
       style={{
         position: "fixed",
         inset: 0,
@@ -95,21 +96,22 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}
       >
         <motion.div
-          animate={{ scale: [1, 1.05, 1] }}
+          animate={prefersReduced ? {} : { scale: [1, 1.05, 1] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           style={{
             width: 64, height: 64, borderRadius: 18,
             background: "var(--gradient-brand)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "2rem",
             boxShadow: "0 0 40px var(--color-geko-purple-a50), 0 0 80px var(--color-geko-purple-a20)",
           }}
+          aria-hidden="true"
         >
-          🦎
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logos/geko/white-minimal-clean.svg" alt="" width={36} height={36} />
         </motion.div>
 
         <div style={{ textAlign: "center" }}>
-          <h1 style={{
+          <p style={{
             fontFamily: "var(--font-heading)",
             fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
             fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1,
@@ -121,7 +123,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
               background: "linear-gradient(135deg, var(--color-geko-purple-accent), var(--color-geko-blue-light))",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
             }}>.</span>
-          </h1>
+          </p>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

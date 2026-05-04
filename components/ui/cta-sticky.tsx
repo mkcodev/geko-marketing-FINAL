@@ -2,13 +2,14 @@
 
 import { useState, useCallback } from "react"
 import { useScrollEvents } from "@/hooks/use-scroll-events"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence, useReducedMotion } from "motion/react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 export function CtaSticky() {
   const [visible, setVisible] = useState(false)
   const [hovered, setHovered] = useState(false)
+  const prefersReduced = useReducedMotion()
 
   const handleScroll = useCallback((y: number) => { setVisible(y > 500) }, [])
   useScrollEvents(handleScroll)
@@ -42,7 +43,7 @@ export function CtaSticky() {
               flexDirection: "column",
               alignItems: "center",
               gap: 10,
-              padding: hovered ? "18px 16px" : "16px 14px",
+              padding: "16px 14px",
               borderRadius: 16,
               background: hovered
                 ? "var(--color-geko-purple-a20)"
@@ -55,14 +56,15 @@ export function CtaSticky() {
                 ? "0 8px 32px var(--color-geko-purple-a30), 0 0 0 1px var(--color-geko-purple-a15)"
                 : "0 8px 24px rgba(0,0,0,0.40)",
               textDecoration: "none",
-              transition: "all 0.3s ease",
+              transform: hovered ? "scale(1.04)" : "scale(1)",
+              transition: "background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease",
               cursor: "inherit",
             }}
             aria-label="Pedir auditoría gratuita"
           >
             {/* Pulse dot */}
             <motion.div
-              animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+              animate={prefersReduced ? {} : { scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               style={{
                 width: 8, height: 8, borderRadius: "50%",

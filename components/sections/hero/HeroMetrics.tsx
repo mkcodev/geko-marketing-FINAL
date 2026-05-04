@@ -41,7 +41,7 @@ function float(prefersReduced: boolean | null, yRange: [number, number], duratio
       duration,
       repeat: Infinity,
       repeatType: "mirror" as const,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
       delay,
     },
   }
@@ -261,7 +261,7 @@ export function HeroMetrics() {
                 <motion.div
                   key={c}
                   animate={prefersReduced ? {} : { opacity: [0.4, 1, 0.4] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" as const }}
                   style={{
                     width: 8, height: 8, borderRadius: "50%",
                     background: c, boxShadow: `0 0 7px ${c}AA`,

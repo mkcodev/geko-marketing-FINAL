@@ -64,7 +64,7 @@ export function DolorSolucion() {
               padding: "28px 28px",
               borderRadius: 20,
               background: "rgba(239,68,68,0.04)",
-              border: "1px solid rgba(239,68,68,0.12)",
+              border: "1px solid var(--color-error-muted)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 22 }}>
@@ -72,7 +72,7 @@ export function DolorSolucion() {
                 width: 28, height: 28, borderRadius: "50%",
                 background: "rgba(239,68,68,0.15)", border: "1px solid rgba(239,68,68,0.25)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#EF4444", flexShrink: 0,
+                color: "var(--color-error)", flexShrink: 0,
               }}>
                 <X size={14} strokeWidth={2.5} />
               </div>
@@ -96,9 +96,9 @@ export function DolorSolucion() {
                 >
                   <div style={{
                     width: 18, height: 18, borderRadius: "50%",
-                    background: "rgba(239,68,68,0.12)",
+                    background: "var(--color-error-muted)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#EF4444", flexShrink: 0, marginTop: 1,
+                    color: "var(--color-error)", flexShrink: 0, marginTop: 1,
                   }}>
                     <X size={10} strokeWidth={2.5} />
                   </div>
@@ -140,7 +140,7 @@ export function DolorSolucion() {
                 width: 28, height: 28, borderRadius: "50%",
                 background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.30)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#10B981", flexShrink: 0,
+                color: "var(--color-success)", flexShrink: 0,
               }}>
                 <Check size={14} strokeWidth={2.5} />
               </div>
@@ -166,7 +166,7 @@ export function DolorSolucion() {
                     width: 18, height: 18, borderRadius: "50%",
                     background: "rgba(16,185,129,0.15)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#10B981", flexShrink: 0, marginTop: 1,
+                    color: "var(--color-success)", flexShrink: 0, marginTop: 1,
                   }}>
                     <Check size={10} strokeWidth={2.5} />
                   </div>

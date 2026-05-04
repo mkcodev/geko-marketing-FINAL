@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
@@ -19,6 +18,7 @@ export function Navbar() {
   const scrolled = useScrolled(20)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const servBtnRef = useRef<HTMLButtonElement>(null)
   const { theme, toggle } = useTheme()
   const pathname = usePathname()
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -62,14 +62,8 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none", flexShrink: 0, display: "flex", alignItems: "center" }} aria-label="Geko Marketing">
           <div className="nav-logo-wrap">
-            <Image
-              src={logoSrc}
-              alt="Geko Marketing"
-              width={741}
-              height={150}
-              priority
-              style={{ height: "100%", width: "auto", display: "block" }}
-            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={logoSrc} alt="Geko Marketing" style={{ height: "100%", width: "auto", display: "block" }} />
           </div>
         </Link>
 
@@ -86,9 +80,14 @@ export function Navbar() {
             return (
               <button
                 key={link.href}
+                ref={servBtnRef}
+                aria-haspopup="true"
+                aria-expanded={dropdownOpen}
+                aria-controls="mega-menu"
                 onMouseEnter={() => setDropdownOpen(true)}
                 onMouseLeave={() => !dropdownOpen && setDropdownOpen(false)}
                 onClick={() => setDropdownOpen((o) => !o)}
+                onKeyDown={(e) => { if (e.key === "Escape") { setDropdownOpen(false); e.currentTarget.focus() } }}
                 style={{
                   position: "relative",
                   display: "flex", alignItems: "center", gap: 4,
@@ -157,7 +156,7 @@ export function Navbar() {
 
         {/* ── MOBILE: right side ── */}
         <div className="nav-mobile-right">
-          <IconBtn onClick={toggle} label={t.nav.changeLanguage}>
+          <IconBtn onClick={toggle} label={theme === "dark" ? t.nav.lightMode : t.nav.darkMode}>
             {theme === "dark" ? <Moon size={15} /> : <Sun size={15} />}
           </IconBtn>
           <button
@@ -193,6 +192,7 @@ export function Navbar() {
           open={dropdownOpen}
           onClose={() => setDropdownOpen(false)}
           pathname={pathname}
+          triggerRef={servBtnRef}
         />
       )}
 
